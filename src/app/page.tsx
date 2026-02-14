@@ -6,6 +6,7 @@ import {
   Github,
   ExternalLink,
   Copy,
+  Check,
   Terminal,
   Database,
   Search,
@@ -16,6 +17,8 @@ import {
   Youtube,
   Menu,
   X,
+  Bot,
+  Mail,
 } from "lucide-react";
 
 /* ─── Constants ─── */
@@ -84,6 +87,112 @@ function TerminalBlock({
       </div>
       <div className="terminal-body">{children}</div>
     </div>
+  );
+}
+
+/* ─── Agent Onboarding ─── */
+
+const AGENT_INSTRUCTION = "Read https://agentic.video/skill.md and follow the instructions to set up video memory.";
+
+function AgentOnboarding() {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(AGENT_INSTRUCTION);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  return (
+    <Section
+      className="section-spacing px-6 border-t border-[hsl(var(--border))]"
+      id="agents"
+    >
+      <div className="max-w-3xl mx-auto">
+        <motion.div variants={fadeInUp} className="text-center mb-4">
+          <Bot size={28} className="mx-auto mb-4 text-[hsl(var(--primary))]" />
+        </motion.div>
+
+        <motion.h2 variants={fadeInUp} className="section-h2 text-center mb-4">
+          Give your agent video memory
+        </motion.h2>
+
+        <motion.p variants={fadeInUp} className="body-text text-center mb-10">
+          Paste this to your AI agent — Claude, GPT, Cursor, or any agent with
+          tool use.
+        </motion.p>
+
+        {/* Copy-paste box */}
+        <motion.div variants={fadeInUp} className="mb-12">
+          <div
+            className="border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-5 flex items-center justify-between gap-4 cursor-pointer hover:border-[hsl(var(--primary)/0.4)] transition-colors"
+            onClick={handleCopy}
+          >
+            <code className="text-sm text-[hsl(var(--foreground))] break-all leading-relaxed">
+              {AGENT_INSTRUCTION}
+            </code>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                handleCopy();
+              }}
+              className="shrink-0 p-2 hover:text-[hsl(var(--primary))] transition-colors cursor-pointer"
+              aria-label="Copy to clipboard"
+            >
+              {copied ? (
+                <Check size={18} className="text-[hsl(var(--terminal-green))]" />
+              ) : (
+                <Copy size={18} />
+              )}
+            </button>
+          </div>
+        </motion.div>
+
+        {/* 3-step flow */}
+        <div className="grid md:grid-cols-3 gap-6 mb-12">
+          {[
+            {
+              step: "1",
+              title: "Paste to your agent",
+              desc: "Copy the instruction above and paste it into any AI agent chat.",
+            },
+            {
+              step: "2",
+              title: "Agent sets up av",
+              desc: "Your agent installs pixelml-av, configures a provider, and ingests video.",
+            },
+            {
+              step: "3",
+              title: "Search and ask",
+              desc: "Start querying your videos. Your agent can search, ask questions, and get citations.",
+            },
+          ].map((item) => (
+            <motion.div key={item.step} variants={fadeInUp} className="text-center">
+              <div className="step-number mx-auto mb-4">{item.step}</div>
+              <h3 className="text-base font-semibold mb-2">{item.title}</h3>
+              <p className="text-sm text-[hsl(var(--muted-foreground))] leading-relaxed">
+                {item.desc}
+              </p>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Enterprise callout */}
+        <motion.div
+          variants={fadeInUp}
+          className="text-center text-sm text-[hsl(var(--muted-foreground))]"
+        >
+          <Mail size={14} className="inline mr-2 -mt-0.5" />
+          Need managed infrastructure?{" "}
+          <a
+            href="mailto:hello@pixelml.com"
+            className="text-[hsl(var(--primary))] hover:underline"
+          >
+            hello@pixelml.com
+          </a>
+        </motion.div>
+      </div>
+    </Section>
   );
 }
 
@@ -265,6 +374,9 @@ export default function Home() {
           </motion.div>
         </div>
       </Section>
+
+      {/* ─── Agents ─── */}
+      <AgentOnboarding />
 
       {/* ─── How It Works ─── */}
       <Section className="section-spacing px-6 border-t border-[hsl(var(--border))]" id="how-it-works">
