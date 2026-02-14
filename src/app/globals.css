@@ -1,26 +1,378 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* av Design System — Terminal / Hacker Aesthetic
+ * Primary: #3B82F6 (blue-500)
+ * Background: #FAF9F5 (warm off-white / paper)
+ * Text: #020817 (near-black)
+ * Font: Chivo Mono (monospace everything)
+ * Border Radius: 0px (sharp corners)
+ * Base spacing: 4px
+ */
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: 40 33% 97%;
+    /* #FAF9F5 */
+    --foreground: 222 89% 4%;
+    /* #020817 */
+    --primary: 217 91% 60%;
+    /* #3B82F6 */
+    --primary-foreground: 0 0% 100%;
+    --muted: 40 20% 93%;
+    --muted-foreground: 222 20% 40%;
+    --border: 40 10% 88%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 89% 4%;
+    --terminal-bg: 222 47% 6%;
+    /* #0B1120 */
+    --terminal-fg: 210 40% 90%;
+    --terminal-green: 142 71% 45%;
+    --terminal-blue: 217 91% 60%;
+    --terminal-gray: 215 20% 50%;
+    --terminal-comment: 215 15% 45%;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@theme inline {
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-border: hsl(var(--border));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --font-mono: var(--font-chivo-mono), "Chivo Mono", ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+}
+
+@layer base {
+  * {
+    border-color: hsl(var(--border));
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-family: var(--font-mono);
+    font-size: 18px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-mono);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+
+  a {
+    color: hsl(var(--foreground));
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  a:hover {
+    color: hsl(var(--primary));
+  }
+
+  ::selection {
+    background: hsl(var(--primary) / 0.2);
+  }
+}
+
+/* Glass navigation */
+.glass-nav {
+  background: hsl(var(--background) / 0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid hsl(var(--border));
+}
+
+/* Primary button — blue, sharp corners */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 15px;
+  transition: all 0.2s;
+  background: hsl(var(--primary));
+  color: white;
+  border-radius: 0;
+  border: 1px solid hsl(var(--primary));
+}
+
+.btn-primary:hover {
+  background: hsl(217 91% 55%);
+  color: white;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px hsl(var(--primary) / 0.3);
+}
+
+/* Secondary button — outlined, sharp corners */
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 15px;
+  transition: all 0.2s;
+  background: transparent;
+  color: hsl(var(--foreground));
+  border-radius: 0;
+  border: 1px solid hsl(var(--border));
+}
+
+.btn-secondary:hover {
+  border-color: hsl(var(--foreground));
+  transform: translateY(-1px);
+}
+
+/* Terminal block */
+.terminal {
+  background: hsl(var(--terminal-bg));
+  border: 1px solid hsl(220 30% 15%);
+  border-radius: 0;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  line-height: 1.7;
+  overflow-x: auto;
+}
+
+.terminal-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 16px;
+  border-bottom: 1px solid hsl(220 30% 15%);
+  background: hsl(222 47% 5%);
+}
+
+.terminal-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.terminal-body {
+  padding: 20px;
+  color: hsl(var(--terminal-fg));
+}
+
+.terminal-prompt {
+  color: hsl(var(--terminal-green));
+}
+
+.terminal-command {
+  color: hsl(var(--terminal-fg));
+}
+
+.terminal-flag {
+  color: hsl(var(--terminal-blue));
+}
+
+.terminal-string {
+  color: hsl(47 95% 65%);
+}
+
+.terminal-comment {
+  color: hsl(var(--terminal-comment));
+}
+
+.terminal-output {
+  color: hsl(215 20% 65%);
+}
+
+.terminal-json-key {
+  color: hsl(var(--terminal-blue));
+}
+
+.terminal-json-string {
+  color: hsl(var(--terminal-green));
+}
+
+.terminal-json-number {
+  color: hsl(30 90% 65%);
+}
+
+/* Feature card — sharp corners, border */
+.feature-card {
+  padding: 32px;
+  transition: all 0.2s;
+  background: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+  border-radius: 0;
+}
+
+.feature-card:hover {
+  border-color: hsl(var(--primary) / 0.4);
+  box-shadow: 0 8px 30px hsl(var(--primary) / 0.06);
+  transform: translateY(-2px);
+}
+
+/* Badge */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 500;
+  background: hsl(var(--primary) / 0.08);
+  color: hsl(var(--primary));
+  border: 1px solid hsl(var(--primary) / 0.2);
+  border-radius: 0;
+}
+
+/* Step number */
+.step-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: var(--font-mono);
+  color: white;
+  background: hsl(var(--primary));
+  border-radius: 0;
+}
+
+/* Section spacing */
+.section-spacing {
+  padding-top: clamp(64px, 10vh, 120px);
+  padding-bottom: clamp(64px, 10vh, 120px);
+}
+
+/* Typography */
+.hero-h1 {
+  font-size: clamp(40px, 8vw, 60px);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+
+.section-h2 {
+  font-size: clamp(24px, 4vw, 30px);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.body-text {
+  font-size: clamp(16px, 1.5vw, 18px);
+  line-height: 1.65;
+  color: hsl(var(--muted-foreground));
+}
+
+/* Table */
+.provider-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-mono);
+  font-size: 14px;
+}
+
+.provider-table th {
+  text-align: left;
+  padding: 12px 16px;
+  font-weight: 600;
+  border-bottom: 2px solid hsl(var(--foreground));
+  white-space: nowrap;
+}
+
+.provider-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid hsl(var(--border));
+}
+
+.provider-table tr:hover td {
+  background: hsl(var(--primary) / 0.03);
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-blink {
+  animation: blink 1s step-end infinite;
+}
+
+/* Architecture diagram */
+.arch-box {
+  padding: 12px 20px;
+  border: 1px solid hsl(var(--border));
+  background: hsl(var(--card));
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 500;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.arch-box-highlight {
+  padding: 12px 20px;
+  border: 1px solid hsl(var(--primary) / 0.4);
+  background: hsl(var(--primary) / 0.06);
+  color: hsl(var(--primary));
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 500;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.arch-arrow {
+  color: hsl(var(--muted-foreground));
+  font-family: var(--font-mono);
+  font-size: 18px;
+  line-height: 1;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--border));
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground));
 }
