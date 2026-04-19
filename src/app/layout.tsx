@@ -10,9 +10,9 @@ const chivoMono = Chivo_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://agentic.video"),
-  title: "av — Video memory for AI agents",
+  title: "av — Video Intelligence for AI Agents",
   description:
-    "Index once, search many. Turn video files into searchable, queryable context — what jq is for JSON, but for video. Open-source CLI by Pixel ML.",
+    "Index. Search. Detect. Video Memory for search and RAG. Sentinel for surveillance event detection (falls, queues, crowds). Open-source CLI by Pixel ML.",
   keywords: [
     "av",
     "agentic video",
@@ -26,15 +26,21 @@ export const metadata: Metadata = {
     "pixelml-av",
     "video memory",
     "agentic workflows",
+    "sentinel",
+    "fall detection",
+    "queue detection",
+    "crowd detection",
+    "surveillance AI",
+    "CCTV analytics",
   ],
   authors: [{ name: "Pixel ML" }],
   icons: {
-    icon: "/favicon.ico",
+    icon: "/favicon.svg",
   },
   openGraph: {
-    title: "av — Video memory for AI agents",
+    title: "av — Video Intelligence for AI Agents",
     description:
-      "Index once, search many. Turn video files into searchable, queryable context — what jq is for JSON, but for video.",
+      "Index. Search. Detect. Video Memory for search and RAG. Sentinel for surveillance event detection. Open-source by Pixel ML.",
     type: "website",
     url: "https://agentic.video",
     images: [
@@ -48,9 +54,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "av — Video memory for AI agents",
+    title: "av — Video Intelligence for AI Agents",
     description:
-      "Index once, search many. Turn video files into searchable, queryable context — what jq is for JSON, but for video.",
+      "Index. Search. Detect. Video Memory for search and RAG. Sentinel for surveillance event detection. Open-source by Pixel ML.",
     images: ["/og-image.png"],
   },
 };

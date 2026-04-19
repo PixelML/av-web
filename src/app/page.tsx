@@ -224,6 +224,12 @@ export default function Home() {
           {/* Desktop links */}
           <div className="hidden md:flex items-center gap-8">
             <a
+              href="#sentinel"
+              className="text-sm text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--foreground))] transition-colors"
+            >
+              Sentinel
+            </a>
+            <a
               href="#features"
               className="text-sm text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--foreground))] transition-colors"
             >
@@ -274,6 +280,9 @@ export default function Home() {
         {/* Mobile menu */}
         {mobileMenuOpen && (
           <div className="md:hidden border-t border-[hsl(var(--border))] bg-[hsl(var(--background))] px-6 py-4 space-y-3">
+            <a href="#sentinel" className="block text-sm" onClick={() => setMobileMenuOpen(false)}>
+              Sentinel
+            </a>
             <a href="#features" className="block text-sm" onClick={() => setMobileMenuOpen(false)}>
               Features
             </a>
@@ -304,18 +313,16 @@ export default function Home() {
           </motion.div>
 
           <motion.h1 variants={fadeInUp} className="hero-h1 mb-6">
-            Video memory for
-            <br />
-            AI agents.
+            Index. Search. Detect.
           </motion.h1>
 
           <motion.p
             variants={fadeInUp}
             className="body-text max-w-xl mx-auto mb-10"
           >
-            Index once, search many. Turn video files into searchable,
-            queryable context — what <code className="text-[hsl(var(--foreground))] font-semibold">jq</code> is
-            for JSON, but for video.
+            Video intelligence toolkit for AI agents.{" "}
+            <strong>Video Memory</strong> — ingest, search, and ask questions with RAG citations.{" "}
+            <strong>Sentinel</strong> — detect falls, queues, and crowd events in CCTV footage.
           </motion.p>
 
           <motion.div
@@ -444,6 +451,117 @@ export default function Home() {
               </pre>
             </TerminalBlock>
           </motion.div>
+        </div>
+      </Section>
+
+      {/* ─── Sentinel ─── */}
+      <Section className="section-spacing px-6 border-t border-[hsl(var(--border))]" id="sentinel">
+        <div className="max-w-4xl mx-auto">
+          <motion.h2 variants={fadeInUp} className="section-h2 text-center mb-4">
+            Sentinel — Surveillance Intelligence
+          </motion.h2>
+          <motion.p variants={fadeInUp} className="body-text text-center mb-12">
+            Detect events using temporal reasoning over VLM observations. Built on 107 experiments across 21 vision models.
+          </motion.p>
+
+          <div className="grid md:grid-cols-2 gap-4 mb-12">
+            {[
+              {
+                title: "FALL",
+                desc: "Position tracking — standing→lying transition across frames (F1=0.944)",
+              },
+              {
+                title: "LONG_QUEUE",
+                desc: "Temporal persistence — queue detected in 3+ consecutive chunks (90s)",
+              },
+              {
+                title: "CROWD_GATHERING",
+                desc: "Density + growth — sustained crowd or rapid person count increase",
+              },
+              {
+                title: "WHEELCHAIR_COMPLIANCE",
+                desc: "Service timing — wheelchair user unattended > threshold",
+              },
+            ].map((item, i) => (
+              <motion.div key={i} variants={fadeInUp} className="feature-card">
+                <h3 className="text-base font-semibold mb-2 text-[hsl(var(--primary))]">{item.title}</h3>
+                <p className="text-sm text-[hsl(var(--muted-foreground))] leading-relaxed">
+                  {item.desc}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+
+          <motion.div variants={fadeInUp}>
+            <TerminalBlock title="sentinel">
+              <div className="space-y-1">
+                <div className="terminal-comment"># Cloud (quick start — Gemini free tier)</div>
+                <div>
+                  <span className="terminal-prompt">$</span>{" "}
+                  <span className="terminal-command">export AV_API_KEY=</span>
+                  <span className="terminal-string">your-gemini-key</span>
+                </div>
+                <div>
+                  <span className="terminal-prompt">$</span>{" "}
+                  <span className="terminal-command">av sentinel</span>{" "}
+                  <span className="terminal-string">video.mp4</span>
+                </div>
+                <div className="mt-3 terminal-comment"># Local (free, private — runs on your Mac/GPU)</div>
+                <div>
+                  <span className="terminal-prompt">$</span>{" "}
+                  <span className="terminal-command">ollama pull mistral-small3.2</span>
+                </div>
+                <div>
+                  <span className="terminal-prompt">$</span>{" "}
+                  <span className="terminal-command">av sentinel</span>{" "}
+                  <span className="terminal-string">video.mp4</span>{" "}
+                  <span className="terminal-flag">--provider ollama</span>
+                </div>
+                <div className="mt-3 terminal-comment"># Specific alerts</div>
+                <div>
+                  <span className="terminal-prompt">$</span>{" "}
+                  <span className="terminal-command">av sentinel</span>{" "}
+                  <span className="terminal-string">video.mp4</span>{" "}
+                  <span className="terminal-flag">--alerts FALL,LONG_QUEUE</span>
+                </div>
+              </div>
+            </TerminalBlock>
+          </motion.div>
+
+          <motion.div variants={fadeInUp} className="mt-8 overflow-x-auto">
+            <table className="provider-table">
+              <thead>
+                <tr>
+                  <th>Provider</th>
+                  <th>Setup</th>
+                  <th>Cost</th>
+                  <th>Speed</th>
+                </tr>
+              </thead>
+              <tbody>
+                {[
+                  ["Gemini", "export AV_API_KEY=key", "Free tier available", "~5s/chunk"],
+                  ["OpenRouter", "export OPENROUTER_API_KEY=key", "$0.04-0.14/1M tokens", "~10s/chunk"],
+                  ["Ollama (local)", "ollama pull mistral-small3.2", "Free", "~25s/chunk"],
+                  ["OpenAI", "export AV_API_KEY=key", "$$$", "~5s/chunk"],
+                ].map(([provider, setup, cost, speed], i) => (
+                  <tr key={i}>
+                    <td className="font-semibold">{provider}</td>
+                    <td><code className="text-xs">{setup}</code></td>
+                    <td className="text-[hsl(var(--muted-foreground))]">{cost}</td>
+                    <td className="text-[hsl(var(--muted-foreground))]">{speed}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </motion.div>
+
+          <motion.p
+            variants={fadeInUp}
+            className="text-xs text-[hsl(var(--muted-foreground))] mt-4 text-center"
+          >
+            Auto-detection: if no provider specified, av tries Gemini → OpenRouter → ollama → OpenAI.
+          </motion.p>
         </div>
       </Section>
 
@@ -620,6 +738,7 @@ export default function Home() {
                   ["av ingest <path>", "Ingest video file(s) into the index"],
                   ["av search <query>", "Full-text + semantic search"],
                   ["av ask <question>", "RAG Q&A with citations"],
+                  ["av sentinel <path>", "Detect events (FALL, LONG_QUEUE, CROWD, WHEELCHAIR)"],
                   ["av list", "List all indexed videos"],
                   ["av info <video_id>", "Detailed video metadata"],
                   ["av transcript <id>", "Output transcript (VTT/SRT/text)"],
