@@ -1,0 +1,10 @@
+{
+  "contract_version": "sea-broadcast-asr-contamination-ledger-v0.1",
+  "dataset_source_id": "google-fleurs-sea-dev",
+  "entries": [],
+  "evaluated_model_count": 0,
+  "fair_ranked_comparison_enabled": false,
+  "no_results_reason": "This release publishes a rights-gated acquisition and methodology preview only. It evaluates no models and makes no ranked comparison.",
+  "policy": "Models known or declared to have trained on FLEURS are train_overlap and excluded from fair-ranked comparison.",
+  "preview_id": "fleurs-sea-language-control-dev-preview-0.1"
+}

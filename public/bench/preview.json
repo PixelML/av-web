@@ -1,0 +1,17 @@
+{
+  "artifact_mode": "metadata_and_acquisition_script_only",
+  "benchmark_source_commit": "9275e8c46988a481ce80db1380d374d329241524",
+  "contains_audio": false,
+  "contains_customer_material": false,
+  "contains_model_results": false,
+  "contains_training_recipes": false,
+  "contains_transcripts": false,
+  "contract_version": "sea-broadcast-asr-public-preview-v0.1",
+  "dataset_revision": "70bb2e84b976b7e960aa89f1c648e09c59f894dd",
+  "domain_label": "read_speech_language_control_not_broadcast",
+  "label": "Language-control developer preview — not broadcast, production, or leaderboard evidence.",
+  "license_id": "CC-BY-4.0",
+  "permitted_public_mode": "acquisition_script",
+  "preview_id": "fleurs-sea-language-control-dev-preview-0.1",
+  "source_manifest_uri": "https://github.com/PixelML/agentic-video/blob/9275e8c46988a481ce80db1380d374d329241524/benchmarks/sea_broadcast_asr/sources/source-manifest.public-dev.json"
+}
