@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "check:bench": "node scripts/check-bench-route.mjs",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
