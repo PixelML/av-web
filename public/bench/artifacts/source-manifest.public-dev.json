@@ -1,0 +1,106 @@
+{
+  "artifact_mode": "metadata_only",
+  "contains_audio": false,
+  "contains_transcripts": false,
+  "contract_version": "sea-broadcast-asr-source-manifest-v0.2",
+  "sources": [
+    {
+      "accents": [
+        "Locale-specific speaker pools; no finer accent distribution is claimed"
+      ],
+      "authoritative_source_uri": "https://huggingface.co/datasets/google/fleurs",
+      "contains_customer_material": false,
+      "data_unresolved_questions": [
+        "The official card explicitly describes read speech and warns that performance can differ in noisier production settings; these slices are not broadcast evidence."
+      ],
+      "display_name": "Google FLEURS",
+      "domain_label": "read_speech_language_control_not_broadcast",
+      "evidence_artifacts": [
+        {
+          "artifact_id": "fleurs-dataset-card",
+          "byte_size": 385614,
+          "checksum_basis": "computed_download",
+          "filename": "README.md",
+          "role": "dataset_card",
+          "sha256": "688f79f2a5c731af3796e9f683eb02f9b3f09d040decd8c5625d0f37098e71c6",
+          "source_uri": "https://huggingface.co/datasets/google/fleurs/raw/70bb2e84b976b7e960aa89f1c648e09c59f894dd/README.md"
+        },
+        {
+          "artifact_id": "fleurs-id-id-validation",
+          "byte_size": 265875871,
+          "checksum_basis": "provider_lfs_oid",
+          "filename": "parquet-data/id_id/validation-00000-of-00001.parquet",
+          "role": "selected_slice_package",
+          "sha256": "d5fe4ac4679cf2687917adc235db89ae82df815c53a23850f6ba8e159bb4df77",
+          "source_uri": "https://huggingface.co/datasets/google/fleurs/resolve/70bb2e84b976b7e960aa89f1c648e09c59f894dd/parquet-data/id_id/validation-00000-of-00001.parquet"
+        },
+        {
+          "artifact_id": "fleurs-fil-ph-validation",
+          "byte_size": 454686207,
+          "checksum_basis": "provider_lfs_oid",
+          "filename": "parquet-data/fil_ph/validation-00000-of-00001.parquet",
+          "role": "selected_slice_package",
+          "sha256": "693d176879c83b3ce9fa86d350f2351237e41e4f5e85bad1d8d7c0b7137d9f43",
+          "source_uri": "https://huggingface.co/datasets/google/fleurs/resolve/70bb2e84b976b7e960aa89f1c648e09c59f894dd/parquet-data/fil_ph/validation-00000-of-00001.parquet"
+        },
+        {
+          "artifact_id": "fleurs-vi-vn-validation",
+          "byte_size": 274630187,
+          "checksum_basis": "provider_lfs_oid",
+          "filename": "parquet-data/vi_vn/validation-00000-of-00001.parquet",
+          "role": "selected_slice_package",
+          "sha256": "a6d7cf5fd0711ba5437e6f59f244e72207616aaa6b721f5f7bb2efb98eed1e20",
+          "source_uri": "https://huggingface.co/datasets/google/fleurs/resolve/70bb2e84b976b7e960aa89f1c648e09c59f894dd/parquet-data/vi_vn/validation-00000-of-00001.parquet"
+        }
+      ],
+      "languages": [
+        "fil-PH",
+        "id-ID",
+        "vi-VN"
+      ],
+      "license": {
+        "attribution_obligations": [
+          "Credit the FLEURS dataset and its authors, link CC BY 4.0, and cite the FLEURS paper.",
+          "Indicate any filtering, conversion, or other changes and do not imply Google endorsement."
+        ],
+        "identifier": "CC-BY-4.0",
+        "package_declared_identifier": "CC-BY-4.0",
+        "package_evidence_artifact_id": "fleurs-dataset-card",
+        "source_uri": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "permitted_public_mode": "acquisition_script",
+      "review_status": "approved_for_public_dev",
+      "reviewed_at": "2026-07-18T07:04:10Z",
+      "reviewed_by": "codex",
+      "revision": {
+        "dataset_revision": "70bb2e84b976b7e960aa89f1c648e09c59f894dd",
+        "package_revision": "three validation Parquet files at google/fleurs@70bb2e84b976b7e960aa89f1c648e09c59f894dd",
+        "revision_source_uri": "https://huggingface.co/datasets/google/fleurs/tree/70bb2e84b976b7e960aa89f1c648e09c59f894dd"
+      },
+      "rights_unresolved_questions": [],
+      "selected_slices": [
+        {
+          "intended_role": "Indonesian read-speech language control",
+          "language": "id-ID",
+          "source_config": "id_id",
+          "source_split": "validation"
+        },
+        {
+          "intended_role": "Filipino read-speech language control",
+          "language": "fil-PH",
+          "source_config": "fil_ph",
+          "source_split": "validation"
+        },
+        {
+          "intended_role": "Vietnamese read-speech language control",
+          "language": "vi-VN",
+          "source_config": "vi_vn",
+          "source_split": "validation"
+        }
+      ],
+      "source_id": "google-fleurs-sea-dev",
+      "transcript_provenance": "The pinned FLEURS card says recordings cover 2,009 parallel sentences sourced from the public FLoRes dev and devtest sets, with one to three recordings per sentence. Selected rows use the provider transcription field from the three pinned validation Parquet files."
+    }
+  ],
+  "suite_id": "sea-broadcast-asr"
+}

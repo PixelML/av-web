@@ -1,0 +1,282 @@
+{
+  "$defs": {
+    "LanguageControl": {
+      "additionalProperties": false,
+      "description": "One pinned FLEURS validation package used as a language control.",
+      "properties": {
+        "byte_size": {
+          "exclusiveMinimum": 0,
+          "title": "Byte Size",
+          "type": "integer"
+        },
+        "filename": {
+          "minLength": 1,
+          "title": "Filename",
+          "type": "string"
+        },
+        "language": {
+          "minLength": 1,
+          "title": "Language",
+          "type": "string"
+        },
+        "sha256": {
+          "title": "Sha256",
+          "type": "string"
+        },
+        "source_config": {
+          "minLength": 1,
+          "title": "Source Config",
+          "type": "string"
+        },
+        "source_split": {
+          "const": "validation",
+          "title": "Source Split",
+          "type": "string"
+        }
+      },
+      "required": [
+        "language",
+        "source_config",
+        "source_split",
+        "filename",
+        "byte_size",
+        "sha256"
+      ],
+      "title": "LanguageControl",
+      "type": "object"
+    },
+    "PreviewApproval": {
+      "additionalProperties": false,
+      "description": "Explicit owner decision authorizing this exact public composition.",
+      "properties": {
+        "approved_at": {
+          "title": "Approved At",
+          "type": "string"
+        },
+        "approved_by": {
+          "const": "seanphan",
+          "title": "Approved By",
+          "type": "string"
+        },
+        "evidence_uri": {
+          "const": "https://github.com/PixelML/metis/issues/59#issuecomment-5010500242",
+          "title": "Evidence Uri",
+          "type": "string"
+        }
+      },
+      "required": [
+        "approved_by",
+        "approved_at",
+        "evidence_uri"
+      ],
+      "title": "PreviewApproval",
+      "type": "object"
+    },
+    "PreviewAttribution": {
+      "additionalProperties": false,
+      "description": "Attribution and change disclosure carried by the public preview.",
+      "properties": {
+        "authors": {
+          "const": "Conneau et al.",
+          "title": "Authors",
+          "type": "string"
+        },
+        "change_disclosure": {
+          "minLength": 1,
+          "title": "Change Disclosure",
+          "type": "string"
+        },
+        "dataset_name": {
+          "const": "FLEURS",
+          "title": "Dataset Name",
+          "type": "string"
+        },
+        "dataset_uri": {
+          "const": "https://huggingface.co/datasets/google/fleurs",
+          "title": "Dataset Uri",
+          "type": "string"
+        },
+        "license_id": {
+          "const": "CC-BY-4.0",
+          "title": "License Id",
+          "type": "string"
+        },
+        "license_uri": {
+          "const": "https://creativecommons.org/licenses/by/4.0/",
+          "title": "License Uri",
+          "type": "string"
+        },
+        "paper_uri": {
+          "const": "https://arxiv.org/abs/2205.12446",
+          "title": "Paper Uri",
+          "type": "string"
+        }
+      },
+      "required": [
+        "dataset_name",
+        "authors",
+        "dataset_uri",
+        "paper_uri",
+        "license_id",
+        "license_uri",
+        "change_disclosure"
+      ],
+      "title": "PreviewAttribution",
+      "type": "object"
+    },
+    "PreviewBoundaries": {
+      "additionalProperties": false,
+      "description": "Sources and domains that remain outside the public preview.",
+      "properties": {
+        "imda_nsc": {
+          "const": "id_only_blocked",
+          "title": "Imda Nsc",
+          "type": "string"
+        },
+        "natural_mandarin_english_code_switch": {
+          "const": "not_evaluated_rights_blocked",
+          "title": "Natural Mandarin English Code Switch",
+          "type": "string"
+        },
+        "openslr_slr24": {
+          "const": "id_only_blocked",
+          "title": "Openslr Slr24",
+          "type": "string"
+        }
+      },
+      "required": [
+        "imda_nsc",
+        "openslr_slr24",
+        "natural_mandarin_english_code_switch"
+      ],
+      "title": "PreviewBoundaries",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Bounded public-release manifest for the FLEURS language controls.",
+  "properties": {
+    "acquisition_script": {
+      "minLength": 1,
+      "title": "Acquisition Script",
+      "type": "string"
+    },
+    "approval": {
+      "$ref": "#/$defs/PreviewApproval"
+    },
+    "artifact_mode": {
+      "const": "metadata_and_acquisition_script_only",
+      "title": "Artifact Mode",
+      "type": "string"
+    },
+    "attribution": {
+      "$ref": "#/$defs/PreviewAttribution"
+    },
+    "boundaries": {
+      "$ref": "#/$defs/PreviewBoundaries"
+    },
+    "contains_audio": {
+      "const": false,
+      "title": "Contains Audio",
+      "type": "boolean"
+    },
+    "contains_customer_material": {
+      "const": false,
+      "title": "Contains Customer Material",
+      "type": "boolean"
+    },
+    "contains_model_results": {
+      "const": false,
+      "title": "Contains Model Results",
+      "type": "boolean"
+    },
+    "contains_training_recipes": {
+      "const": false,
+      "title": "Contains Training Recipes",
+      "type": "boolean"
+    },
+    "contains_transcripts": {
+      "const": false,
+      "title": "Contains Transcripts",
+      "type": "boolean"
+    },
+    "contamination_ledger": {
+      "minLength": 1,
+      "title": "Contamination Ledger",
+      "type": "string"
+    },
+    "contract_version": {
+      "const": "sea-broadcast-asr-public-preview-v0.1",
+      "title": "Contract Version",
+      "type": "string"
+    },
+    "dataset_revision": {
+      "const": "70bb2e84b976b7e960aa89f1c648e09c59f894dd",
+      "title": "Dataset Revision",
+      "type": "string"
+    },
+    "domain_label": {
+      "const": "read_speech_language_control_not_broadcast",
+      "title": "Domain Label",
+      "type": "string"
+    },
+    "label": {
+      "const": "Language-control developer preview — not broadcast, production, or leaderboard evidence.",
+      "title": "Label",
+      "type": "string"
+    },
+    "language_controls": {
+      "items": {
+        "$ref": "#/$defs/LanguageControl"
+      },
+      "maxItems": 3,
+      "minItems": 3,
+      "title": "Language Controls",
+      "type": "array"
+    },
+    "permitted_public_mode": {
+      "const": "acquisition_script",
+      "title": "Permitted Public Mode",
+      "type": "string"
+    },
+    "preview_id": {
+      "const": "fleurs-sea-language-control-dev-preview-0.1",
+      "title": "Preview Id",
+      "type": "string"
+    },
+    "release_stage": {
+      "const": "developer_preview",
+      "title": "Release Stage",
+      "type": "string"
+    },
+    "source_id": {
+      "const": "google-fleurs-sea-dev",
+      "title": "Source Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "contract_version",
+    "preview_id",
+    "label",
+    "release_stage",
+    "artifact_mode",
+    "contains_audio",
+    "contains_transcripts",
+    "contains_customer_material",
+    "contains_model_results",
+    "contains_training_recipes",
+    "source_id",
+    "dataset_revision",
+    "permitted_public_mode",
+    "domain_label",
+    "acquisition_script",
+    "language_controls",
+    "attribution",
+    "boundaries",
+    "contamination_ledger",
+    "approval"
+  ],
+  "title": "PublicPreviewManifest",
+  "type": "object"
+}

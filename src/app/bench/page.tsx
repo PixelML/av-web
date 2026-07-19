@@ -5,9 +5,7 @@ const PREVIEW_ID = "fleurs-sea-language-control-dev-preview-0.1";
 const PREVIEW_LABEL =
   "Language-control developer preview — not broadcast, production, or leaderboard evidence.";
 const SOURCE_COMMIT = "9275e8c46988a481ce80db1380d374d329241524";
-const SOURCE_ROOT = `https://github.com/PixelML/agentic-video/tree/${SOURCE_COMMIT}/benchmarks/sea_broadcast_asr`;
-const REPO_BLOB_ROOT = `https://github.com/PixelML/agentic-video/blob/${SOURCE_COMMIT}`;
-const BLOB_ROOT = `https://github.com/PixelML/agentic-video/blob/${SOURCE_COMMIT}/benchmarks/sea_broadcast_asr`;
+const CONTRACT_COMMIT = "02fb03e9fb975cea59e857ca42e2e8141352185d";
 const FLEURS_REVISION = "70bb2e84b976b7e960aa89f1c648e09c59f894dd";
 
 const controls = [
@@ -40,11 +38,13 @@ const controls = [
 const artifactLinks = [
   ["Preview manifest", "/bench/preview.json"],
   ["Contamination ledger", "/bench/contamination-ledger.json"],
-  ["Pinned acquisition script", `${BLOB_ROOT}/public-preview/acquire_fleurs_validation.py`],
-  ["FLEURS-only source manifest", `${BLOB_ROOT}/sources/source-manifest.public-dev.json`],
-  ["Methodology", `${REPO_BLOB_ROOT}/docs/33-sea-broadcast-asr-benchmark-v0.md`],
-  ["Manifest schema", `${BLOB_ROOT}/schemas/public-preview-v0.1.schema.json`],
-  ["Ledger schema", `${BLOB_ROOT}/schemas/contamination-ledger-v0.1.schema.json`],
+  ["Pinned acquisition script", "/bench/artifacts/acquire_fleurs_validation.py"],
+  ["FLEURS-only source manifest", "/bench/artifacts/source-manifest.public-dev.json"],
+  ["Methodology", "/bench/artifacts/sea-broadcast-asr-methodology-v0.md"],
+  ["av bench CLI contract", "/bench/artifacts/av-bench-compatibility-v0.md"],
+  ["Broadcast source rights gate", "/bench/artifacts/source-rights-gate-2026-07-19.md"],
+  ["Manifest schema", "/bench/artifacts/public-preview-v0.1.schema.json"],
+  ["Ledger schema", "/bench/artifacts/contamination-ledger-v0.1.schema.json"],
 ];
 
 export const metadata: Metadata = {
@@ -71,6 +71,7 @@ function SectionHeading({ eyebrow, children }: { eyebrow: string; children: Reac
 
 export default function BenchPage() {
   const deploymentCommit = process.env.VERCEL_GIT_COMMIT_SHA ?? "local-build";
+  const publicArtifactSource = `https://github.com/PixelML/av-web/tree/${deploymentCommit}/public/bench/artifacts`;
 
   return (
     <main className="min-h-screen bg-[hsl(var(--background))] text-[hsl(var(--foreground))]">
@@ -106,6 +107,7 @@ export default function BenchPage() {
             {[
               ["Preview version", PREVIEW_ID],
               ["Benchmark source commit", SOURCE_COMMIT],
+              ["Harness contract commit", CONTRACT_COMMIT],
               ["Web deployment commit", deploymentCommit],
             ].map(([term, value]) => (
               <div key={term} className="bg-white p-5">
@@ -275,7 +277,7 @@ export default function BenchPage() {
             ))}
           </div>
           <p className="mt-8 text-xs leading-6 text-[hsl(var(--muted-foreground))]">
-            Source tree: <a className="break-all text-blue-600 underline underline-offset-4" href={SOURCE_ROOT}>{SOURCE_ROOT}</a>
+            Public artifact source: <a className="break-all text-blue-600 underline underline-offset-4" href={publicArtifactSource}>{publicArtifactSource}</a>
           </p>
         </div>
       </section>

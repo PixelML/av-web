@@ -13,5 +13,5 @@
   "license_id": "CC-BY-4.0",
   "permitted_public_mode": "acquisition_script",
   "preview_id": "fleurs-sea-language-control-dev-preview-0.1",
-  "source_manifest_uri": "https://github.com/PixelML/agentic-video/blob/9275e8c46988a481ce80db1380d374d329241524/benchmarks/sea_broadcast_asr/sources/source-manifest.public-dev.json"
+  "source_manifest_uri": "https://agentic.video/bench/artifacts/source-manifest.public-dev.json"
 }
