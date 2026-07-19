@@ -126,6 +126,31 @@ export default function BenchPage() {
 
       <section className="border-b border-[hsl(var(--border))] px-6 py-16 sm:py-20">
         <div className="mx-auto max-w-6xl">
+          <SectionHeading eyebrow="Benchmark tracks">Composer Archive-to-Output Arena v0</SectionHeading>
+          <div className="border border-[hsl(var(--border))] bg-white p-6 sm:p-8">
+            <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+              <div className="max-w-3xl">
+                <span className="inline-flex border border-amber-300 bg-amber-50 px-2 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-amber-950">
+                  non-rankable preview
+                </span>
+                <h3 className="mt-5 text-xl font-semibold">Archive understanding to reviewable output</h3>
+                <p className="mt-3 text-sm leading-7 text-[hsl(var(--muted-foreground))]">
+                  Synthetic, schema-driven standings, track-separated metrics, non-rankable capability cards, and anonymous A/B replay. No official vote backend or measured model result is active.
+                </p>
+              </div>
+              <Link
+                href="/bench/composer-arena"
+                className="inline-flex items-center justify-center border border-slate-950 bg-slate-950 px-5 py-3 text-sm font-semibold text-white hover:bg-blue-600 hover:text-white"
+              >
+                Open Composer Arena
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="border-b border-[hsl(var(--border))] px-6 py-16 sm:py-20">
+        <div className="mx-auto max-w-6xl">
           <SectionHeading eyebrow="September execution gate">Contracts live; real execution stopped</SectionHeading>
           <div className="grid gap-6 md:grid-cols-3">
             {[

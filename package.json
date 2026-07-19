@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "check:bench": "node scripts/check-bench-route.mjs",
+    "check:arena": "node scripts/check-composer-arena.mjs",
+    "check:bench": "node scripts/check-bench-route.mjs && node scripts/check-composer-arena.mjs",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",

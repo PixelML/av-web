@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agentic.video/bench/composer-arena/v0/battle.schema.json",
+  "title": "Composer Arena anonymous battle replay",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["battle_id", "track", "task_slice", "prompt", "source", "left", "right"],
+  "properties": {
+    "battle_id": { "type": "string", "minLength": 1 },
+    "track": { "enum": ["controlled-agent", "end-to-end-system"] },
+    "task_slice": { "type": "string", "minLength": 1 },
+    "prompt": { "type": "string", "minLength": 1 },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["fixture_id", "source_family_id", "revision", "rankable"],
+      "properties": {
+        "fixture_id": { "type": "string", "minLength": 1 },
+        "source_family_id": { "type": "string", "minLength": 1 },
+        "revision": { "type": "string", "minLength": 1 },
+        "rankable": { "type": "boolean" }
+      }
+    },
+    "left": { "$ref": "#/$defs/candidate" },
+    "right": { "$ref": "#/$defs/candidate" }
+  },
+  "$defs": {
+    "candidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "candidate_id",
+        "model",
+        "provider",
+        "version",
+        "output_title",
+        "output_summary",
+        "evidence"
+      ],
+      "properties": {
+        "candidate_id": { "type": "string", "minLength": 1 },
+        "model": { "type": "string", "minLength": 1 },
+        "provider": { "type": "string", "minLength": 1 },
+        "version": { "type": "string", "minLength": 1 },
+        "output_title": { "type": "string", "minLength": 1 },
+        "output_summary": { "type": "string", "minLength": 1 },
+        "evidence": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["label", "href"],
+            "properties": {
+              "label": { "type": "string", "minLength": 1 },
+              "href": { "type": "string", "pattern": "^/bench/composer-arena/v0/" }
+            }
+          }
+        }
+      }
+    }
+  }
+}
