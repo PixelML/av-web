@@ -1,0 +1,695 @@
+{
+  "$defs": {
+    "CompletionCounts": {
+      "additionalProperties": false,
+      "properties": {
+        "completed": {
+          "minimum": 0,
+          "title": "Completed",
+          "type": "integer"
+        },
+        "duplicate": {
+          "minimum": 0,
+          "title": "Duplicate",
+          "type": "integer"
+        },
+        "empty_output": {
+          "minimum": 0,
+          "title": "Empty Output",
+          "type": "integer"
+        },
+        "malformed_result": {
+          "minimum": 0,
+          "title": "Malformed Result",
+          "type": "integer"
+        },
+        "refusal": {
+          "minimum": 0,
+          "title": "Refusal",
+          "type": "integer"
+        },
+        "runtime_error": {
+          "minimum": 0,
+          "title": "Runtime Error",
+          "type": "integer"
+        },
+        "timeout": {
+          "minimum": 0,
+          "title": "Timeout",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "completed",
+        "refusal",
+        "empty_output",
+        "timeout",
+        "malformed_result",
+        "runtime_error",
+        "duplicate"
+      ],
+      "title": "CompletionCounts",
+      "type": "object"
+    },
+    "PublicBaselineAggregate": {
+      "additionalProperties": false,
+      "properties": {
+        "adapter_config_sha256": {
+          "title": "Adapter Config Sha256",
+          "type": "string"
+        },
+        "adapter_id": {
+          "minLength": 1,
+          "title": "Adapter Id",
+          "type": "string"
+        },
+        "adapter_version": {
+          "minLength": 1,
+          "title": "Adapter Version",
+          "type": "string"
+        },
+        "by_language": {
+          "additionalProperties": {
+            "$ref": "#/$defs/PublicMetricSummary"
+          },
+          "title": "By Language",
+          "type": "object"
+        },
+        "by_slice": {
+          "additionalProperties": {
+            "$ref": "#/$defs/PublicMetricSummary"
+          },
+          "title": "By Slice",
+          "type": "object"
+        },
+        "completion_counts": {
+          "$ref": "#/$defs/CompletionCounts"
+        },
+        "completion_rate": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Completion Rate",
+          "type": "number"
+        },
+        "contains_item_level_rows": {
+          "const": false,
+          "title": "Contains Item Level Rows",
+          "type": "boolean"
+        },
+        "contains_media_uris": {
+          "const": false,
+          "title": "Contains Media Uris",
+          "type": "boolean"
+        },
+        "contains_private_failure_history": {
+          "const": false,
+          "title": "Contains Private Failure History",
+          "type": "boolean"
+        },
+        "contains_references": {
+          "const": false,
+          "title": "Contains References",
+          "type": "boolean"
+        },
+        "contains_transcripts": {
+          "const": false,
+          "title": "Contains Transcripts",
+          "type": "boolean"
+        },
+        "contamination_status": {
+          "enum": [
+            "clean",
+            "train_overlap",
+            "unknown",
+            "not_applicable_stub"
+          ],
+          "title": "Contamination Status",
+          "type": "string"
+        },
+        "contract_version": {
+          "const": "sea-broadcast-asr-public-aggregate-v0.1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "cost_basis": {
+          "minLength": 1,
+          "title": "Cost Basis",
+          "type": "string"
+        },
+        "cost_per_audio_hour_usd": {
+          "minimum": 0,
+          "title": "Cost Per Audio Hour Usd",
+          "type": "number"
+        },
+        "evaluation_set_version": {
+          "minLength": 1,
+          "title": "Evaluation Set Version",
+          "type": "string"
+        },
+        "export_id": {
+          "minLength": 1,
+          "title": "Export Id",
+          "type": "string"
+        },
+        "fair_rank_eligible": {
+          "title": "Fair Rank Eligible",
+          "type": "boolean"
+        },
+        "frozen_at": {
+          "title": "Frozen At",
+          "type": "string"
+        },
+        "frozen_full_run": {
+          "title": "Frozen Full Run",
+          "type": "boolean"
+        },
+        "model_service_id": {
+          "minLength": 1,
+          "title": "Model Service Id",
+          "type": "string"
+        },
+        "model_service_version": {
+          "minLength": 1,
+          "title": "Model Service Version",
+          "type": "string"
+        },
+        "overall": {
+          "$ref": "#/$defs/PublicMetricSummary"
+        },
+        "pending_adjudication_count": {
+          "minimum": 0,
+          "title": "Pending Adjudication Count",
+          "type": "integer"
+        },
+        "publication_mode": {
+          "enum": [
+            "contract_fixture",
+            "public_table",
+            "leaderboard"
+          ],
+          "title": "Publication Mode",
+          "type": "string"
+        },
+        "region_or_hardware": {
+          "minLength": 1,
+          "title": "Region Or Hardware",
+          "type": "string"
+        },
+        "run_date": {
+          "title": "Run Date",
+          "type": "string"
+        },
+        "run_id": {
+          "minLength": 1,
+          "title": "Run Id",
+          "type": "string"
+        },
+        "source_domain": {
+          "minLength": 1,
+          "title": "Source Domain",
+          "type": "string"
+        },
+        "source_manifest_sha256": {
+          "title": "Source Manifest Sha256",
+          "type": "string"
+        },
+        "source_revision": {
+          "minLength": 1,
+          "title": "Source Revision",
+          "type": "string"
+        },
+        "suite_id": {
+          "const": "sea-broadcast-asr",
+          "title": "Suite Id",
+          "type": "string"
+        },
+        "suite_version": {
+          "minLength": 1,
+          "title": "Suite Version",
+          "type": "string"
+        },
+        "token_usage": {
+          "$ref": "#/$defs/TokenUsage"
+        },
+        "total_cost_usd": {
+          "minimum": 0,
+          "title": "Total Cost Usd",
+          "type": "number"
+        },
+        "total_latency_seconds": {
+          "minimum": 0,
+          "title": "Total Latency Seconds",
+          "type": "number"
+        },
+        "track": {
+          "$ref": "#/$defs/TrackType"
+        },
+        "uncertainty": {
+          "$ref": "#/$defs/UncertaintyEvidence"
+        }
+      },
+      "required": [
+        "contract_version",
+        "export_id",
+        "publication_mode",
+        "suite_id",
+        "suite_version",
+        "run_id",
+        "run_date",
+        "track",
+        "source_domain",
+        "source_revision",
+        "source_manifest_sha256",
+        "evaluation_set_version",
+        "model_service_id",
+        "model_service_version",
+        "adapter_id",
+        "adapter_version",
+        "adapter_config_sha256",
+        "region_or_hardware",
+        "frozen_at",
+        "frozen_full_run",
+        "overall",
+        "by_language",
+        "by_slice",
+        "completion_counts",
+        "completion_rate",
+        "total_latency_seconds",
+        "total_cost_usd",
+        "cost_per_audio_hour_usd",
+        "cost_basis",
+        "token_usage",
+        "pending_adjudication_count",
+        "contamination_status",
+        "fair_rank_eligible",
+        "uncertainty",
+        "contains_item_level_rows",
+        "contains_transcripts",
+        "contains_references",
+        "contains_media_uris",
+        "contains_private_failure_history"
+      ],
+      "title": "PublicBaselineAggregate",
+      "type": "object"
+    },
+    "PublicMetricSummary": {
+      "additionalProperties": false,
+      "properties": {
+        "cer": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Cer"
+        },
+        "character_edits": {
+          "minimum": 0,
+          "title": "Character Edits",
+          "type": "integer"
+        },
+        "code_switch_sample_count": {
+          "minimum": 0,
+          "title": "Code Switch Sample Count",
+          "type": "integer"
+        },
+        "mer": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Mer"
+        },
+        "mixed_errors": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Mixed Errors"
+        },
+        "mixed_reference_units": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Mixed Reference Units"
+        },
+        "reference_characters": {
+          "minimum": 0,
+          "title": "Reference Characters",
+          "type": "integer"
+        },
+        "reference_words": {
+          "minimum": 0,
+          "title": "Reference Words",
+          "type": "integer"
+        },
+        "sample_count": {
+          "minimum": 0,
+          "title": "Sample Count",
+          "type": "integer"
+        },
+        "wer": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Wer"
+        },
+        "word_edits": {
+          "minimum": 0,
+          "title": "Word Edits",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "sample_count",
+        "word_edits",
+        "reference_words",
+        "character_edits",
+        "reference_characters",
+        "code_switch_sample_count"
+      ],
+      "title": "PublicMetricSummary",
+      "type": "object"
+    },
+    "PublicTrackTable": {
+      "additionalProperties": false,
+      "properties": {
+        "ranking_enabled": {
+          "title": "Ranking Enabled",
+          "type": "boolean"
+        },
+        "rows": {
+          "items": {
+            "$ref": "#/$defs/PublicBaselineAggregate"
+          },
+          "minItems": 1,
+          "title": "Rows",
+          "type": "array"
+        },
+        "track": {
+          "$ref": "#/$defs/TrackType"
+        }
+      },
+      "required": [
+        "track",
+        "ranking_enabled",
+        "rows"
+      ],
+      "title": "PublicTrackTable",
+      "type": "object"
+    },
+    "TokenUsage": {
+      "additionalProperties": false,
+      "properties": {
+        "cache_creation_input_tokens": {
+          "minimum": 0,
+          "title": "Cache Creation Input Tokens",
+          "type": "integer"
+        },
+        "cache_read_input_tokens": {
+          "minimum": 0,
+          "title": "Cache Read Input Tokens",
+          "type": "integer"
+        },
+        "input_tokens": {
+          "minimum": 0,
+          "title": "Input Tokens",
+          "type": "integer"
+        },
+        "output_tokens": {
+          "minimum": 0,
+          "title": "Output Tokens",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "input_tokens",
+        "output_tokens",
+        "cache_read_input_tokens",
+        "cache_creation_input_tokens"
+      ],
+      "title": "TokenUsage",
+      "type": "object"
+    },
+    "TrackType": {
+      "description": "Benchmark tracks that must be reported separately.",
+      "enum": [
+        "controlled_model",
+        "end_to_end_system"
+      ],
+      "title": "TrackType",
+      "type": "string"
+    },
+    "UncertaintyEvidence": {
+      "additionalProperties": false,
+      "properties": {
+        "cer_interval": {
+          "anyOf": [
+            {
+              "maxItems": 2,
+              "minItems": 2,
+              "prefixItems": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                }
+              ],
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Cer Interval"
+        },
+        "confidence_level": {
+          "anyOf": [
+            {
+              "exclusiveMaximum": 1,
+              "exclusiveMinimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Confidence Level"
+        },
+        "mer_interval": {
+          "anyOf": [
+            {
+              "maxItems": 2,
+              "minItems": 2,
+              "prefixItems": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                }
+              ],
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Mer Interval"
+        },
+        "method": {
+          "enum": [
+            "not_applicable_contract_fixture",
+            "not_computed",
+            "paired_bootstrap"
+          ],
+          "title": "Method",
+          "type": "string"
+        },
+        "paired_significance_artifact_uri": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Paired Significance Artifact Uri"
+        },
+        "wer_interval": {
+          "anyOf": [
+            {
+              "maxItems": 2,
+              "minItems": 2,
+              "prefixItems": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                }
+              ],
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Wer Interval"
+        }
+      },
+      "required": [
+        "method"
+      ],
+      "title": "UncertaintyEvidence",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Aggregate-only release with separate controlled and end-to-end tables.",
+  "properties": {
+    "baseline_count": {
+      "minimum": 6,
+      "title": "Baseline Count",
+      "type": "integer"
+    },
+    "contains_item_level_rows": {
+      "const": false,
+      "title": "Contains Item Level Rows",
+      "type": "boolean"
+    },
+    "contains_media_uris": {
+      "const": false,
+      "title": "Contains Media Uris",
+      "type": "boolean"
+    },
+    "contains_private_failure_history": {
+      "const": false,
+      "title": "Contains Private Failure History",
+      "type": "boolean"
+    },
+    "contains_private_test_identifiers": {
+      "const": false,
+      "title": "Contains Private Test Identifiers",
+      "type": "boolean"
+    },
+    "contains_references": {
+      "const": false,
+      "title": "Contains References",
+      "type": "boolean"
+    },
+    "contains_transcripts": {
+      "const": false,
+      "title": "Contains Transcripts",
+      "type": "boolean"
+    },
+    "contract_version": {
+      "const": "sea-broadcast-asr-public-release-v0.1",
+      "title": "Contract Version",
+      "type": "string"
+    },
+    "controlled_model_table": {
+      "$ref": "#/$defs/PublicTrackTable"
+    },
+    "end_to_end_system_table": {
+      "$ref": "#/$defs/PublicTrackTable"
+    },
+    "evaluation_set_version": {
+      "minLength": 1,
+      "title": "Evaluation Set Version",
+      "type": "string"
+    },
+    "generated_at": {
+      "title": "Generated At",
+      "type": "string"
+    },
+    "release_date": {
+      "title": "Release Date",
+      "type": "string"
+    },
+    "release_id": {
+      "minLength": 1,
+      "title": "Release Id",
+      "type": "string"
+    },
+    "required_baseline_count": {
+      "const": 6,
+      "title": "Required Baseline Count",
+      "type": "integer"
+    },
+    "source_manifest_sha256": {
+      "title": "Source Manifest Sha256",
+      "type": "string"
+    },
+    "suite_id": {
+      "const": "sea-broadcast-asr",
+      "title": "Suite Id",
+      "type": "string"
+    },
+    "suite_version": {
+      "minLength": 1,
+      "title": "Suite Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "contract_version",
+    "release_id",
+    "generated_at",
+    "release_date",
+    "suite_id",
+    "suite_version",
+    "evaluation_set_version",
+    "source_manifest_sha256",
+    "required_baseline_count",
+    "baseline_count",
+    "controlled_model_table",
+    "end_to_end_system_table",
+    "contains_item_level_rows",
+    "contains_transcripts",
+    "contains_references",
+    "contains_media_uris",
+    "contains_private_test_identifiers",
+    "contains_private_failure_history"
+  ],
+  "title": "PublicBenchmarkRelease",
+  "type": "object"
+}

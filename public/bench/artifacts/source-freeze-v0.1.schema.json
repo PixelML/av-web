@@ -1,0 +1,391 @@
+{
+  "$defs": {
+    "FreezeSplit": {
+      "enum": [
+        "public_dev",
+        "private_test"
+      ],
+      "title": "FreezeSplit",
+      "type": "string"
+    },
+    "FrozenEvaluationItem": {
+      "additionalProperties": false,
+      "properties": {
+        "contains_customer_material": {
+          "const": false,
+          "title": "Contains Customer Material",
+          "type": "boolean"
+        },
+        "duration_seconds": {
+          "exclusiveMinimum": 0,
+          "title": "Duration Seconds",
+          "type": "number"
+        },
+        "item_id": {
+          "minLength": 1,
+          "title": "Item Id",
+          "type": "string"
+        },
+        "item_rights_evidence_sha256": {
+          "title": "Item Rights Evidence Sha256",
+          "type": "string"
+        },
+        "item_rights_reviewed_at": {
+          "title": "Item Rights Reviewed At",
+          "type": "string"
+        },
+        "item_rights_reviewed_by": {
+          "minLength": 1,
+          "title": "Item Rights Reviewed By",
+          "type": "string"
+        },
+        "language": {
+          "title": "Language",
+          "type": "string"
+        },
+        "reference_byte_size": {
+          "exclusiveMinimum": 0,
+          "title": "Reference Byte Size",
+          "type": "integer"
+        },
+        "reference_gold_status": {
+          "const": "adjudicated",
+          "title": "Reference Gold Status",
+          "type": "string"
+        },
+        "reference_sha256": {
+          "title": "Reference Sha256",
+          "type": "string"
+        },
+        "relative_media_path": {
+          "title": "Relative Media Path",
+          "type": "string"
+        },
+        "relative_reference_path": {
+          "title": "Relative Reference Path",
+          "type": "string"
+        },
+        "source_asset_byte_size": {
+          "exclusiveMinimum": 0,
+          "title": "Source Asset Byte Size",
+          "type": "integer"
+        },
+        "source_asset_sha256": {
+          "title": "Source Asset Sha256",
+          "type": "string"
+        },
+        "source_family_id": {
+          "minLength": 1,
+          "title": "Source Family Id",
+          "type": "string"
+        },
+        "source_locator": {
+          "title": "Source Locator",
+          "type": "string"
+        },
+        "split": {
+          "$ref": "#/$defs/FreezeSplit"
+        }
+      },
+      "required": [
+        "item_id",
+        "source_family_id",
+        "split",
+        "language",
+        "source_locator",
+        "relative_media_path",
+        "relative_reference_path",
+        "source_asset_sha256",
+        "source_asset_byte_size",
+        "reference_sha256",
+        "reference_byte_size",
+        "duration_seconds",
+        "item_rights_reviewed_by",
+        "item_rights_reviewed_at",
+        "item_rights_evidence_sha256",
+        "reference_gold_status",
+        "contains_customer_material"
+      ],
+      "title": "FrozenEvaluationItem",
+      "type": "object"
+    },
+    "FrozenRightsApproval": {
+      "additionalProperties": false,
+      "description": "One explicit rights decision; unresolved sources cannot enter a freeze.",
+      "properties": {
+        "asset_redistribution_allowed": {
+          "title": "Asset Redistribution Allowed",
+          "type": "boolean"
+        },
+        "decision": {
+          "const": "approved",
+          "title": "Decision",
+          "type": "string"
+        },
+        "license_evidence_uri": {
+          "title": "License Evidence Uri",
+          "type": "string"
+        },
+        "license_identifier": {
+          "minLength": 1,
+          "title": "License Identifier",
+          "type": "string"
+        },
+        "provenance_evidence_uri": {
+          "title": "Provenance Evidence Uri",
+          "type": "string"
+        },
+        "public_aggregate_allowed": {
+          "const": true,
+          "title": "Public Aggregate Allowed",
+          "type": "boolean"
+        },
+        "public_evaluation_allowed": {
+          "const": true,
+          "title": "Public Evaluation Allowed",
+          "type": "boolean"
+        },
+        "reviewed_at": {
+          "title": "Reviewed At",
+          "type": "string"
+        },
+        "reviewed_by": {
+          "minLength": 1,
+          "title": "Reviewed By",
+          "type": "string"
+        },
+        "terms_sha256": {
+          "title": "Terms Sha256",
+          "type": "string"
+        },
+        "third_party_content_status": {
+          "const": "none_confirmed",
+          "title": "Third Party Content Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "decision",
+        "reviewed_by",
+        "reviewed_at",
+        "license_identifier",
+        "license_evidence_uri",
+        "provenance_evidence_uri",
+        "terms_sha256",
+        "third_party_content_status",
+        "public_evaluation_allowed",
+        "public_aggregate_allowed",
+        "asset_redistribution_allowed"
+      ],
+      "title": "FrozenRightsApproval",
+      "type": "object"
+    },
+    "FrozenSourceFamily": {
+      "additionalProperties": false,
+      "properties": {
+        "blocked_source_acquisition": {
+          "const": false,
+          "title": "Blocked Source Acquisition",
+          "type": "boolean"
+        },
+        "contains_customer_material": {
+          "const": false,
+          "title": "Contains Customer Material",
+          "type": "boolean"
+        },
+        "display_name": {
+          "minLength": 1,
+          "title": "Display Name",
+          "type": "string"
+        },
+        "publisher": {
+          "minLength": 1,
+          "title": "Publisher",
+          "type": "string"
+        },
+        "requires_credentials": {
+          "const": false,
+          "title": "Requires Credentials",
+          "type": "boolean"
+        },
+        "rights": {
+          "$ref": "#/$defs/FrozenRightsApproval"
+        },
+        "source_family_id": {
+          "minLength": 1,
+          "title": "Source Family Id",
+          "type": "string"
+        },
+        "source_family_record_sha256": {
+          "title": "Source Family Record Sha256",
+          "type": "string"
+        },
+        "source_revision": {
+          "minLength": 1,
+          "title": "Source Revision",
+          "type": "string"
+        }
+      },
+      "required": [
+        "source_family_id",
+        "display_name",
+        "publisher",
+        "source_revision",
+        "source_family_record_sha256",
+        "rights",
+        "contains_customer_material",
+        "requires_credentials",
+        "blocked_source_acquisition"
+      ],
+      "title": "FrozenSourceFamily",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Private evaluator-only manifest for a fully approved fixed evaluation set.",
+  "properties": {
+    "contains_customer_material": {
+      "const": false,
+      "title": "Contains Customer Material",
+      "type": "boolean"
+    },
+    "contains_embedded_audio": {
+      "const": false,
+      "title": "Contains Embedded Audio",
+      "type": "boolean"
+    },
+    "contains_embedded_transcripts": {
+      "const": false,
+      "title": "Contains Embedded Transcripts",
+      "type": "boolean"
+    },
+    "contains_private_test_identifiers": {
+      "const": true,
+      "title": "Contains Private Test Identifiers",
+      "type": "boolean"
+    },
+    "contract_version": {
+      "const": "sea-broadcast-asr-source-freeze-v0.1",
+      "title": "Contract Version",
+      "type": "string"
+    },
+    "created_at": {
+      "title": "Created At",
+      "type": "string"
+    },
+    "created_by": {
+      "minLength": 1,
+      "title": "Created By",
+      "type": "string"
+    },
+    "evaluation_set_version": {
+      "minLength": 1,
+      "title": "Evaluation Set Version",
+      "type": "string"
+    },
+    "fixed_private_test": {
+      "const": true,
+      "title": "Fixed Private Test",
+      "type": "boolean"
+    },
+    "freeze_id": {
+      "minLength": 1,
+      "title": "Freeze Id",
+      "type": "string"
+    },
+    "freeze_mode": {
+      "enum": [
+        "contract_fixture",
+        "asr_audio"
+      ],
+      "title": "Freeze Mode",
+      "type": "string"
+    },
+    "gold_protocol_version": {
+      "minLength": 1,
+      "title": "Gold Protocol Version",
+      "type": "string"
+    },
+    "items": {
+      "items": {
+        "$ref": "#/$defs/FrozenEvaluationItem"
+      },
+      "minItems": 2,
+      "title": "Items",
+      "type": "array"
+    },
+    "public_development_frozen": {
+      "const": true,
+      "title": "Public Development Frozen",
+      "type": "boolean"
+    },
+    "source_families": {
+      "items": {
+        "$ref": "#/$defs/FrozenSourceFamily"
+      },
+      "minItems": 2,
+      "title": "Source Families",
+      "type": "array"
+    },
+    "source_family_disjoint": {
+      "const": true,
+      "title": "Source Family Disjoint",
+      "type": "boolean"
+    },
+    "source_family_partition_id": {
+      "minLength": 1,
+      "title": "Source Family Partition Id",
+      "type": "string"
+    },
+    "source_review_manifest_sha256": {
+      "title": "Source Review Manifest Sha256",
+      "type": "string"
+    },
+    "suite_id": {
+      "const": "sea-broadcast-asr",
+      "title": "Suite Id",
+      "type": "string"
+    },
+    "suite_version": {
+      "minLength": 1,
+      "title": "Suite Version",
+      "type": "string"
+    },
+    "tuned_on_private_test": {
+      "const": false,
+      "title": "Tuned On Private Test",
+      "type": "boolean"
+    },
+    "visibility": {
+      "const": "private_evaluator_only",
+      "title": "Visibility",
+      "type": "string"
+    }
+  },
+  "required": [
+    "contract_version",
+    "freeze_id",
+    "freeze_mode",
+    "created_at",
+    "created_by",
+    "suite_id",
+    "suite_version",
+    "evaluation_set_version",
+    "source_review_manifest_sha256",
+    "source_family_partition_id",
+    "gold_protocol_version",
+    "visibility",
+    "source_family_disjoint",
+    "public_development_frozen",
+    "fixed_private_test",
+    "tuned_on_private_test",
+    "contains_private_test_identifiers",
+    "contains_embedded_audio",
+    "contains_embedded_transcripts",
+    "contains_customer_material",
+    "source_families",
+    "items"
+  ],
+  "title": "SourceFreezeManifest",
+  "type": "object"
+}

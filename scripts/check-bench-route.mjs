@@ -8,20 +8,26 @@ const ledger = JSON.parse(readFileSync(resolve(root, "public/bench/contamination
 const artifactRoot = resolve(root, "public/bench/artifacts");
 const sourceManifest = JSON.parse(readFileSync(resolve(artifactRoot, "source-manifest.public-dev.json"), "utf8"));
 const compatibilityDoc = readFileSync(resolve(artifactRoot, "av-bench-compatibility-v0.md"), "utf8");
+const freezeGoldDoc = readFileSync(resolve(artifactRoot, "freeze-gold-publication-v0.md"), "utf8");
 const rightsGate = readFileSync(resolve(artifactRoot, "source-rights-gate-2026-07-19.md"), "utf8");
 
 const label = "Language-control developer preview — not broadcast, production, or leaderboard evidence.";
 const revision = "70bb2e84b976b7e960aa89f1c648e09c59f894dd";
 const sourceCommit = "9275e8c46988a481ce80db1380d374d329241524";
-const contractCommit = "02fb03e9fb975cea59e857ca42e2e8141352185d";
+const contractCommit = "3d29a81c9e5db4b09370e2c1da35b15ee5bc0480";
 const publicArtifacts = [
   "acquire_fleurs_validation.py",
   "source-manifest.public-dev.json",
   "sea-broadcast-asr-methodology-v0.md",
   "av-bench-compatibility-v0.md",
+  "freeze-gold-publication-v0.md",
   "source-rights-gate-2026-07-19.md",
   "public-preview-v0.1.schema.json",
   "contamination-ledger-v0.1.schema.json",
+  "public-aggregate-v0.1.schema.json",
+  "source-freeze-v0.1.schema.json",
+  "gold-ledger-v0.1.schema.json",
+  "public-release-v0.1.schema.json",
 ];
 
 function requireCondition(condition, message) {
@@ -59,6 +65,8 @@ for (const artifact of publicArtifacts) {
 }
 requireCondition(page.includes("github.com/PixelML/av-web/tree/"), "artifact source must use the public av-web repo");
 requireCondition(!page.includes("github.com/PixelML/agentic-video"), "page must not link the private source repo");
+requireCondition(page.includes("Source families — 0 / 2 approved"), "page must show the two-family rights blocker");
+requireCondition(page.includes("Baselines — 0 / 6 executed"), "page must not imply any baseline has run");
 requireCondition(sourceManifest.contains_audio === false, "public source manifest must not contain audio");
 requireCondition(sourceManifest.contains_transcripts === false, "public source manifest must not contain transcripts");
 requireCondition(
@@ -74,7 +82,13 @@ requireCondition(
   "public CLI contract is missing the aggregate-only boundary",
 );
 requireCondition(
-  rightsGate.includes("no real broadcast-domain candidate currently passes"),
+  freezeGoldDoc.includes("sea-broadcast-asr-source-freeze-v0.1") &&
+    freezeGoldDoc.includes("At least six unique model/adapter configurations"),
+  "public freeze/gold contract is missing the execution or release gate",
+);
+requireCondition(
+  rightsGate.includes("technically viable two-family design") &&
+    rightsGate.includes("neither family has Sean's final rights approval"),
   "public rights gate must remain fail-closed",
 );
 
