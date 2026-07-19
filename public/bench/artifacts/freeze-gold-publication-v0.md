@@ -1,12 +1,12 @@
 # SEA Broadcast ASR freeze, gold, and publication contract v0
 
-Status: implemented contract; real source freeze remains rights-blocked
+Status: implemented contract; two source families rights-approved, acquisition and human gold pending
 
 Public home: `https://agentic.video/bench`
 
 ## Purpose
 
-This contract closes the gap between a source review and a reproducible public table. It does not approve a source, acquire media, create a reference, or execute a model. It makes those later actions impossible to validate unless the exact rights, split, gold, run, and publication gates pass in order.
+This contract closes the gap between a source review and a reproducible public table. Source approval and acquisition use a separate metadata-only source-pool contract; this contract makes later execution impossible to validate unless the exact rights, split, gold, run, and publication gates pass in order.
 
 The locked sequence is:
 
@@ -25,6 +25,7 @@ No customer/GMA data, FineVideo asset, credential-gated source, training/post-tr
 
 | Contract | Version | Fail-closed requirement |
 |---|---|---|
+| Source pool | `sea-broadcast-asr-source-pool-v0.1` | A complete-work provider licence, completed item-level licence review, immutable Commons page/file identity, explicit split/visibility, and zero customer/credential/blocked-source flags must pass before acquisition. Live metadata is rechecked before an atomic download and private SHA-256 receipt. |
 | Source freeze | `sea-broadcast-asr-source-freeze-v0.1` | Every source family and item is explicitly rights-approved; public dev and fixed private test use disjoint families; no source is credentialed, acquisition-blocked, or customer-derived. The manifest is private evaluator-only and embeds no media or transcript. |
 | Gold ledger | `sea-broadcast-asr-gold-ledger-v0.1` | Reference revisions form one append-only parent chain. The final digest requires an author, an independent reviewer, and an adjudicator; it must match the frozen item exactly. |
 | Public aggregate | `sea-broadcast-asr-public-aggregate-v0.1` | Every run is full, frozen, dated, denominator-complete, and paired-bootstrap controlled. Unknown or overlapping contamination may publish only as an explicitly unranked `public_table` row. A fair-ranked row still requires clean contamination. |
@@ -32,14 +33,14 @@ No customer/GMA data, FineVideo asset, credential-gated source, training/post-tr
 
 Exact schemas live under `benchmarks/sea_broadcast_asr/schemas/`.
 
-## Rights decision still required
+## Rights decision and selected pair
 
-Metadata-only review narrowed the only plausible two-family design:
+Primary-source review found a lower-risk pair that does not require the unresolved SLR24 or VOA judgments:
 
-- **SLR24/RTM Iban:** the original authors' repository at `f2147ffad2b4b044fc116284c4e05aaccbd1f070` publicly hosts the corpus under CC BY-SA 2.0 France and says RTM Sarawak supplied the news data. Sean must decide whether Pixel ML may rely on that repository-wide grant and provenance representation or must obtain authoritative clarification.
-- **VOA Indonesia:** Commons page ID `110103290`, revision `1196870427`, records the candidate file as public domain, source-licence reviewed, and authored by VOA Indonesia. It lacks the separate affirmative `PD VOA (VOA)` confirmation that the full work is original VOA material rather than AP, AFP, or another third party. Sean must require that item-level confirmation before approval.
+- **Public development:** three Indonesian Presidential Secretariat broadcast files, 688.963 seconds total. The official publisher channel, whole-work CC BY 3.0 grant, completed Commons `YouTubeReview`, archived source page, page revision, asset SHA-1, size, duration, and attribution are frozen in `source-pool.public-dev.json`.
+- **Private test:** seven independently published Indonesian broadcast-news files, 519.287 seconds total. The distinct publisher/channel and the same item-level licence evidence are frozen only in an evaluator-local manifest. The publisher identity, item IDs, paths, source locators, and later references do not enter the repository or public artifacts.
 
-Approving only one family cannot pass the freeze: the same source family is forbidden from appearing in both public dev and private test. No media or transcript was downloaded during this review.
+Both pools pass the strict schema and live Commons identity gate, so the rights/provenance stage is complete and explicit acquisition may begin. SLR24 and VOA remain blocked metadata and are not part of the selected pair. No media or transcript was downloaded during the rights review itself.
 
 The primary-source decision table is in `benchmarks/sea_broadcast_asr/sources/README.md`.
 
@@ -57,6 +58,25 @@ Validate freeze metadata only:
 PYTHONPATH=src python -m av.cli.app bench sea-asr freeze-check \
   --source-freeze /private/evaluator/source-freeze.json
 ```
+
+Validate the public source pool against live Commons metadata without acquiring it:
+
+```bash
+PYTHONPATH=src python -m av.cli.app bench sea-asr source-pool-check \
+  --manifest benchmarks/sea_broadcast_asr/sources/source-pool.public-dev.json \
+  --live
+```
+
+After that gate passes, acquisition remains an explicit caller-selected operation:
+
+```bash
+PYTHONPATH=src python -m av.cli.app bench sea-asr source-pool-acquire \
+  --manifest benchmarks/sea_broadcast_asr/sources/source-pool.public-dev.json \
+  --out-dir /private/evaluator/assets \
+  --receipt /private/evaluator/receipts/public-dev.json
+```
+
+The private-test manifest uses the same commands from its evaluator-local path. The status envelope exposes only counts and pool identity; detailed item records remain in the named private receipt.
 
 Validate exact gold and already-acquired local files after rights approval:
 
@@ -92,10 +112,12 @@ The outputs are `release.json` and `tables.md`. Ranking is disabled independentl
 ```bash
 PYTHONPATH=src PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 python -m pytest -q \
   tests/test_sea_broadcast_asr_release.py \
+  tests/test_sea_broadcast_asr_source_pool.py \
   tests/test_av_bench_pipeline.py \
   tests/test_av_bench_compat.py
 python -m ruff check \
   src/av/eval/sea_broadcast_asr_release.py \
+  src/av/eval/sea_broadcast_asr_source_pool.py \
   src/av/eval/sea_broadcast_asr_pipeline.py \
   src/av/cli/benchmark_cmd.py \
   tests/test_sea_broadcast_asr_release.py

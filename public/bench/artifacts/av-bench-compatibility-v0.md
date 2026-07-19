@@ -16,6 +16,8 @@ The legacy `av benchmark` surface remains supported for compatibility. It is not
 |---|---|---|---|
 | `av bench sea-asr schema` | `av benchmark sea-asr schema` | Strict contract/schema generation | Versioned JSON Schemas in the requested output directory |
 | `av bench sea-asr source-check` | `av benchmark sea-asr source-check` | Source revision, immutable evidence, licence, review, public-mode, and customer-material gates | JSON status envelope only |
+| `av bench sea-asr source-pool-check` | `av benchmark sea-asr source-pool-check` | Whole-work licence approval, item-level review, immutable Commons page/file identity, split visibility, and optional live revalidation | Aggregate JSON status only; private item IDs and locators are never emitted |
+| `av bench sea-asr source-pool-acquire` | `av benchmark sea-asr source-pool-acquire` | Live Commons identity, atomic download, byte size, SHA-1, and caller-selected private SHA-256 receipt | Local media plus private receipt; no public artifact |
 | `av bench sea-asr preview-check` | `av benchmark sea-asr preview-check` | Preview/source/contamination cross-check plus exact label and rights boundary | JSON status envelope only |
 | `av bench sea-asr score` | `av benchmark sea-asr score` | Exact manifest/prediction coverage, version, track, rights, visibility, and publication approval | Deterministic `result.json` and `report.md` |
 | `av bench sea-asr run-check` | `av benchmark sea-asr run-check` | Immutable run metadata, exact utterance coverage, explicit completion states, latency, cost, and token totals | JSON status envelope only |
@@ -37,8 +39,10 @@ The alias does not translate or suppress failures. In particular, `source-check 
 
 ## Artifact and privacy boundary
 
-- `schema` emits the existing manifest, predictions, result, source-manifest, public-preview, and contamination-ledger schemas plus the source-freeze, gold-ledger, immutable run-manifest, append-only utterance-ledger, aggregate, and two-table public-release schemas.
+- `schema` emits the existing manifest, predictions, result, source-manifest, public-preview, and contamination-ledger schemas plus the source-pool, source-freeze, gold-ledger, immutable run-manifest, append-only utterance-ledger, aggregate, and two-table public-release schemas.
 - `source-check` and `preview-check` validate metadata only and do not acquire assets.
+- `source-pool-check` validates the public or evaluator-local pool and optionally rechecks live Commons metadata without downloading media. Its output is count-only for both visibility modes.
+- `source-pool-acquire` is the sole v0 acquisition stage. It accepts only an approved source-pool contract, rechecks the live page/licence/file identity, writes atomically, verifies the provider SHA-1 and size, computes SHA-256, and keeps detailed private-test records in the named local receipt.
 - `score` consumes an already frozen manifest and predictions file; it never calls a model.
 - `run-check` requires one explicit terminal state per expected utterance: `completed`, `refusal`, `empty_output`, `timeout`, `malformed_result`, `runtime_error`, or `duplicate`. No state is silently dropped from the denominator.
 - `public-export` emits only approved aggregates. It cannot fetch or infer the private test set and rejects item-level transcript, reference, media, sample-metric, or private-failure-history fields.
@@ -47,7 +51,7 @@ The alias does not translate or suppress failures. In particular, `source-check 
 - `av bench run` and `av bench template` do not exist. The generic legacy profiling commands are not public-suite operations.
 - No customer/GMA data, FineVideo asset, hidden-test content, failure history, credential, training/post-training recipe, or model weight belongs in this surface.
 
-Adding a future asset fetcher, live adapter runner, or new suite requires its own reviewed contract and rights gate. This alias alone authorizes none of them.
+Adding a live adapter runner or new suite requires its own reviewed contract and rights gate. The bounded Commons fetcher is authorized only for the selected SEA ASR source pools after `source-pool-check --live` passes; it cannot use a URL or file that is not already frozen in the caller's manifest.
 
 ## Pipeline architecture rationale
 
@@ -97,6 +101,14 @@ PYTHONPATH=src python -m av.cli.app bench sea-asr preview-check \
 
 The FLEURS preview remains language-control evidence only, with zero evaluated models and no broadcast, production, leaderboard, or fair-rank claim.
 
+Validate the rights-approved broadcast-development pool without acquiring media:
+
+```bash
+PYTHONPATH=src python -m av.cli.app bench sea-asr source-pool-check \
+  --manifest benchmarks/sea_broadcast_asr/sources/source-pool.public-dev.json \
+  --live
+```
+
 ## Verification
 
 ```bash
@@ -105,8 +117,10 @@ PYTHONPATH=src PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 python -m pytest -q \
   tests/test_av_bench_pipeline.py \
   tests/test_sea_broadcast_asr.py \
   tests/test_sea_broadcast_asr_sources.py \
+  tests/test_sea_broadcast_asr_source_pool.py \
   tests/test_sea_broadcast_asr_preview.py
 python -m ruff check src/av/cli/benchmark_cmd.py src/av/eval/sea_broadcast_asr_pipeline.py \
-  tests/test_av_bench_compat.py tests/test_av_bench_pipeline.py
+  src/av/eval/sea_broadcast_asr_source_pool.py tests/test_av_bench_compat.py \
+  tests/test_av_bench_pipeline.py tests/test_sea_broadcast_asr_source_pool.py
 git diff --check
 ```

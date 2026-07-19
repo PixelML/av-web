@@ -5,7 +5,7 @@ const PREVIEW_ID = "fleurs-sea-language-control-dev-preview-0.1";
 const PREVIEW_LABEL =
   "Language-control developer preview — not broadcast, production, or leaderboard evidence.";
 const SOURCE_COMMIT = "9275e8c46988a481ce80db1380d374d329241524";
-const CONTRACT_COMMIT = "3d29a81c9e5db4b09370e2c1da35b15ee5bc0480";
+const CONTRACT_COMMIT = "27a010365545826b0dbfe4c217cdbfac0339db71";
 const FLEURS_REVISION = "70bb2e84b976b7e960aa89f1c648e09c59f894dd";
 
 const controls = [
@@ -44,12 +44,14 @@ const artifactLinks = [
   ["av bench CLI contract", "/bench/artifacts/av-bench-compatibility-v0.md"],
   ["Freeze, gold, and publication contract", "/bench/artifacts/freeze-gold-publication-v0.md"],
   ["Broadcast source rights gate", "/bench/artifacts/source-rights-gate-2026-07-19.md"],
+  ["Broadcast public-development source pool", "/bench/artifacts/source-pool.public-dev.json"],
   ["Manifest schema", "/bench/artifacts/public-preview-v0.1.schema.json"],
   ["Ledger schema", "/bench/artifacts/contamination-ledger-v0.1.schema.json"],
   ["Public aggregate schema", "/bench/artifacts/public-aggregate-v0.1.schema.json"],
   ["Private source-freeze schema", "/bench/artifacts/source-freeze-v0.1.schema.json"],
   ["Private gold-ledger schema", "/bench/artifacts/gold-ledger-v0.1.schema.json"],
   ["Public two-table release schema", "/bench/artifacts/public-release-v0.1.schema.json"],
+  ["Source-pool schema", "/bench/artifacts/source-pool-v0.1.schema.json"],
 ];
 
 export const metadata: Metadata = {
@@ -126,25 +128,31 @@ export default function BenchPage() {
 
       <section className="border-b border-[hsl(var(--border))] px-6 py-16 sm:py-20">
         <div className="mx-auto max-w-6xl">
-          <SectionHeading eyebrow="September execution gate">Contracts live; real execution stopped</SectionHeading>
+          <SectionHeading eyebrow="September execution gate">Rights passed; human gold still stops execution</SectionHeading>
           <div className="grid gap-6 md:grid-cols-3">
             {[
-              [
-                "Source families — 0 / 2 approved",
-                "SLR24/RTM and the item-level VOA Indonesia candidate are the concrete disjoint pair. Both still require Sean rights approval; approving only one cannot unlock acquisition.",
-              ],
-              [
-                "Human gold — 0 real items frozen",
-                "The private source-freeze and append-only independent-review/adjudication contracts are implemented. No media, reference, or hidden-test identifier is published here.",
-              ],
-              [
-                "Baselines — 0 / 6 executed",
-                "Separate controlled-model and end-to-end release tables are schema-locked. No model has run and no result or rank is shown.",
-              ],
-            ].map(([title, text]) => (
-              <article key={title} className="border border-amber-300 bg-amber-50 p-6">
+              {
+                title: "Source families — 2 / 2 approved",
+                text: "The public-development pool and a source-family-disjoint evaluator-private publisher both passed whole-work CC BY 3.0, item-level licence-review, live Commons identity, and local digest gates. Private publisher and item identifiers are withheld.",
+                className: "border-emerald-300 bg-emerald-50",
+                textClassName: "text-emerald-950",
+              },
+              {
+                title: "Human gold — 0 adjudicated",
+                text: "All approved assets are locally digest-verified, but no reference is execution-ready until transcription, independent review, and adjudication finish. No reference or hidden-test identifier is published here.",
+                className: "border-amber-300 bg-amber-50",
+                textClassName: "text-amber-950",
+              },
+              {
+                title: "Baselines — 0 / 6 executed",
+                text: "Separate controlled-model and end-to-end release tables are schema-locked. No model has run and no result or rank is shown.",
+                className: "border-amber-300 bg-amber-50",
+                textClassName: "text-amber-950",
+              },
+            ].map(({ title, text, className, textClassName }) => (
+              <article key={title} className={`border p-6 ${className}`}>
                 <h3 className="text-base font-semibold text-slate-950">{title}</h3>
-                <p className="mt-4 text-sm leading-7 text-amber-950">{text}</p>
+                <p className={`mt-4 text-sm leading-7 ${textClassName}`}>{text}</p>
               </article>
             ))}
           </div>
@@ -161,8 +169,8 @@ export default function BenchPage() {
                 "Indonesian, Filipino, and Vietnamese are reported as separate read-speech controls. They are never combined with broadcast-like speech into a rank.",
               ],
               [
-                "Frozen acquisition",
-                "Only the provider-hosted validation packages at the pinned FLEURS revision are in scope. The script verifies exact byte sizes and SHA-256 values.",
+                "Separate source pools",
+                "FLEURS remains read-speech control only. The public broadcast-development manifest is inspectable; the disjoint private-test manifest and detailed receipt remain evaluator-local.",
               ],
               [
                 "No result claim",

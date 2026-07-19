@@ -1,0 +1,396 @@
+{
+  "$defs": {
+    "CommonsSourceFamily": {
+      "additionalProperties": false,
+      "properties": {
+        "display_name": {
+          "minLength": 1,
+          "title": "Display Name",
+          "type": "string"
+        },
+        "domain_label": {
+          "const": "broadcast_produced_speech",
+          "title": "Domain Label",
+          "type": "string"
+        },
+        "language": {
+          "title": "Language",
+          "type": "string"
+        },
+        "publisher": {
+          "minLength": 1,
+          "title": "Publisher",
+          "type": "string"
+        },
+        "publisher_channel_id": {
+          "minLength": 1,
+          "title": "Publisher Channel Id",
+          "type": "string"
+        },
+        "rights": {
+          "$ref": "#/$defs/SourcePoolRights"
+        },
+        "source_family_id": {
+          "minLength": 1,
+          "title": "Source Family Id",
+          "type": "string"
+        },
+        "source_revision": {
+          "minLength": 1,
+          "title": "Source Revision",
+          "type": "string"
+        },
+        "split": {
+          "$ref": "#/$defs/SourcePoolSplit"
+        }
+      },
+      "required": [
+        "source_family_id",
+        "display_name",
+        "publisher",
+        "publisher_channel_id",
+        "split",
+        "language",
+        "domain_label",
+        "source_revision",
+        "rights"
+      ],
+      "title": "CommonsSourceFamily",
+      "type": "object"
+    },
+    "CommonsSourceItem": {
+      "additionalProperties": false,
+      "description": "One immutable Commons file and its completed provider licence review.",
+      "properties": {
+        "commons_asset_sha1": {
+          "title": "Commons Asset Sha1",
+          "type": "string"
+        },
+        "commons_asset_uri": {
+          "title": "Commons Asset Uri",
+          "type": "string"
+        },
+        "commons_page_id": {
+          "exclusiveMinimum": 0,
+          "title": "Commons Page Id",
+          "type": "integer"
+        },
+        "commons_page_revision_id": {
+          "exclusiveMinimum": 0,
+          "title": "Commons Page Revision Id",
+          "type": "integer"
+        },
+        "commons_page_revision_sha1": {
+          "title": "Commons Page Revision Sha1",
+          "type": "string"
+        },
+        "commons_page_title": {
+          "minLength": 6,
+          "pattern": "^File:",
+          "title": "Commons Page Title",
+          "type": "string"
+        },
+        "commons_page_uri": {
+          "title": "Commons Page Uri",
+          "type": "string"
+        },
+        "complete_work_license_confirmed": {
+          "const": true,
+          "title": "Complete Work License Confirmed",
+          "type": "boolean"
+        },
+        "contains_customer_material": {
+          "const": false,
+          "title": "Contains Customer Material",
+          "type": "boolean"
+        },
+        "duration_seconds": {
+          "exclusiveMinimum": 0,
+          "title": "Duration Seconds",
+          "type": "number"
+        },
+        "item_id": {
+          "minLength": 1,
+          "title": "Item Id",
+          "type": "string"
+        },
+        "language": {
+          "title": "Language",
+          "type": "string"
+        },
+        "license_review_archive_uri": {
+          "title": "License Review Archive Uri",
+          "type": "string"
+        },
+        "license_review_channel_id": {
+          "minLength": 1,
+          "title": "License Review Channel Id",
+          "type": "string"
+        },
+        "license_review_kind": {
+          "const": "YouTubeReview",
+          "title": "License Review Kind",
+          "type": "string"
+        },
+        "license_reviewed_on": {
+          "title": "License Reviewed On",
+          "type": "string"
+        },
+        "media_type": {
+          "const": "video/webm",
+          "title": "Media Type",
+          "type": "string"
+        },
+        "original_source_uri": {
+          "title": "Original Source Uri",
+          "type": "string"
+        },
+        "relative_media_path": {
+          "title": "Relative Media Path",
+          "type": "string"
+        },
+        "source_asset_byte_size": {
+          "exclusiveMinimum": 0,
+          "title": "Source Asset Byte Size",
+          "type": "integer"
+        },
+        "source_family_id": {
+          "minLength": 1,
+          "title": "Source Family Id",
+          "type": "string"
+        },
+        "split": {
+          "$ref": "#/$defs/SourcePoolSplit"
+        },
+        "third_party_content_status": {
+          "const": "none_confirmed",
+          "title": "Third Party Content Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "item_id",
+        "source_family_id",
+        "split",
+        "language",
+        "relative_media_path",
+        "commons_page_id",
+        "commons_page_title",
+        "commons_page_revision_id",
+        "commons_page_revision_sha1",
+        "commons_asset_sha1",
+        "source_asset_byte_size",
+        "duration_seconds",
+        "media_type",
+        "commons_page_uri",
+        "commons_asset_uri",
+        "original_source_uri",
+        "license_review_kind",
+        "license_reviewed_on",
+        "license_review_archive_uri",
+        "license_review_channel_id",
+        "complete_work_license_confirmed",
+        "third_party_content_status",
+        "contains_customer_material"
+      ],
+      "title": "CommonsSourceItem",
+      "type": "object"
+    },
+    "SourcePoolRights": {
+      "additionalProperties": false,
+      "description": "Family-level approval based on a complete-work provider licence.",
+      "properties": {
+        "asset_redistribution_allowed": {
+          "const": true,
+          "title": "Asset Redistribution Allowed",
+          "type": "boolean"
+        },
+        "attribution": {
+          "minLength": 1,
+          "title": "Attribution",
+          "type": "string"
+        },
+        "blocked_source_acquisition": {
+          "const": false,
+          "title": "Blocked Source Acquisition",
+          "type": "boolean"
+        },
+        "complete_work_license_confirmed": {
+          "const": true,
+          "title": "Complete Work License Confirmed",
+          "type": "boolean"
+        },
+        "contains_customer_material": {
+          "const": false,
+          "title": "Contains Customer Material",
+          "type": "boolean"
+        },
+        "decision": {
+          "const": "approved",
+          "title": "Decision",
+          "type": "string"
+        },
+        "license_identifier": {
+          "const": "CC-BY-3.0",
+          "title": "License Identifier",
+          "type": "string"
+        },
+        "license_uri": {
+          "const": "https://creativecommons.org/licenses/by/3.0/",
+          "title": "License Uri",
+          "type": "string"
+        },
+        "public_aggregate_allowed": {
+          "const": true,
+          "title": "Public Aggregate Allowed",
+          "type": "boolean"
+        },
+        "public_evaluation_allowed": {
+          "const": true,
+          "title": "Public Evaluation Allowed",
+          "type": "boolean"
+        },
+        "requires_credentials": {
+          "const": false,
+          "title": "Requires Credentials",
+          "type": "boolean"
+        },
+        "reviewed_at": {
+          "title": "Reviewed At",
+          "type": "string"
+        },
+        "reviewed_by": {
+          "minLength": 1,
+          "title": "Reviewed By",
+          "type": "string"
+        },
+        "terms_sha256": {
+          "title": "Terms Sha256",
+          "type": "string"
+        },
+        "third_party_content_status": {
+          "const": "none_confirmed",
+          "title": "Third Party Content Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "decision",
+        "reviewed_by",
+        "reviewed_at",
+        "license_identifier",
+        "license_uri",
+        "terms_sha256",
+        "complete_work_license_confirmed",
+        "third_party_content_status",
+        "public_evaluation_allowed",
+        "public_aggregate_allowed",
+        "asset_redistribution_allowed",
+        "contains_customer_material",
+        "requires_credentials",
+        "blocked_source_acquisition",
+        "attribution"
+      ],
+      "title": "SourcePoolRights",
+      "type": "object"
+    },
+    "SourcePoolSplit": {
+      "enum": [
+        "public_dev",
+        "private_test"
+      ],
+      "title": "SourcePoolSplit",
+      "type": "string"
+    },
+    "SourcePoolVisibility": {
+      "enum": [
+        "public_development",
+        "private_evaluator_only"
+      ],
+      "title": "SourcePoolVisibility",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Metadata-only, acquisition-ready pool for exactly one evaluation side.",
+  "properties": {
+    "artifact_mode": {
+      "const": "metadata_only",
+      "title": "Artifact Mode",
+      "type": "string"
+    },
+    "contains_audio": {
+      "const": false,
+      "title": "Contains Audio",
+      "type": "boolean"
+    },
+    "contains_private_test_identifiers": {
+      "title": "Contains Private Test Identifiers",
+      "type": "boolean"
+    },
+    "contains_transcripts": {
+      "const": false,
+      "title": "Contains Transcripts",
+      "type": "boolean"
+    },
+    "contract_version": {
+      "const": "sea-broadcast-asr-source-pool-v0.1",
+      "title": "Contract Version",
+      "type": "string"
+    },
+    "created_at": {
+      "title": "Created At",
+      "type": "string"
+    },
+    "created_by": {
+      "minLength": 1,
+      "title": "Created By",
+      "type": "string"
+    },
+    "items": {
+      "items": {
+        "$ref": "#/$defs/CommonsSourceItem"
+      },
+      "minItems": 1,
+      "title": "Items",
+      "type": "array"
+    },
+    "pool_id": {
+      "minLength": 1,
+      "title": "Pool Id",
+      "type": "string"
+    },
+    "source_families": {
+      "items": {
+        "$ref": "#/$defs/CommonsSourceFamily"
+      },
+      "minItems": 1,
+      "title": "Source Families",
+      "type": "array"
+    },
+    "suite_id": {
+      "const": "sea-broadcast-asr",
+      "title": "Suite Id",
+      "type": "string"
+    },
+    "visibility": {
+      "$ref": "#/$defs/SourcePoolVisibility"
+    }
+  },
+  "required": [
+    "contract_version",
+    "pool_id",
+    "created_at",
+    "created_by",
+    "suite_id",
+    "visibility",
+    "artifact_mode",
+    "contains_audio",
+    "contains_transcripts",
+    "contains_private_test_identifiers",
+    "source_families",
+    "items"
+  ],
+  "title": "BroadcastSourcePoolManifest",
+  "type": "object"
+}
