@@ -1,0 +1,128 @@
+{
+  "$defs": {
+    "ContaminationEntry": {
+      "additionalProperties": false,
+      "description": "Overlap status for one evaluated model revision.",
+      "properties": {
+        "eligible_for_fair_rank": {
+          "title": "Eligible For Fair Rank",
+          "type": "boolean"
+        },
+        "evidence_basis": {
+          "enum": [
+            "declared_by_provider",
+            "known_training_manifest",
+            "independent_documentation",
+            "not_disclosed"
+          ],
+          "title": "Evidence Basis",
+          "type": "string"
+        },
+        "evidence_uri": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Evidence Uri"
+        },
+        "model_id": {
+          "minLength": 1,
+          "title": "Model Id",
+          "type": "string"
+        },
+        "model_revision": {
+          "minLength": 1,
+          "title": "Model Revision",
+          "type": "string"
+        },
+        "notes": {
+          "minLength": 1,
+          "title": "Notes",
+          "type": "string"
+        },
+        "overlap_status": {
+          "enum": [
+            "train_overlap",
+            "no_known_overlap",
+            "unknown"
+          ],
+          "title": "Overlap Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "model_id",
+        "model_revision",
+        "overlap_status",
+        "evidence_basis",
+        "evidence_uri",
+        "eligible_for_fair_rank",
+        "notes"
+      ],
+      "title": "ContaminationEntry",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "FLEURS training-overlap ledger for evaluated model revisions.",
+  "properties": {
+    "contract_version": {
+      "const": "sea-broadcast-asr-contamination-ledger-v0.1",
+      "title": "Contract Version",
+      "type": "string"
+    },
+    "dataset_source_id": {
+      "const": "google-fleurs-sea-dev",
+      "title": "Dataset Source Id",
+      "type": "string"
+    },
+    "entries": {
+      "items": {
+        "$ref": "#/$defs/ContaminationEntry"
+      },
+      "title": "Entries",
+      "type": "array"
+    },
+    "evaluated_model_count": {
+      "minimum": 0,
+      "title": "Evaluated Model Count",
+      "type": "integer"
+    },
+    "fair_ranked_comparison_enabled": {
+      "const": false,
+      "title": "Fair Ranked Comparison Enabled",
+      "type": "boolean"
+    },
+    "no_results_reason": {
+      "minLength": 1,
+      "title": "No Results Reason",
+      "type": "string"
+    },
+    "policy": {
+      "const": "Models known or declared to have trained on FLEURS are train_overlap and excluded from fair-ranked comparison.",
+      "title": "Policy",
+      "type": "string"
+    },
+    "preview_id": {
+      "const": "fleurs-sea-language-control-dev-preview-0.1",
+      "title": "Preview Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "contract_version",
+    "preview_id",
+    "dataset_source_id",
+    "fair_ranked_comparison_enabled",
+    "policy",
+    "evaluated_model_count",
+    "entries",
+    "no_results_reason"
+  ],
+  "title": "ContaminationLedger",
+  "type": "object"
+}

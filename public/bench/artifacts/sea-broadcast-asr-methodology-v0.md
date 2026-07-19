@@ -1,0 +1,113 @@
+# SEA Broadcast ASR Benchmark v0.1
+
+Status: rights-gated FLEURS language-control developer preview
+
+Public brand: **Agentic Video Benchmarks by Pixel ML**
+
+Public home: `https://agentic.video/bench`
+
+> **Language-control developer preview — not broadcast, production, or leaderboard evidence.**
+
+## What v0.1 proves
+
+The harness validates versioned manifests and frozen predictions, computes deterministic ASR metrics offline, applies a fail-closed publication gate, and renders track-separated JSON/Markdown artifacts. It does not call a model, upload media, spend API/GPU budget, or claim production model quality.
+
+The checked-in `dev-preview-0.1` fixture contains four Pixel ML-authored synthetic transcript/prediction pairs for English (Singapore), Indonesian, Filipino, and Vietnamese. Its asset type is `scoring_contract_only`; it exercises schemas, normalization, metrics, language/slice aggregation, rights metadata, and reporting. It is not an audio dataset.
+
+## Contracts
+
+| Contract | Version | Purpose |
+|---|---|---|
+| Source manifest | `sea-broadcast-asr-source-manifest-v0.2` | Metadata-only provider revision, immutable package/member evidence, package-supplied licence identity, attribution, public mode, transcript provenance, review decision, and unresolved rights questions. |
+| Public preview | `sea-broadcast-asr-public-preview-v0.1` | Exact visible label, FLEURS-only composition, pinned validation packages, attribution, approval evidence, and blocked-domain boundaries. |
+| Contamination ledger | `sea-broadcast-asr-contamination-ledger-v0.1` | Per-model FLEURS training-overlap status and fail-closed fair-rank eligibility. |
+| Manifest | `sea-broadcast-asr-manifest-v0.1` | Frozen suite/split metadata, asset digest, reference, language/slices, and item-level rights review. |
+| Predictions | `sea-broadcast-asr-predictions-v0.1` | One exact-coverage frozen submission with explicit track, components/configuration, region or hardware, latency, failures, and cost basis. |
+| Result | `sea-broadcast-asr-result-v0.1` | Input digests, publication decision, overall/language/slice metrics, and sample-level dev evidence. |
+| Run manifest | `sea-broadcast-asr-run-manifest-v0.1` | Immutable source/model/adapter/config/hardware/date/cost metadata, stage history, fixed-test declarations, and complete terminal-state counts. |
+| Utterance ledger | `sea-broadcast-asr-utterance-ledger-v0.1` | Append-only digest records, idempotent attempts, explicit failure classes, and a private digest-only adjudication queue. |
+| Public aggregate | `sea-broadcast-asr-public-aggregate-v0.1` | Aggregate-only metrics, failures, latency, cost, contamination, and uncertainty with no item text, reference, media URI, or private history. |
+
+Unknown fields and mismatched versions are rejected. Prediction coverage must match the manifest exactly. Canonical SHA-256 digests make the same inputs produce the same result ID and artifacts. Generate the JSON Schemas with:
+
+```bash
+PYTHONPATH=src python -m av.cli.app benchmark sea-asr schema \
+  --out-dir benchmarks/sea_broadcast_asr/schemas
+```
+
+## Candidate source provenance
+
+The checked-in source draft covers exactly IMDA National Speech Corpus, Google FLEURS, and OpenSLR SLR24 Iban. It is metadata-only and contains no audio or transcript text.
+
+- **FLEURS — `acquisition_script`:** approved for public dev as read-speech language controls only. Revision `70bb2e84b976b7e960aa89f1c648e09c59f894dd` pins the exact `id_id`, `fil_ph`, and `vi_vn` validation Parquet filenames, byte sizes, and provider LFS SHA-256 object IDs. The pinned dataset card supplies `CC-BY-4.0`, transcript-field provenance, attribution, and the explicit read-speech limitation.
+- **IMDA NSC — `id_only`:** conditional. The official page requires registration, a Dropbox account, and an emailed shared-folder invitation for the approximately 1.2 TB six-part corpus. No registration or credentials were used, so exact package filenames/checksums and package-supplied terms remain unavailable.
+- **OpenSLR SLR24 — `id_only`:** conditional. `iban.tar.gz` is pinned at 913,314,644 bytes and SHA-256 `7e22a45276268ef0aa8c1934c4a42ddf521587226c289768fba095da70159400`; its dev transcript/audio indexes are also checksummed. The public OpenSLR page says CC BY-SA 2.0 Generic, while the bundled `LICENSE.html` says CC BY-SA 2.0 France. No audio or transcript member may be re-hosted until Sean explicitly resolves that conflict and the RTM-derived rights chain.
+
+```bash
+PYTHONPATH=src python -m av.cli.app benchmark sea-asr source-check \
+  --manifest benchmarks/sea_broadcast_asr/sources/source-manifest.draft.json
+```
+
+`source-check --public` fails if any source is conditional, lacks checksummed package evidence or a package-supplied licence record, contains a provider/package licence conflict, has unresolved rights questions, lacks reviewer/date metadata, or contains customer material. Approval of a source row still does not approve individual media; every future audio sample requires its own immutable digest and item-level rights review.
+
+The approved publication input is `sources/source-manifest.public-dev.json`, containing only the pinned FLEURS record. The full three-source draft stays blocked. `public-preview/preview.json` cross-checks the source revision, three validation package hashes, CC BY 4.0 attribution, read-speech domain label, explicit approval, excluded sources, and contamination ledger before publication:
+
+```bash
+PYTHONPATH=src python -m av.cli.app benchmark sea-asr preview-check \
+  --preview-manifest benchmarks/sea_broadcast_asr/public-preview/preview.json \
+  --source-manifest benchmarks/sea_broadcast_asr/sources/source-manifest.public-dev.json \
+  --contamination-ledger benchmarks/sea_broadcast_asr/public-preview/contamination-ledger.json \
+  --public
+```
+
+This release publishes no model result or rank. Future evaluated model revisions known or declared to have trained on FLEURS must be marked `train_overlap` and excluded from fair-ranked comparison. An unknown overlap status also fails closed.
+
+## Scoring
+
+Normalization policy `sea-broadcast-asr-normalization-v0.1` applies:
+
+1. Unicode NFKC.
+2. Unicode case-folding.
+3. Unicode punctuation replaced with spaces.
+4. Whitespace collapse and trim.
+5. Diacritics and written numbers preserved; no transliteration or number verbalization.
+
+WER uses whitespace-delimited tokens. CER uses Unicode code points after normalized spaces are removed. Overall and grouped metrics are micro-averages: total edit distance divided by total reference units. v0.1 therefore reports WER only under this declared whitespace-tokenization policy; a language-specific tokenizer must be versioned before WER becomes a primary comparison for scripts without reliable whitespace word boundaries.
+
+Speaker diarization error rate and timestamp/boundary error are intentionally absent. They become eligible only after a rights-clean fixture has human-verified speaker and timing gold plus deterministic scoring tests. Natural Mandarin-English code-switch is `not_evaluated_rights_blocked`; synthetic text may test contracts but must never be reported as quality evidence.
+
+## Tracks
+
+`controlled_model` receives the benchmark-defined input and may only use declared model/decoding components. `end_to_end_system` may declare preprocessing, routing, prompting, vocabulary hints, post-processing, and orchestration. Reports always render separate headings and tables; submissions from different tracks must never be blended into one rank.
+
+## Run the dev preview
+
+```bash
+PYTHONPATH=src python -m av.cli.app benchmark sea-asr score \
+  --manifest benchmarks/sea_broadcast_asr/dev/manifest.json \
+  --predictions benchmarks/sea_broadcast_asr/dev/predictions.json \
+  --out-dir benchmarks/sea_broadcast_asr/dev/sample-result \
+  --public
+```
+
+`--public` is an explicit publication request. It fails before writing artifacts if the split is not `dev`, visibility is not `public_dev`, any item is private, pending, or marked as containing customer material/data/telemetry, or the submission lacks public-dev approval. Omit `--public` for local private evaluation; the output is then labelled not for publication.
+
+## Public/private handling
+
+Public dev artifacts may contain approved item references and sample metrics. The human-verified hidden test and ground truth, failure history/taxonomy, customer material/data/telemetry/corrections, and training/post-training/calibration/adjudication recipes stay outside the public tree. Because the v0 result contract contains sample-level text, it cannot publish a private-test run. The September leaderboard requires a separate reviewed aggregate-only exporter.
+
+The `public-export` command is that fail-closed boundary: it consumes local run, ledger, and scorer-result contracts, verifies complete denominators and operational totals, then writes a strict aggregate allowlist. Real leaderboard mode additionally requires a frozen full run, fixed private test, clean contamination evidence, and paired-bootstrap uncertainty. The deterministic contract fixture can exercise the path but is never rank eligible.
+
+## CLI naming contract
+
+The public surface is `av bench sea-asr`; the existing `av benchmark sea-asr` spelling remains supported. Both names register the same command application, so `schema`, `source-check`, `preview-check`, `score`, `run-check`, and `public-export` preserve the same validation, artifacts, JSON envelopes, and exit codes without a second implementation path.
+
+See [`docs/34-av-bench-compatibility-v0.md`](34-av-bench-compatibility-v0.md) for the locked mapping, exit-code contract, artifact parity, and explicit exclusion of fetch/model/private-test behavior.
+
+## Verification
+
+```bash
+PYTHONPATH=src PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 python -m pytest -q tests/test_sea_broadcast_asr.py
+python -m ruff check src/av/eval/sea_broadcast_asr.py src/av/cli/benchmark_cmd.py tests/test_sea_broadcast_asr.py
+git diff --check
+```
