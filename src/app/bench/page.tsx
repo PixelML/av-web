@@ -5,7 +5,7 @@ const PREVIEW_ID = "fleurs-sea-language-control-dev-preview-0.1";
 const PREVIEW_LABEL =
   "Language-control developer preview — not broadcast, production, or leaderboard evidence.";
 const SOURCE_COMMIT = "9275e8c46988a481ce80db1380d374d329241524";
-const CONTRACT_COMMIT = "41961e8826033ba62ab20edd864f442316f302e6";
+const CONTRACT_COMMIT = "cd38996c86fb529f8d9ae225d9a8ec5ad906221b";
 const FLEURS_REVISION = "70bb2e84b976b7e960aa89f1c648e09c59f894dd";
 
 const controls = [
@@ -52,6 +52,8 @@ const artifactLinks = [
   ["Private gold-ledger schema", "/bench/artifacts/gold-ledger-v0.1.schema.json"],
   ["Public two-table release schema", "/bench/artifacts/public-release-v0.1.schema.json"],
   ["Source-pool schema", "/bench/artifacts/source-pool-v0.1.schema.json"],
+  ["Audio-materialization schema", "/bench/artifacts/audio-materialization-v0.1.schema.json"],
+  ["Pending gold-review schema", "/bench/artifacts/gold-review-queue-v0.1.schema.json"],
 ];
 
 export const metadata: Metadata = {
@@ -128,18 +130,18 @@ export default function BenchPage() {
 
       <section className="border-b border-[hsl(var(--border))] px-6 py-16 sm:py-20">
         <div className="mx-auto max-w-6xl">
-          <SectionHeading eyebrow="September execution gate">Rights passed; human gold still stops execution</SectionHeading>
+          <SectionHeading eyebrow="September execution gate">Rights and audio passed; human gold still stops execution</SectionHeading>
           <div className="grid gap-6 md:grid-cols-3">
             {[
               {
                 title: "Source families — 2 / 2 approved",
-                text: "The public-development pool and a source-family-disjoint evaluator-private publisher both passed whole-work CC BY 3.0, item-level licence-review, live Commons identity, and local digest gates. Private publisher and item identifiers are withheld.",
+                text: "The public-development pool and source-family-disjoint private test both passed the rights gate. All 10 approved items are materialized as digest-verified PCM s16le mono 16 kHz audio; private publisher and item identifiers are withheld.",
                 className: "border-emerald-300 bg-emerald-50",
                 textClassName: "text-emerald-950",
               },
               {
                 title: "Human gold — 0 adjudicated",
-                text: "All approved assets are locally digest-verified, but no reference is execution-ready until transcription, independent review, and adjudication finish. No reference or hidden-test identifier is published here.",
+                text: "The evaluator-private queue has 10 explicit pending items and zero transcripts or references. Nothing is execution-ready until transcription, independent review, and adjudication finish; no hidden-test identifier is published here.",
                 className: "border-amber-300 bg-amber-50",
                 textClassName: "text-amber-950",
               },
