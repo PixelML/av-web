@@ -1,0 +1,11 @@
+{
+  "algorithm": "sha256",
+  "files": {
+    "release.schema.json": "4d71d041bbd14a3a626f2a9e32ac6bfe47e130f6e82b3801966673fe71777b9c",
+    "battle.schema.json": "b235183b07bf469172c79e8746275f2dd81dc30517667db5fb9a40f07c1f1572",
+    "release.preview.json": "f061e66562b5a5c23fb4b9c4621ead0a5dc1bb70501254195f56d0c14522eb3b",
+    "battles.preview.jsonl": "2b99e8b7f89e073ed81daeab19cd86ec984aae87f8a3ac26bc079ae66e0cb59b",
+    "methodology.md": "b76bd27c694dca8c2108b3a87139b3d908daf1cd16da405e3aad14884bcb52a0",
+    "handoff.md": "ed94c5c5c259bd954a6cd44467e6adbfd9e0805176509afbb63cfaa76dfd98e5"
+  }
+}

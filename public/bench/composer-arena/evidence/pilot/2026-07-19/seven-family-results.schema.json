@@ -1,0 +1,150 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agentic.video/bench/composer-arena/evidence/pilot/2026-07-19/seven-family-results.schema.json",
+  "title": "Composer Arena seven-family public task-success evidence",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "evidence_id",
+    "evidence_date",
+    "status",
+    "data_class",
+    "publication",
+    "vote_provenance",
+    "frozen_evidence",
+    "cohort",
+    "task_success",
+    "blind_review",
+    "limitations"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "evidence_id": { "const": "composer-arena-seven-family-task-success-2026-07-19" },
+    "evidence_date": { "const": "2026-07-19" },
+    "status": { "const": "seven-family-terminal-task-success-publication-not-approved" },
+    "data_class": { "const": "sanitized_task_success_aggregate" },
+    "publication": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["surface", "publishable", "state", "leaderboard", "winner", "rank_count", "human_preference_claims"],
+      "properties": {
+        "surface": { "const": "evidence/pilot" },
+        "publishable": { "const": false },
+        "state": { "const": "insufficient_evidence" },
+        "leaderboard": { "const": false },
+        "winner": { "type": "null" },
+        "rank_count": { "const": 0 },
+        "human_preference_claims": { "const": false }
+      }
+    },
+    "vote_provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["collection_mode", "crowdsourced", "blind_battles", "real_human_votes", "resolved_battle_groups"],
+      "properties": {
+        "collection_mode": { "const": "no_eligible_votes" },
+        "crowdsourced": { "const": false },
+        "blind_battles": { "const": 0 },
+        "real_human_votes": { "const": 0 },
+        "resolved_battle_groups": { "const": 0 }
+      }
+    },
+    "frozen_evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["dataset_repo_id", "dataset_revision", "staging_manifest_sha256", "contract_sha256", "release_sha256", "case_pack_sha256"],
+      "properties": {
+        "dataset_repo_id": { "const": "HuggingFaceFV/finevideo" },
+        "dataset_revision": { "const": "84c74091e1c6ee7a5dffabfafb5c9033e4718883" },
+        "staging_manifest_sha256": { "const": "0b395b961b0de0bb6a5c54ff80b13582d23f8e3d2e729aa7e950b1df8536d2b8" },
+        "contract_sha256": { "const": "33ca2f1b72ee9def3bd039eda69d9903ec595d860936a0353fdb045576215624" },
+        "release_sha256": { "const": "d37cd450934c49721cb75de14353e070759c8220f1ed87567799473e8ab88926" },
+        "case_pack_sha256": { "const": "74356b45867f492688e25a10c6e13a6fa2848f41ce00aa025d83adb7639ce203" }
+      }
+    },
+    "cohort": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["eligible_cells", "distinct_source_families", "favorable_selection", "source_family_disjoint"],
+      "properties": {
+        "eligible_cells": { "const": 7 },
+        "distinct_source_families": { "const": 7 },
+        "favorable_selection": { "const": false },
+        "source_family_disjoint": { "const": true }
+      }
+    },
+    "task_success": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["separation_statement", "lanes"],
+      "properties": {
+        "separation_statement": { "type": "string", "minLength": 1 },
+        "lanes": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "prefixItems": [
+            { "$ref": "#/$defs/controlLane" },
+            { "$ref": "#/$defs/evaluatedLaneA" },
+            { "$ref": "#/$defs/evaluatedLaneB" }
+          ]
+        }
+      }
+    },
+    "blind_review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["packet_public", "candidate_outputs_public", "identity_mapping_public", "founder_vote_recorded", "next_gate"],
+      "properties": {
+        "packet_public": { "const": false },
+        "candidate_outputs_public": { "const": false },
+        "identity_mapping_public": { "const": false },
+        "founder_vote_recorded": { "const": false },
+        "next_gate": { "const": "founder_blind_vote_then_separate_identity_reveal" }
+      }
+    },
+    "limitations": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 }
+    }
+  },
+  "$defs": {
+    "laneBase": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["lane_id", "classification", "identity_state", "attempted_cells", "structural_passes", "structural_failures", "complete_outputs_accepted", "complete_output_failures", "model_calls", "source_summary_sha256"],
+      "properties": {
+        "lane_id": { "type": "string", "minLength": 1 },
+        "classification": { "enum": ["control", "evaluated_system"] },
+        "identity_state": { "enum": ["public_control", "sealed_pending_founder_vote"] },
+        "attempted_cells": { "const": 7 },
+        "structural_passes": { "type": "integer", "minimum": 0, "maximum": 7 },
+        "structural_failures": { "type": "integer", "minimum": 0, "maximum": 7 },
+        "complete_outputs_accepted": { "type": "integer", "minimum": 0, "maximum": 7 },
+        "complete_output_failures": { "type": "integer", "minimum": 0, "maximum": 7 },
+        "model_calls": { "type": "integer", "minimum": 0 },
+        "source_summary_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+      }
+    },
+    "controlLane": {
+      "allOf": [
+        { "$ref": "#/$defs/laneBase" },
+        { "properties": { "lane_id": { "const": "mechanical-control" }, "classification": { "const": "control" }, "identity_state": { "const": "public_control" }, "structural_passes": { "const": 6 }, "structural_failures": { "const": 1 }, "complete_outputs_accepted": { "const": 5 }, "complete_output_failures": { "const": 2 }, "model_calls": { "const": 0 }, "source_summary_sha256": { "const": "3b856b8f1947b30da495b3a2fce20074270777d1f09b67b574dc318133291c57" } } }
+      ]
+    },
+    "evaluatedLaneA": {
+      "allOf": [
+        { "$ref": "#/$defs/laneBase" },
+        { "properties": { "lane_id": { "const": "evaluated-lane-a" }, "classification": { "const": "evaluated_system" }, "identity_state": { "const": "sealed_pending_founder_vote" }, "structural_passes": { "const": 2 }, "structural_failures": { "const": 5 }, "complete_outputs_accepted": { "const": 2 }, "complete_output_failures": { "const": 5 }, "model_calls": { "const": 7 }, "source_summary_sha256": { "const": "7505dd209740beb4c5696d778982de105996a01f53043ab550ce5888ae8efa1a" } } }
+      ]
+    },
+    "evaluatedLaneB": {
+      "allOf": [
+        { "$ref": "#/$defs/laneBase" },
+        { "properties": { "lane_id": { "const": "evaluated-lane-b" }, "classification": { "const": "evaluated_system" }, "identity_state": { "const": "sealed_pending_founder_vote" }, "structural_passes": { "const": 4 }, "structural_failures": { "const": 3 }, "complete_outputs_accepted": { "const": 4 }, "complete_output_failures": { "const": 3 }, "model_calls": { "const": 7 }, "source_summary_sha256": { "const": "adde8ddfb024bc1b1993ddc0ad72c79bfc362099c49ad6045bde9e0b1e22f456" } } }
+      ]
+    }
+  }
+}

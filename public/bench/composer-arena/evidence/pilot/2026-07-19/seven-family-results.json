@@ -1,0 +1,93 @@
+{
+  "schema_version": 1,
+  "evidence_id": "composer-arena-seven-family-task-success-2026-07-19",
+  "evidence_date": "2026-07-19",
+  "status": "seven-family-terminal-task-success-publication-not-approved",
+  "data_class": "sanitized_task_success_aggregate",
+  "publication": {
+    "surface": "evidence/pilot",
+    "publishable": false,
+    "state": "insufficient_evidence",
+    "leaderboard": false,
+    "winner": null,
+    "rank_count": 0,
+    "human_preference_claims": false
+  },
+  "vote_provenance": {
+    "collection_mode": "no_eligible_votes",
+    "crowdsourced": false,
+    "blind_battles": 0,
+    "real_human_votes": 0,
+    "resolved_battle_groups": 0
+  },
+  "frozen_evidence": {
+    "dataset_repo_id": "HuggingFaceFV/finevideo",
+    "dataset_revision": "84c74091e1c6ee7a5dffabfafb5c9033e4718883",
+    "staging_manifest_sha256": "0b395b961b0de0bb6a5c54ff80b13582d23f8e3d2e729aa7e950b1df8536d2b8",
+    "contract_sha256": "33ca2f1b72ee9def3bd039eda69d9903ec595d860936a0353fdb045576215624",
+    "release_sha256": "d37cd450934c49721cb75de14353e070759c8220f1ed87567799473e8ab88926",
+    "case_pack_sha256": "74356b45867f492688e25a10c6e13a6fa2848f41ce00aa025d83adb7639ce203"
+  },
+  "cohort": {
+    "eligible_cells": 7,
+    "distinct_source_families": 7,
+    "favorable_selection": false,
+    "source_family_disjoint": true
+  },
+  "task_success": {
+    "separation_statement": "Deterministic task success and complete-output acceptance are system evidence only; they never create a preference score, rank, or winner.",
+    "lanes": [
+      {
+        "lane_id": "mechanical-control",
+        "classification": "control",
+        "identity_state": "public_control",
+        "attempted_cells": 7,
+        "structural_passes": 6,
+        "structural_failures": 1,
+        "complete_outputs_accepted": 5,
+        "complete_output_failures": 2,
+        "model_calls": 0,
+        "source_summary_sha256": "3b856b8f1947b30da495b3a2fce20074270777d1f09b67b574dc318133291c57"
+      },
+      {
+        "lane_id": "evaluated-lane-a",
+        "classification": "evaluated_system",
+        "identity_state": "sealed_pending_founder_vote",
+        "attempted_cells": 7,
+        "structural_passes": 2,
+        "structural_failures": 5,
+        "complete_outputs_accepted": 2,
+        "complete_output_failures": 5,
+        "model_calls": 7,
+        "source_summary_sha256": "7505dd209740beb4c5696d778982de105996a01f53043ab550ce5888ae8efa1a"
+      },
+      {
+        "lane_id": "evaluated-lane-b",
+        "classification": "evaluated_system",
+        "identity_state": "sealed_pending_founder_vote",
+        "attempted_cells": 7,
+        "structural_passes": 4,
+        "structural_failures": 3,
+        "complete_outputs_accepted": 4,
+        "complete_output_failures": 3,
+        "model_calls": 7,
+        "source_summary_sha256": "adde8ddfb024bc1b1993ddc0ad72c79bfc362099c49ad6045bde9e0b1e22f456"
+      }
+    ]
+  },
+  "blind_review": {
+    "packet_public": false,
+    "candidate_outputs_public": false,
+    "identity_mapping_public": false,
+    "founder_vote_recorded": false,
+    "next_gate": "founder_blind_vote_then_separate_identity_reveal"
+  },
+  "limitations": [
+    "Evaluated lane identities are deliberately sealed until the founder records the blind vote.",
+    "The public aggregate contains no per-cell identifiers, output hashes, candidate media, prompts, run identifiers, or identity mapping.",
+    "Complete-output acceptance measures deterministic delivery gates, not editorial quality or human preference.",
+    "The controlled-agent track remains blocked because the released evidence pack contains no transcript, OCR, or semantic events.",
+    "One mechanical-control cell failed structurally and one rendered control output failed the opening-black gate; neither failure was repaired inside the frozen cohort.",
+    "No official ranking, winner, governed vote backend, or public blind packet exists."
+  ]
+}

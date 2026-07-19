@@ -1,0 +1,8 @@
+{
+  "algorithm": "sha256",
+  "files": {
+    "seven-family-results.json": "ed2cba9fb604a7d2db70b862fd760c5287e55b21d3b4cc6aeb8415285fa57d1f",
+    "seven-family-results.schema.json": "a26f151cb7102294f8e7a0712031bd6a2462b1561568901edc37f97e586bade3",
+    "README.md": "0630d7415cded4039c6fde74101610a6b746cd0556fa78807c5e2fff51b6a61a"
+  }
+}

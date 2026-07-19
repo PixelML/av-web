@@ -1,0 +1,107 @@
+{
+  "schema_version": 1,
+  "contract_version": "composer-arena-public-release-v0.1",
+  "release_id": "composer-arena-v0-synthetic-preview-2026-07-19",
+  "generated_at": "2026-07-19T12:00:00Z",
+  "release_mode": "synthetic_non_rankable_preview",
+  "data_class": "synthetic",
+  "official_ranking_enabled": false,
+  "official_vote_backend": "not_configured",
+  "display_label": "non-rankable preview",
+  "arena_binding": {
+    "arena_id": "composer-archive-to-output-arena-v0",
+    "source_head_sha": "3dceb46215e999f4a11a564ea958f845c36af215",
+    "arena_contract_sha256": "8ceab1529c0bca8d74419222fe5b2556bceb1b83aaa9e3337b0509557ab1dab4",
+    "parent_contract_sha256": "33ca2f1b72ee9def3bd039eda69d9903ec595d860936a0353fdb045576215624"
+  },
+  "publication": {
+    "publishable": false,
+    "state": "insufficient_evidence",
+    "scope": "independent_track_results_only",
+    "winner": null,
+    "rank_count": 0
+  },
+  "vote_provenance": {
+    "collection_mode": "synthetic_fixture",
+    "crowdsourced": false,
+    "real_human_votes": 0
+  },
+  "dataset": {
+    "repo_id": "HuggingFaceFV/finevideo",
+    "revision": "84c74091e1c6ee7a5dffabfafb5c9033e4718883",
+    "license_claim": "CC-BY",
+    "license_scope": "The 24 command-room-audited public-eval cells carry CC-BY publisher metadata in the frozen selection manifest. Each real public example must retain its source-specific attribution text.",
+    "attribution": "FineVideo, HuggingFaceFV/finevideo at immutable revision 84c74091e1c6ee7a5dffabfafb5c9033e4718883. Source-specific creator attribution is retained per released cell.",
+    "finevideo_release_sha256": "d37cd450934c49721cb75de14353e070759c8220f1ed87567799473e8ab88926",
+    "selection_manifest_sha256": "39d34f73c3708f62bf4bc0f25dae721f844821d3c75c0179e4cedcc183a71ba4",
+    "public_eval_source_family_count": 24,
+    "split_policy": {
+      "source_family_disjoint": true,
+      "public_eval": "Only command-room-released source families may appear in public evaluation.",
+      "private_test": "Private-test families and annotations remain unpublished and must never appear in prompts or local demo artifacts.",
+      "hidden_test_published": false
+    }
+  },
+  "evaluation_policy": {
+    "ranking_method": "Bradley-Terry logistic maximum likelihood",
+    "confidence_level": 0.95,
+    "bootstrap_replicates": 2000,
+    "minimum_resolved_battles_per_pair_overall": 4,
+    "position_bias_decisive_presentations": 20,
+    "tie_rule": "Show a tie when the frozen comparison cannot establish a separated standing at 95% confidence.",
+    "insufficient_evidence_rule": "Do not assign an ordinal standing below the minimum battle count or when required evidence is incomplete.",
+    "local_vote_policy": "Replay judgments are browser-local demonstrations. They are not transmitted, persisted, or included in official standings.",
+    "contamination_limit": "No evaluated model may judge any baseline output. Training overlap, prompt leakage, source-family reuse, or hidden-test tuning disables official rankability.",
+    "privacy_limit": "Public exports contain aggregate metrics, public-safe hashes, required attribution, and reviewed examples only; never credentials, signed URLs, hidden annotations, raw reasoning traces, customer data, or GMA data."
+  },
+  "tracks": [
+    {
+      "id": "controlled-agent",
+      "canonical_track_id": "controlled-semantic-text-evidence-v0",
+      "title": "Controlled agent",
+      "description": "No public standing exists. The released evidence pack contains no transcript, OCR, or semantic events, so this track remains blocked before model execution.",
+      "rows": []
+    },
+    {
+      "id": "end-to-end-system",
+      "canonical_track_id": "end-to-end-visual-orchestration-v0",
+      "title": "End-to-end system",
+      "description": "Seven-family deterministic task-success evidence exists, but no governed blind preference result or public standing exists.",
+      "rows": []
+    }
+  ],
+  "exploratory_capabilities": [
+    {
+      "id": "direct-perception",
+      "title": "Direct visual perception",
+      "status": "non_rankable",
+      "summary": "Can a route inspect released frames directly rather than reason only over frozen derived evidence?",
+      "evidence_scope": "Capability declaration and preflight only; no capability statement is converted into rank.",
+      "limitation": "Unavailable direct perception is recorded as not applicable rather than an editing-quality failure."
+    },
+    {
+      "id": "editorial-preference",
+      "title": "Editorial preference",
+      "status": "non_rankable",
+      "summary": "Blind human review of coherence, opening strength, cut naturalness, and caption readability.",
+      "evidence_scope": "A private, identity-sealed packet and a recorded human judgment are required before any reveal.",
+      "limitation": "Deterministic task success is not editorial preference and never creates a winner."
+    },
+    {
+      "id": "long-horizon-recovery",
+      "title": "Long-horizon recovery",
+      "status": "non_rankable",
+      "summary": "Recovery from tool failures, stale state, and interrupted editing turns.",
+      "evidence_scope": "Exploratory fault-injection notes only.",
+      "limitation": "The v0 public contract does not freeze a comparable failure-injection distribution."
+    }
+  ],
+  "known_limitations": [
+    "No public Arena score, confidence interval, battle count, model rank, cost comparison, or winner exists.",
+    "Seven-family task-success evidence is deterministic system evidence, not a preference result.",
+    "The controlled-agent track remains blocked because the released evidence pack has no transcript, OCR, or semantic events.",
+    "The local replay is a synthetic interaction demo with generic candidates and has no governed identity, sampling, persistence, or ranking effect.",
+    "The real blind packet, candidate outputs, and model identity mapping remain private until the founder records a vote.",
+    "One repetition per real cell is frozen; reliability claims require a reviewed repeated-run extension."
+  ]
+}
