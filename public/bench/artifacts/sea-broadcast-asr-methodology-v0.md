@@ -1,6 +1,6 @@
 # SEA Broadcast ASR Benchmark v0.1
 
-Status: FLEURS language-control preview live; broadcast source pair rights-approved, acquisition/gold pending
+Status: FLEURS language-control preview live; broadcast pools acquired and digest-verified, human gold pending
 
 Public brand: **Agentic Video Benchmarks by Pixel ML**
 
@@ -52,7 +52,7 @@ The selected real broadcast pair avoids those unresolved sources:
 - **Public development:** three Indonesian Presidential Secretariat files, 688.963 seconds total, published as complete works by the official channel under CC BY 3.0 and recorded by item-level Commons `YouTubeReview`. Exact public page revisions, file SHA-1 values, byte sizes, durations, archived source pages, and attribution live in `sources/source-pool.public-dev.json`.
 - **Private test:** seven independently published Indonesian broadcast-news files, 519.287 seconds total, from a distinct evaluator-private publisher/channel, with the same completed item-level whole-work licence evidence. The publisher identity, manifest, item IDs, locators, local paths, future references, and detailed acquisition receipt remain evaluator-private.
 
-Both pools passed strict schema validation and live Commons identity checks. SLR24 and VOA stay excluded. Source-pool approval unlocks only the explicit acquisition-and-digest stage; model execution remains blocked until local SHA-256 values, disjoint membership, and independently reviewed/adjudicated gold pass `freeze-check --require-execution-ready`.
+Both pools passed strict schema validation and live Commons identity checks. SLR24 and VOA stay excluded. The explicit acquisition stage subsequently completed for every frozen item: all files match the provider byte size and SHA-1, every SHA-256 is unique, no partial file remains, and detailed receipts stay evaluator-local. Model execution remains blocked until disjoint membership and independently reviewed/adjudicated gold pass `freeze-check --require-execution-ready`.
 
 ```bash
 PYTHONPATH=src python -m av.cli.app benchmark sea-asr source-check \

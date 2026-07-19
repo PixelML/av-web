@@ -1,6 +1,6 @@
 # SEA Broadcast ASR freeze, gold, and publication contract v0
 
-Status: implemented contract; two source families rights-approved, acquisition and human gold pending
+Status: implemented contract; both source pools acquired and digest-verified, human gold pending
 
 Public home: `https://agentic.video/bench`
 
@@ -40,7 +40,7 @@ Primary-source review found a lower-risk pair that does not require the unresolv
 - **Public development:** three Indonesian Presidential Secretariat broadcast files, 688.963 seconds total. The official publisher channel, whole-work CC BY 3.0 grant, completed Commons `YouTubeReview`, archived source page, page revision, asset SHA-1, size, duration, and attribution are frozen in `source-pool.public-dev.json`.
 - **Private test:** seven independently published Indonesian broadcast-news files, 519.287 seconds total. The distinct publisher/channel and the same item-level licence evidence are frozen only in an evaluator-local manifest. The publisher identity, item IDs, paths, source locators, and later references do not enter the repository or public artifacts.
 
-Both pools pass the strict schema and live Commons identity gate, so the rights/provenance stage is complete and explicit acquisition may begin. SLR24 and VOA remain blocked metadata and are not part of the selected pair. No media or transcript was downloaded during the rights review itself.
+Both pools pass the strict schema and live Commons identity gate. The later explicit acquisition completed for every frozen item: provider byte size and SHA-1 passed, all computed SHA-256 values are unique, and no partial file remains. Detailed receipts and the private publisher/items remain evaluator-local. SLR24 and VOA remain blocked metadata and are not part of the selected pair. No transcript has been created and no model has run.
 
 The primary-source decision table is in `benchmarks/sea_broadcast_asr/sources/README.md`.
 
