@@ -18,6 +18,8 @@ The legacy `av benchmark` surface remains supported for compatibility. It is not
 | `av bench sea-asr source-check` | `av benchmark sea-asr source-check` | Source revision, immutable evidence, licence, review, public-mode, and customer-material gates | JSON status envelope only |
 | `av bench sea-asr source-pool-check` | `av benchmark sea-asr source-pool-check` | Whole-work licence approval, item-level review, immutable Commons page/file identity, split visibility, and optional live revalidation | Aggregate JSON status only; private item IDs and locators are never emitted |
 | `av bench sea-asr source-pool-acquire` | `av benchmark sea-asr source-pool-acquire` | Live Commons identity, atomic download, byte size, SHA-1, and caller-selected private SHA-256 receipt | Local media plus private receipt; no public artifact |
+| `av bench sea-asr source-pool-materialize-audio` | `av benchmark sea-asr source-pool-materialize-audio` | Exact source-pool/acquisition identity, input SHA-256, frozen PCM profile, and idempotent output verification | Local PCM audio plus immutable private receipt; no transcript or public artifact |
+| `av bench sea-asr gold-init` | `av benchmark sea-asr gold-init` | Two digest-verified audio receipts, exact pool coverage, and source-family-disjoint public-development/private-test membership | Evaluator-private pending queue with no transcript or reference text |
 | `av bench sea-asr preview-check` | `av benchmark sea-asr preview-check` | Preview/source/contamination cross-check plus exact label and rights boundary | JSON status envelope only |
 | `av bench sea-asr score` | `av benchmark sea-asr score` | Exact manifest/prediction coverage, version, track, rights, visibility, and publication approval | Deterministic `result.json` and `report.md` |
 | `av bench sea-asr run-check` | `av benchmark sea-asr run-check` | Immutable run metadata, exact utterance coverage, explicit completion states, latency, cost, and token totals | JSON status envelope only |
@@ -39,10 +41,12 @@ The alias does not translate or suppress failures. In particular, `source-check 
 
 ## Artifact and privacy boundary
 
-- `schema` emits the existing manifest, predictions, result, source-manifest, public-preview, and contamination-ledger schemas plus the source-pool, source-freeze, gold-ledger, immutable run-manifest, append-only utterance-ledger, aggregate, and two-table public-release schemas.
+- `schema` emits the existing manifest, predictions, result, source-manifest, public-preview, and contamination-ledger schemas plus the source-pool, audio-materialization, pending gold-review queue, source-freeze, gold-ledger, immutable run-manifest, append-only utterance-ledger, aggregate, and two-table public-release schemas.
 - `source-check` and `preview-check` validate metadata only and do not acquire assets.
 - `source-pool-check` validates the public or evaluator-local pool and optionally rechecks live Commons metadata without downloading media. Its output is count-only for both visibility modes.
 - `source-pool-acquire` is the sole v0 acquisition stage. It accepts only an approved source-pool contract, rechecks the live page/licence/file identity, writes atomically, verifies the provider SHA-1 and size, computes SHA-256, and keeps detailed private-test records in the named local receipt.
+- `source-pool-materialize-audio` consumes only an acquired pool and its private digest receipt. It produces fixed PCM audio atomically, fails on source/output drift, and reuses an existing verified receipt byte-for-byte instead of overwriting history.
+- `gold-init` creates only a private pending-work queue. Every item has an absent reference, absent author/reviewer/adjudicator IDs, and explicit `pending_transcription` state; overlapping source families fail closed.
 - `score` consumes an already frozen manifest and predictions file; it never calls a model.
 - `run-check` requires one explicit terminal state per expected utterance: `completed`, `refusal`, `empty_output`, `timeout`, `malformed_result`, `runtime_error`, or `duplicate`. No state is silently dropped from the denominator.
 - `public-export` emits only approved aggregates. It cannot fetch or infer the private test set and rejects item-level transcript, reference, media, sample-metric, or private-failure-history fields.

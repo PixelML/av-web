@@ -15,7 +15,7 @@ const rightsGate = readFileSync(resolve(artifactRoot, "source-rights-gate-2026-0
 const label = "Language-control developer preview — not broadcast, production, or leaderboard evidence.";
 const revision = "70bb2e84b976b7e960aa89f1c648e09c59f894dd";
 const sourceCommit = "9275e8c46988a481ce80db1380d374d329241524";
-const contractCommit = "41961e8826033ba62ab20edd864f442316f302e6";
+const contractCommit = "cd38996c86fb529f8d9ae225d9a8ec5ad906221b";
 const publicArtifacts = [
   "acquire_fleurs_validation.py",
   "source-manifest.public-dev.json",
@@ -31,6 +31,8 @@ const publicArtifacts = [
   "gold-ledger-v0.1.schema.json",
   "public-release-v0.1.schema.json",
   "source-pool-v0.1.schema.json",
+  "audio-materialization-v0.1.schema.json",
+  "gold-review-queue-v0.1.schema.json",
 ];
 
 function requireCondition(condition, message) {
@@ -69,6 +71,10 @@ for (const artifact of publicArtifacts) {
 requireCondition(page.includes("github.com/PixelML/av-web/tree/"), "artifact source must use the public av-web repo");
 requireCondition(!page.includes("github.com/PixelML/agentic-video"), "page must not link the private source repo");
 requireCondition(page.includes("Source families — 2 / 2 approved"), "page must show the passed two-family gate");
+requireCondition(
+  page.includes("All 10 approved items are materialized as digest-verified PCM s16le mono 16 kHz audio"),
+  "page must show the completed fixed-audio gate",
+);
 requireCondition(page.includes("Human gold — 0 adjudicated"), "page must keep human gold visibly incomplete");
 requireCondition(page.includes("Baselines — 0 / 6 executed"), "page must not imply any baseline has run");
 requireCondition(sourceManifest.contains_audio === false, "public source manifest must not contain audio");
@@ -98,8 +104,13 @@ requireCondition(
   "public CLI contract is missing the aggregate-only boundary",
 );
 requireCondition(
+  compatibilityDoc.includes("source-pool-materialize-audio") && compatibilityDoc.includes("gold-init"),
+  "public CLI contract is missing the audio or pending-gold command",
+);
+requireCondition(
   freezeGoldDoc.includes("sea-broadcast-asr-source-freeze-v0.1") &&
-    freezeGoldDoc.includes("At least six unique model/adapter configurations"),
+    freezeGoldDoc.includes("At least six unique model/adapter configurations") &&
+    freezeGoldDoc.includes("transcript-free gold queue initialized"),
   "public freeze/gold contract is missing the execution or release gate",
 );
 requireCondition(

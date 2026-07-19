@@ -1,0 +1,262 @@
+{
+  "$defs": {
+    "AudioMaterializationRecord": {
+      "additionalProperties": false,
+      "properties": {
+        "channels": {
+          "const": 1,
+          "title": "Channels",
+          "type": "integer"
+        },
+        "duration_seconds": {
+          "exclusiveMinimum": 0,
+          "title": "Duration Seconds",
+          "type": "number"
+        },
+        "frame_count": {
+          "exclusiveMinimum": 0,
+          "title": "Frame Count",
+          "type": "integer"
+        },
+        "input_relative_media_path": {
+          "title": "Input Relative Media Path",
+          "type": "string"
+        },
+        "input_sha256": {
+          "title": "Input Sha256",
+          "type": "string"
+        },
+        "item_id": {
+          "minLength": 1,
+          "title": "Item Id",
+          "type": "string"
+        },
+        "language": {
+          "title": "Language",
+          "type": "string"
+        },
+        "output_byte_size": {
+          "exclusiveMinimum": 0,
+          "title": "Output Byte Size",
+          "type": "integer"
+        },
+        "output_relative_audio_path": {
+          "title": "Output Relative Audio Path",
+          "type": "string"
+        },
+        "output_sha256": {
+          "title": "Output Sha256",
+          "type": "string"
+        },
+        "sample_rate_hz": {
+          "const": 16000,
+          "title": "Sample Rate Hz",
+          "type": "integer"
+        },
+        "sample_width_bytes": {
+          "const": 2,
+          "title": "Sample Width Bytes",
+          "type": "integer"
+        },
+        "source_family_id": {
+          "minLength": 1,
+          "title": "Source Family Id",
+          "type": "string"
+        },
+        "split": {
+          "$ref": "#/$defs/SourcePoolSplit"
+        },
+        "status": {
+          "$ref": "#/$defs/MaterializationStatus"
+        }
+      },
+      "required": [
+        "item_id",
+        "source_family_id",
+        "split",
+        "language",
+        "input_relative_media_path",
+        "input_sha256",
+        "output_relative_audio_path",
+        "output_sha256",
+        "output_byte_size",
+        "frame_count",
+        "duration_seconds",
+        "sample_rate_hz",
+        "channels",
+        "sample_width_bytes",
+        "status"
+      ],
+      "title": "AudioMaterializationRecord",
+      "type": "object"
+    },
+    "AudioProfile": {
+      "additionalProperties": false,
+      "properties": {
+        "channels": {
+          "const": 1,
+          "title": "Channels",
+          "type": "integer"
+        },
+        "codec": {
+          "const": "pcm_s16le",
+          "title": "Codec",
+          "type": "string"
+        },
+        "container": {
+          "const": "wav",
+          "title": "Container",
+          "type": "string"
+        },
+        "ffmpeg_arguments": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Ffmpeg Arguments",
+          "type": "array"
+        },
+        "ffmpeg_arguments_sha256": {
+          "title": "Ffmpeg Arguments Sha256",
+          "type": "string"
+        },
+        "profile_id": {
+          "const": "pcm-s16le-mono-16khz-v0.1",
+          "title": "Profile Id",
+          "type": "string"
+        },
+        "sample_rate_hz": {
+          "const": 16000,
+          "title": "Sample Rate Hz",
+          "type": "integer"
+        },
+        "sample_width_bytes": {
+          "const": 2,
+          "title": "Sample Width Bytes",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "profile_id",
+        "container",
+        "codec",
+        "sample_rate_hz",
+        "channels",
+        "sample_width_bytes",
+        "ffmpeg_arguments",
+        "ffmpeg_arguments_sha256"
+      ],
+      "title": "AudioProfile",
+      "type": "object"
+    },
+    "MaterializationStatus": {
+      "enum": [
+        "materialized_verified",
+        "reproduced_existing"
+      ],
+      "title": "MaterializationStatus",
+      "type": "string"
+    },
+    "SourcePoolSplit": {
+      "enum": [
+        "public_dev",
+        "private_test"
+      ],
+      "title": "SourcePoolSplit",
+      "type": "string"
+    },
+    "SourcePoolVisibility": {
+      "enum": [
+        "public_development",
+        "private_evaluator_only"
+      ],
+      "title": "SourcePoolVisibility",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "acquisition_receipt_sha256": {
+      "title": "Acquisition Receipt Sha256",
+      "type": "string"
+    },
+    "audio_profile": {
+      "$ref": "#/$defs/AudioProfile"
+    },
+    "contains_private_test_identifiers": {
+      "title": "Contains Private Test Identifiers",
+      "type": "boolean"
+    },
+    "contract_version": {
+      "const": "sea-broadcast-asr-audio-materialization-v0.1",
+      "title": "Contract Version",
+      "type": "string"
+    },
+    "created_at": {
+      "title": "Created At",
+      "type": "string"
+    },
+    "created_by": {
+      "minLength": 1,
+      "title": "Created By",
+      "type": "string"
+    },
+    "ffmpeg_version": {
+      "minLength": 1,
+      "title": "Ffmpeg Version",
+      "type": "string"
+    },
+    "item_count": {
+      "exclusiveMinimum": 0,
+      "title": "Item Count",
+      "type": "integer"
+    },
+    "materialization_id": {
+      "minLength": 1,
+      "title": "Materialization Id",
+      "type": "string"
+    },
+    "pool_id": {
+      "minLength": 1,
+      "title": "Pool Id",
+      "type": "string"
+    },
+    "pool_sha256": {
+      "title": "Pool Sha256",
+      "type": "string"
+    },
+    "records": {
+      "items": {
+        "$ref": "#/$defs/AudioMaterializationRecord"
+      },
+      "minItems": 1,
+      "title": "Records",
+      "type": "array"
+    },
+    "suite_id": {
+      "const": "sea-broadcast-asr",
+      "title": "Suite Id",
+      "type": "string"
+    },
+    "visibility": {
+      "$ref": "#/$defs/SourcePoolVisibility"
+    }
+  },
+  "required": [
+    "contract_version",
+    "materialization_id",
+    "created_at",
+    "created_by",
+    "suite_id",
+    "pool_id",
+    "pool_sha256",
+    "acquisition_receipt_sha256",
+    "visibility",
+    "contains_private_test_identifiers",
+    "audio_profile",
+    "ffmpeg_version",
+    "item_count",
+    "records"
+  ],
+  "title": "AudioMaterializationReceipt",
+  "type": "object"
+}
