@@ -10,8 +10,8 @@
   "display_label": "non-rankable preview",
   "arena_binding": {
     "arena_id": "composer-archive-to-output-arena-v0",
-    "source_head_sha": "824da0c1001662cb5a5a01e68c9ecc7d86a16bf7",
-    "arena_contract_sha256": "fb3f35346af22941d4476d390a1f2929d50653f9f50ee23cef8d7b2b1ad3ecc5",
+    "source_head_sha": "3dceb46215e999f4a11a564ea958f845c36af215",
+    "arena_contract_sha256": "8ceab1529c0bca8d74419222fe5b2556bceb1b83aaa9e3337b0509557ab1dab4",
     "parent_contract_sha256": "33ca2f1b72ee9def3bd039eda69d9903ec595d860936a0353fdb045576215624"
   },
   "publication": {

@@ -2,7 +2,7 @@
 
 The route reads `release.preview.json` and `battles.preview.jsonl` from this directory at build time. The current release has empty standings and the battle file is a generic synthetic interaction demo. A real blind packet must not replace either public file before the founder votes and a separate identity reveal is authorized.
 
-The canonical upstream contract binding is `composer-archive-to-output-arena-v0` at source head `824da0c1001662cb5a5a01e68c9ecc7d86a16bf7`, Arena contract SHA-256 `fb3f35346af22941d4476d390a1f2929d50653f9f50ee23cef8d7b2b1ad3ecc5`, and parent system-eval contract SHA-256 `33ca2f1b72ee9def3bd039eda69d9903ec595d860936a0353fdb045576215624`. A future adapter must fail closed if any binding drifts.
+The canonical upstream contract binding is `composer-archive-to-output-arena-v0` at merged `composer-mvp` source head `3dceb46215e999f4a11a564ea958f845c36af215`, Arena contract SHA-256 `8ceab1529c0bca8d74419222fe5b2556bceb1b83aaa9e3337b0509557ab1dab4`, and parent system-eval contract SHA-256 `33ca2f1b72ee9def3bd039eda69d9903ec595d860936a0353fdb045576215624`. A future adapter must fail closed if any binding drifts.
 
 ## Required files
 
