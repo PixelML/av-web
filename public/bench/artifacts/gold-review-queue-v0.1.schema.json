@@ -1,0 +1,195 @@
+{
+  "$defs": {
+    "PendingGoldItem": {
+      "additionalProperties": false,
+      "properties": {
+        "adjudicator_id": {
+          "const": null,
+          "title": "Adjudicator Id",
+          "type": "null"
+        },
+        "audio_relative_path": {
+          "title": "Audio Relative Path",
+          "type": "string"
+        },
+        "audio_sha256": {
+          "title": "Audio Sha256",
+          "type": "string"
+        },
+        "contains_reference_text": {
+          "const": false,
+          "title": "Contains Reference Text",
+          "type": "boolean"
+        },
+        "duration_seconds": {
+          "exclusiveMinimum": 0,
+          "title": "Duration Seconds",
+          "type": "number"
+        },
+        "independent_reviewer_id": {
+          "const": null,
+          "title": "Independent Reviewer Id",
+          "type": "null"
+        },
+        "item_id": {
+          "minLength": 1,
+          "title": "Item Id",
+          "type": "string"
+        },
+        "language": {
+          "title": "Language",
+          "type": "string"
+        },
+        "reference_relative_path": {
+          "title": "Reference Relative Path",
+          "type": "string"
+        },
+        "source_family_id": {
+          "minLength": 1,
+          "title": "Source Family Id",
+          "type": "string"
+        },
+        "split": {
+          "$ref": "#/$defs/SourcePoolSplit"
+        },
+        "status": {
+          "const": "pending_transcription",
+          "title": "Status",
+          "type": "string"
+        },
+        "transcript_author_id": {
+          "const": null,
+          "title": "Transcript Author Id",
+          "type": "null"
+        }
+      },
+      "required": [
+        "item_id",
+        "source_family_id",
+        "split",
+        "language",
+        "audio_relative_path",
+        "audio_sha256",
+        "duration_seconds",
+        "reference_relative_path",
+        "status",
+        "contains_reference_text",
+        "transcript_author_id",
+        "independent_reviewer_id",
+        "adjudicator_id"
+      ],
+      "title": "PendingGoldItem",
+      "type": "object"
+    },
+    "SourcePoolSplit": {
+      "enum": [
+        "public_dev",
+        "private_test"
+      ],
+      "title": "SourcePoolSplit",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "contains_private_test_identifiers": {
+      "const": true,
+      "title": "Contains Private Test Identifiers",
+      "type": "boolean"
+    },
+    "contains_transcripts": {
+      "const": false,
+      "title": "Contains Transcripts",
+      "type": "boolean"
+    },
+    "contract_version": {
+      "const": "sea-broadcast-asr-gold-review-queue-v0.1",
+      "title": "Contract Version",
+      "type": "string"
+    },
+    "created_at": {
+      "title": "Created At",
+      "type": "string"
+    },
+    "created_by": {
+      "minLength": 1,
+      "title": "Created By",
+      "type": "string"
+    },
+    "fixed_private_test": {
+      "const": true,
+      "title": "Fixed Private Test",
+      "type": "boolean"
+    },
+    "gold_protocol_version": {
+      "const": "sea-asr-human-gold-v0.1",
+      "title": "Gold Protocol Version",
+      "type": "string"
+    },
+    "items": {
+      "items": {
+        "$ref": "#/$defs/PendingGoldItem"
+      },
+      "minItems": 2,
+      "title": "Items",
+      "type": "array"
+    },
+    "materialization_receipt_sha256s": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 2,
+      "title": "Materialization Receipt Sha256S",
+      "type": "array"
+    },
+    "public_development_frozen": {
+      "const": true,
+      "title": "Public Development Frozen",
+      "type": "boolean"
+    },
+    "queue_id": {
+      "minLength": 1,
+      "title": "Queue Id",
+      "type": "string"
+    },
+    "source_family_disjoint": {
+      "const": true,
+      "title": "Source Family Disjoint",
+      "type": "boolean"
+    },
+    "suite_id": {
+      "const": "sea-broadcast-asr",
+      "title": "Suite Id",
+      "type": "string"
+    },
+    "tuned_on_private_test": {
+      "const": false,
+      "title": "Tuned On Private Test",
+      "type": "boolean"
+    },
+    "visibility": {
+      "const": "private_evaluator_only",
+      "title": "Visibility",
+      "type": "string"
+    }
+  },
+  "required": [
+    "contract_version",
+    "queue_id",
+    "created_at",
+    "created_by",
+    "suite_id",
+    "gold_protocol_version",
+    "visibility",
+    "contains_private_test_identifiers",
+    "contains_transcripts",
+    "source_family_disjoint",
+    "public_development_frozen",
+    "fixed_private_test",
+    "tuned_on_private_test",
+    "materialization_receipt_sha256s",
+    "items"
+  ],
+  "title": "GoldReviewQueue",
+  "type": "object"
+}

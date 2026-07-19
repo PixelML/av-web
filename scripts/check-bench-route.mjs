@@ -7,6 +7,7 @@ const preview = JSON.parse(readFileSync(resolve(root, "public/bench/preview.json
 const ledger = JSON.parse(readFileSync(resolve(root, "public/bench/contamination-ledger.json"), "utf8"));
 const artifactRoot = resolve(root, "public/bench/artifacts");
 const sourceManifest = JSON.parse(readFileSync(resolve(artifactRoot, "source-manifest.public-dev.json"), "utf8"));
+const sourcePool = JSON.parse(readFileSync(resolve(artifactRoot, "source-pool.public-dev.json"), "utf8"));
 const compatibilityDoc = readFileSync(resolve(artifactRoot, "av-bench-compatibility-v0.md"), "utf8");
 const freezeGoldDoc = readFileSync(resolve(artifactRoot, "freeze-gold-publication-v0.md"), "utf8");
 const rightsGate = readFileSync(resolve(artifactRoot, "source-rights-gate-2026-07-19.md"), "utf8");
@@ -14,7 +15,7 @@ const rightsGate = readFileSync(resolve(artifactRoot, "source-rights-gate-2026-0
 const label = "Language-control developer preview — not broadcast, production, or leaderboard evidence.";
 const revision = "70bb2e84b976b7e960aa89f1c648e09c59f894dd";
 const sourceCommit = "9275e8c46988a481ce80db1380d374d329241524";
-const contractCommit = "3d29a81c9e5db4b09370e2c1da35b15ee5bc0480";
+const contractCommit = "cd38996c86fb529f8d9ae225d9a8ec5ad906221b";
 const publicArtifacts = [
   "acquire_fleurs_validation.py",
   "source-manifest.public-dev.json",
@@ -22,12 +23,16 @@ const publicArtifacts = [
   "av-bench-compatibility-v0.md",
   "freeze-gold-publication-v0.md",
   "source-rights-gate-2026-07-19.md",
+  "source-pool.public-dev.json",
   "public-preview-v0.1.schema.json",
   "contamination-ledger-v0.1.schema.json",
   "public-aggregate-v0.1.schema.json",
   "source-freeze-v0.1.schema.json",
   "gold-ledger-v0.1.schema.json",
   "public-release-v0.1.schema.json",
+  "source-pool-v0.1.schema.json",
+  "audio-materialization-v0.1.schema.json",
+  "gold-review-queue-v0.1.schema.json",
 ];
 
 function requireCondition(condition, message) {
@@ -65,13 +70,30 @@ for (const artifact of publicArtifacts) {
 }
 requireCondition(page.includes("github.com/PixelML/av-web/tree/"), "artifact source must use the public av-web repo");
 requireCondition(!page.includes("github.com/PixelML/agentic-video"), "page must not link the private source repo");
-requireCondition(page.includes("Source families — 0 / 2 approved"), "page must show the two-family rights blocker");
+requireCondition(page.includes("Source families — 2 / 2 approved"), "page must show the passed two-family gate");
+requireCondition(
+  page.includes("All 10 approved items are materialized as digest-verified PCM s16le mono 16 kHz audio"),
+  "page must show the completed fixed-audio gate",
+);
+requireCondition(page.includes("Human gold — 0 adjudicated"), "page must keep human gold visibly incomplete");
 requireCondition(page.includes("Baselines — 0 / 6 executed"), "page must not imply any baseline has run");
 requireCondition(sourceManifest.contains_audio === false, "public source manifest must not contain audio");
 requireCondition(sourceManifest.contains_transcripts === false, "public source manifest must not contain transcripts");
 requireCondition(
   sourceManifest.sources.every((source) => source.contains_customer_material === false),
   "public source manifest must not contain customer material",
+);
+requireCondition(sourcePool.visibility === "public_development", "source pool must be public development only");
+requireCondition(sourcePool.contains_audio === false, "public source pool must not embed audio");
+requireCondition(sourcePool.contains_transcripts === false, "public source pool must not embed transcripts");
+requireCondition(
+  sourcePool.contains_private_test_identifiers === false,
+  "public source pool must not contain private-test identifiers",
+);
+requireCondition(sourcePool.items.length === 3, "public source pool must contain the three reviewed dev items");
+requireCondition(
+  sourcePool.items.every((item) => item.split === "public_dev" && item.contains_customer_material === false),
+  "public source-pool items must remain public-dev and customer-free",
 );
 requireCondition(
   compatibilityDoc.includes("`av bench sea-asr schema`"),
@@ -82,14 +104,19 @@ requireCondition(
   "public CLI contract is missing the aggregate-only boundary",
 );
 requireCondition(
+  compatibilityDoc.includes("source-pool-materialize-audio") && compatibilityDoc.includes("gold-init"),
+  "public CLI contract is missing the audio or pending-gold command",
+);
+requireCondition(
   freezeGoldDoc.includes("sea-broadcast-asr-source-freeze-v0.1") &&
-    freezeGoldDoc.includes("At least six unique model/adapter configurations"),
+    freezeGoldDoc.includes("At least six unique model/adapter configurations") &&
+    freezeGoldDoc.includes("transcript-free gold queue initialized"),
   "public freeze/gold contract is missing the execution or release gate",
 );
 requireCondition(
-  rightsGate.includes("technically viable two-family design") &&
-    rightsGate.includes("neither family has Sean's final rights approval"),
-  "public rights gate must remain fail-closed",
+  rightsGate.includes("source-family gate passes without SLR24 or VOA") &&
+    rightsGate.includes("SLR24 and VOA remain blocked metadata"),
+  "public rights gate must record the approved pair while keeping blocked sources excluded",
 );
 
 console.log("bench route contract check passed");

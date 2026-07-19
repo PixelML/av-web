@@ -1,6 +1,6 @@
 # SEA Broadcast ASR Benchmark v0.1
 
-Status: rights-gated FLEURS language-control developer preview
+Status: FLEURS language-control preview live; broadcast audio materialized and digest-verified, human gold pending
 
 Public brand: **Agentic Video Benchmarks by Pixel ML**
 
@@ -19,6 +19,9 @@ The checked-in `dev-preview-0.1` fixture contains four Pixel ML-authored synthet
 | Contract | Version | Purpose |
 |---|---|---|
 | Source manifest | `sea-broadcast-asr-source-manifest-v0.2` | Metadata-only provider revision, immutable package/member evidence, package-supplied licence identity, attribution, public mode, transcript provenance, review decision, and unresolved rights questions. |
+| Source pool | `sea-broadcast-asr-source-pool-v0.1` | Complete-work licence approval, item-level Commons licence review, immutable page/file identity, explicit public/private visibility, and fail-closed live revalidation before acquisition. |
+| Audio materialization | `sea-broadcast-asr-audio-materialization-v0.1` | Fixed PCM s16le mono 16 kHz profile, exact input/output digests, atomic creation, immutable receipt identity, and byte-identical idempotent verification. |
+| Gold review queue | `sea-broadcast-asr-gold-review-queue-v0.1` | Evaluator-private, transcript-free pending items spanning disjoint public-development and private-test source families. |
 | Public preview | `sea-broadcast-asr-public-preview-v0.1` | Exact visible label, FLEURS-only composition, pinned validation packages, attribution, approval evidence, and blocked-domain boundaries. |
 | Contamination ledger | `sea-broadcast-asr-contamination-ledger-v0.1` | Per-model FLEURS training-overlap status and fail-closed fair-rank eligibility. |
 | Manifest | `sea-broadcast-asr-manifest-v0.1` | Frozen suite/split metadata, asset digest, reference, language/slices, and item-level rights review. |
@@ -40,11 +43,18 @@ PYTHONPATH=src python -m av.cli.app benchmark sea-asr schema \
 
 ## Candidate source provenance
 
-The checked-in source draft covers exactly IMDA National Speech Corpus, Google FLEURS, and OpenSLR SLR24 Iban. It is metadata-only and contains no audio or transcript text.
+The checked-in source draft covers exactly IMDA National Speech Corpus, Google FLEURS, and OpenSLR SLR24 Iban. It remains metadata-only and contains no audio or transcript text. The real broadcast pair uses the newer source-pool contract so that public-development metadata can be published while private-test item identities remain evaluator-local.
 
 - **FLEURS — `acquisition_script`:** approved for public dev as read-speech language controls only. Revision `70bb2e84b976b7e960aa89f1c648e09c59f894dd` pins the exact `id_id`, `fil_ph`, and `vi_vn` validation Parquet filenames, byte sizes, and provider LFS SHA-256 object IDs. The pinned dataset card supplies `CC-BY-4.0`, transcript-field provenance, attribution, and the explicit read-speech limitation.
 - **IMDA NSC — `id_only`:** conditional. The official page requires registration, a Dropbox account, and an emailed shared-folder invitation for the approximately 1.2 TB six-part corpus. No registration or credentials were used, so exact package filenames/checksums and package-supplied terms remain unavailable.
 - **OpenSLR SLR24 — `id_only`:** conditional. `iban.tar.gz` is pinned at 913,314,644 bytes and SHA-256 `7e22a45276268ef0aa8c1934c4a42ddf521587226c289768fba095da70159400`; its dev transcript/audio indexes are also checksummed. The public OpenSLR page says CC BY-SA 2.0 Generic, while the bundled `LICENSE.html` says CC BY-SA 2.0 France. No audio or transcript member may be re-hosted until Sean explicitly resolves that conflict and the RTM-derived rights chain.
+
+The selected real broadcast pair avoids those unresolved sources:
+
+- **Public development:** three Indonesian Presidential Secretariat files, 688.963 seconds total, published as complete works by the official channel under CC BY 3.0 and recorded by item-level Commons `YouTubeReview`. Exact public page revisions, file SHA-1 values, byte sizes, durations, archived source pages, and attribution live in `sources/source-pool.public-dev.json`.
+- **Private test:** seven independently published Indonesian broadcast-news files, 519.287 seconds total, from a distinct evaluator-private publisher/channel, with the same completed item-level whole-work licence evidence. The publisher identity, manifest, item IDs, locators, local paths, future references, and detailed acquisition receipt remain evaluator-private.
+
+Both pools passed strict schema validation and live Commons identity checks. SLR24 and VOA stay excluded. The explicit acquisition stage subsequently completed for every frozen item: all files match the provider byte size and SHA-1, every acquisition SHA-256 is unique, no partial file remains, and detailed receipts stay evaluator-local. The fixed-audio stage then materialized all 10 items as PCM s16le mono 16 kHz (1,208.235 seconds total) with 10 unique output SHA-256 values and immutable per-pool receipts; immediate reruns verified and reused both receipts. The evaluator-private pending-gold queue contains three public-development and seven private-test items, is source-family disjoint, and contains zero transcripts or references. Model execution remains blocked until independently authored, reviewed, and adjudicated gold passes `freeze-check --require-execution-ready`.
 
 ```bash
 PYTHONPATH=src python -m av.cli.app benchmark sea-asr source-check \
@@ -99,15 +109,15 @@ PYTHONPATH=src python -m av.cli.app benchmark sea-asr score \
 
 Public dev artifacts may contain approved item references and sample metrics. The human-verified hidden test and ground truth, failure history/taxonomy, customer material/data/telemetry/corrections, and training/post-training/calibration/adjudication recipes stay outside the public tree. Because the v0 result contract contains sample-level text, it cannot publish a private-test run. The September leaderboard requires a separate reviewed aggregate-only exporter.
 
-The `freeze-check` command validates the private source freeze, disjoint source families, append-only adjudicated gold, and optionally the already-acquired local asset digests. It performs no acquisition. The `public-export` command then consumes local run, ledger, and scorer-result contracts, verifies complete denominators and operational totals, and writes a strict aggregate allowlist. Real unranked public-table rows require a frozen full run, fixed private test, and paired-bootstrap uncertainty; unknown or overlapping contamination remains visibly unranked. Fair leaderboard mode additionally requires clean contamination evidence. The deterministic contract fixture can exercise the path but is never rank eligible.
+`source-pool-check --live` performs metadata-only preflight. `source-pool-acquire` is explicit, accepts only a frozen pool, revalidates the live page/licence/file identity, writes atomically, verifies size and SHA-1, computes SHA-256, and keeps private item details in a caller-selected local receipt. `source-pool-materialize-audio` then converts only those digest-verified local assets to the frozen PCM profile and records an immutable private receipt; an exact rerun verifies and reuses that receipt. `gold-init` combines the two materialization receipts into a transcript-free private queue and fails if the public-development and private-test source families overlap. Neither command transcribes audio or calls a model. The `freeze-check` command then validates the private source freeze, disjoint source families, append-only adjudicated gold, and already-acquired local asset digests. The `public-export` command consumes local run, ledger, and scorer-result contracts, verifies complete denominators and operational totals, and writes a strict aggregate allowlist. Real unranked public-table rows require a frozen full run, fixed private test, and paired-bootstrap uncertainty; unknown or overlapping contamination remains visibly unranked. Fair leaderboard mode additionally requires clean contamination evidence. The deterministic contract fixture can exercise the path but is never rank eligible.
 
 `table-export` refuses fewer than six unique model/adapter configurations, duplicate configurations under new run IDs, an empty track, mixed evaluation-set identities, or any contract fixture. It writes aggregate-only `release.json` and `tables.md` with physically separate track tables. See [`docs/35-sea-asr-freeze-gold-publication-v0.md`](35-sea-asr-freeze-gold-publication-v0.md).
 
 ## CLI naming contract
 
-The public surface is `av bench sea-asr`; the existing `av benchmark sea-asr` spelling remains supported. Both names register the same command application, so `schema`, `source-check`, `preview-check`, `score`, `freeze-check`, `run-check`, `public-export`, and `table-export` preserve the same validation, artifacts, JSON envelopes, and exit codes without a second implementation path.
+The public surface is `av bench sea-asr`; the existing `av benchmark sea-asr` spelling remains supported. Both names register the same command application, so `schema`, `source-check`, `source-pool-check`, `source-pool-acquire`, `source-pool-materialize-audio`, `gold-init`, `preview-check`, `score`, `freeze-check`, `run-check`, `public-export`, and `table-export` preserve the same validation, artifacts, JSON envelopes, and exit codes without a second implementation path.
 
-See [`docs/34-av-bench-compatibility-v0.md`](34-av-bench-compatibility-v0.md) for the locked mapping, exit-code contract, artifact parity, and explicit exclusion of fetch/model/private-test behavior.
+See [`docs/34-av-bench-compatibility-v0.md`](34-av-bench-compatibility-v0.md) for the locked mapping, exit-code contract, artifact parity, and acquisition/privacy boundary.
 
 ## Verification
 
