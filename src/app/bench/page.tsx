@@ -5,7 +5,7 @@ const PREVIEW_ID = "fleurs-sea-language-control-dev-preview-0.1";
 const PREVIEW_LABEL =
   "Language-control developer preview — not broadcast, production, or leaderboard evidence.";
 const SOURCE_COMMIT = "9275e8c46988a481ce80db1380d374d329241524";
-const CONTRACT_COMMIT = "27a010365545826b0dbfe4c217cdbfac0339db71";
+const CONTRACT_COMMIT = "41961e8826033ba62ab20edd864f442316f302e6";
 const FLEURS_REVISION = "70bb2e84b976b7e960aa89f1c648e09c59f894dd";
 
 const controls = [

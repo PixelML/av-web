@@ -15,7 +15,7 @@ const rightsGate = readFileSync(resolve(artifactRoot, "source-rights-gate-2026-0
 const label = "Language-control developer preview — not broadcast, production, or leaderboard evidence.";
 const revision = "70bb2e84b976b7e960aa89f1c648e09c59f894dd";
 const sourceCommit = "9275e8c46988a481ce80db1380d374d329241524";
-const contractCommit = "27a010365545826b0dbfe4c217cdbfac0339db71";
+const contractCommit = "41961e8826033ba62ab20edd864f442316f302e6";
 const publicArtifacts = [
   "acquire_fleurs_validation.py",
   "source-manifest.public-dev.json",
