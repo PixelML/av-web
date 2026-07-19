@@ -9,11 +9,11 @@ const ARTIFACT_ROOT = "/bench/composer-arena/v0";
 export const metadata: Metadata = {
   title: "Composer Archive-to-Output Arena v0 — Agentic Video Benchmarks",
   description:
-    "Non-rankable, synthetic public preview of the Composer Archive-to-Output Arena v0 contract, metrics, anonymous battle replay, and real-data handoff.",
+    "Non-rankable Composer Archive-to-Output Arena v0 methodology, seven-family task-success evidence, and synthetic interaction demo.",
   alternates: { canonical: "/bench/composer-arena" },
   openGraph: {
     title: "Composer Archive-to-Output Arena v0",
-    description: "Synthetic non-rankable preview with separate controlled-agent and end-to-end system views.",
+    description: "Seven-family task-success evidence with zero ranks and a separate synthetic interaction demo.",
     type: "website",
     url: "https://agentic.video/bench/composer-arena",
   },
@@ -73,11 +73,11 @@ export default async function ComposerArenaPage() {
             Composer Archive-to-Output Arena v0
           </h1>
           <p className="mt-8 max-w-4xl text-base leading-8 text-[hsl(var(--muted-foreground))] sm:text-lg">
-            A publication-candidate surface for comparing evidence-grounded editing agents and complete Composer systems. Leaderboard-like rows remain synthetic preview examples; audited Phase 1 task evidence is published separately as a dated pilot note.
+            A publication-candidate methodology for evidence-grounded editing agents and complete Composer systems. The dated evidence page now reports the terminal seven-family task-success aggregate; no public standings exist.
           </p>
 
           <div className="mt-10 border-l-4 border-amber-400 bg-amber-50 px-6 py-5 text-sm font-semibold leading-7 text-amber-950 sm:text-base">
-            Official ranking is disabled. The preview table and replay are synthetic, local replay judgments are excluded, and the separate Phase 1 evidence note contains no winner or preference claim.
+            Official ranking is disabled. There are no public score rows, the replay is a generic synthetic interaction demo, local judgments are excluded, and evaluated identities stay sealed until the founder votes.
           </div>
 
           <dl className="mt-12 grid gap-px border border-[hsl(var(--border))] bg-[hsl(var(--border))] sm:grid-cols-2 lg:grid-cols-4">
@@ -96,16 +96,16 @@ export default async function ComposerArenaPage() {
         </div>
       </section>
 
-      <section className="border-b border-[hsl(var(--border))] px-6 py-12 sm:py-16" id="phase-1-evidence">
+      <section className="border-b border-[hsl(var(--border))] px-6 py-12 sm:py-16" id="seven-family-evidence">
         <div className="mx-auto max-w-7xl border border-emerald-300 bg-emerald-50 p-6 sm:p-8">
           <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
             <div className="max-w-4xl text-emerald-950">
               <span className="inline-flex border border-emerald-400 px-2 py-1 text-[11px] font-semibold uppercase tracking-[0.12em]">
                 evidence / pilot · not a leaderboard
               </span>
-              <h2 className="mt-5 text-2xl font-semibold tracking-tight">Phase 1 deterministic evidence is available</h2>
+              <h2 className="mt-5 text-2xl font-semibold tracking-tight">Seven-family task-success evidence is available</h2>
               <p className="mt-3 text-sm leading-7">
-                Mechanical control and Grok 4.5 produced complete passing outputs; Sol recorded a tool-policy task failure, Kimi K3 was excluded for runtime/provider compatibility, and GLM 5.2 direct vision is not applicable. Zero blind battles, zero ranks, and zero human preference claims.
+                The frozen cohort covers seven eligible cells from seven distinct source families. It reports one public mechanical control and two identity-sealed evaluated lanes, with zero blind battles, votes, ranks, or winner.
               </p>
             </div>
             <Link
@@ -213,7 +213,7 @@ export default async function ComposerArenaPage() {
             Public preview release SHA-256: <strong>{checksums.files["release.preview.json"]}</strong> · Arena source head: <strong>{release.arena_binding.source_head_sha}</strong>
           </p>
           <p className="mt-6 max-w-5xl text-sm leading-7 text-[hsl(var(--muted-foreground))]">
-            The command-room FineVideo selection and release marker pass for 24 cells. Phase 1 produced deterministic pilot evidence, but not a complete comparable seven-family roster or blind human review, so no official ranking exists.
+            The command-room FineVideo selection and release marker pass for 24 cells. Seven-family deterministic task-success evidence is terminal, but blind human review and identity reveal are still pending, so no official ranking exists.
           </p>
         </div>
       </section>

@@ -130,7 +130,7 @@ export default function BenchPage() {
 
       <section className="border-b border-[hsl(var(--border))] px-6 py-16 sm:py-20">
         <div className="mx-auto max-w-6xl">
-          <SectionHeading eyebrow="Benchmark tracks">Composer Archive-to-Output Arena v0</SectionHeading>
+          <SectionHeading eyebrow="Separate benchmark suite">Composer Archive-to-Output Arena v0</SectionHeading>
           <div className="border border-[hsl(var(--border))] bg-white p-6 sm:p-8">
             <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
               <div className="max-w-3xl">
@@ -139,7 +139,7 @@ export default function BenchPage() {
                 </span>
                 <h3 className="mt-5 text-xl font-semibold">Archive understanding to reviewable output</h3>
                 <p className="mt-3 text-sm leading-7 text-[hsl(var(--muted-foreground))]">
-                  Synthetic preview examples, track-separated contracts, and anonymous A/B replay sit beside a dated Phase 1 deterministic-evidence note. There is no official ranking, winner, or human preference claim.
+                  Composer Archive-to-Output uses a separate dataset, task contract, evidence page, and publication gate. Its seven-family task-success aggregate is non-rankable and does not change SEA Broadcast ASR.
                 </p>
               </div>
               <Link

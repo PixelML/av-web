@@ -1,8 +1,8 @@
 {
   "algorithm": "sha256",
   "files": {
-    "phase-1-results.json": "8525a64708f4da63ae0cf6dab3be5efa4786ad3466cbddf25ad6a462a0c0508a",
-    "phase-1-results.schema.json": "14d5ea76c9dbf2c9a6cc1fb8ece8659a3f069f3130f0bbcf4ffebc1a26e00f24",
-    "README.md": "08d34fe486b2956eec990c956204ad84a9ce362e9c0ddf03a89628017a34052f"
+    "seven-family-results.json": "ed2cba9fb604a7d2db70b862fd760c5287e55b21d3b4cc6aeb8415285fa57d1f",
+    "seven-family-results.schema.json": "a26f151cb7102294f8e7a0712031bd6a2462b1561568901edc37f97e586bade3",
+    "README.md": "0630d7415cded4039c6fde74101610a6b746cd0556fa78807c5e2fff51b6a61a"
   }
 }

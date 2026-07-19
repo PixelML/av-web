@@ -1,46 +1,23 @@
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 
-export type PhaseOneOutput = {
-  complete: true;
-  duration_ms: number;
-  bytes: number;
-  video_codec: string;
-  audio_codec: string;
-  format: string;
-  decode_passed: true;
-  opening_black_ms: number;
-  av_start_drift_ms: number;
-  av_end_drift_ms: number;
-  output_sha256: string;
-  render_acceptance_sha256: string;
+export type TaskSuccessLane = {
+  lane_id: "mechanical-control" | "evaluated-lane-a" | "evaluated-lane-b";
+  classification: "control" | "evaluated_system";
+  identity_state: "public_control" | "sealed_pending_founder_vote";
+  attempted_cells: 7;
+  structural_passes: number;
+  structural_failures: number;
+  complete_outputs_accepted: number;
+  complete_output_failures: number;
+  model_calls: number;
+  source_summary_sha256: string;
 };
 
-export type PhaseOneResult = {
-  baseline_id: string;
-  display_name: string;
-  classification: "control" | "evaluated_model" | "not_applicable";
-  terminal_status: "passed" | "failed" | "excluded" | "not_applicable";
-  task_outcome: "pass" | "policy_task_failure" | "runtime_provider_compatibility" | "direct_perception_unavailable";
-  preference_eligible: false;
-  quality_loss: false;
-  run_id: string | null;
-  latency_ms: number | null;
-  failure_code: string | null;
-  reason: string;
-  output: PhaseOneOutput | null;
-};
-
-export type PhaseOneEvidence = {
+export type SevenFamilyEvidence = {
   evidence_id: string;
   evidence_date: string;
   status: string;
-  arena_binding: {
-    arena_id: string;
-    source_head_sha: string;
-    arena_contract_sha256: string;
-    parent_contract_sha256: string;
-  };
   publication: {
     publishable: false;
     state: "insufficient_evidence";
@@ -48,10 +25,8 @@ export type PhaseOneEvidence = {
     winner: null;
     rank_count: 0;
     human_preference_claims: false;
-    reasons: string[];
   };
   vote_provenance: {
-    planned_battle_groups: 0;
     blind_battles: 0;
     real_human_votes: 0;
     resolved_battle_groups: 0;
@@ -59,32 +34,29 @@ export type PhaseOneEvidence = {
   frozen_evidence: {
     dataset_repo_id: string;
     dataset_revision: string;
-    selection_sha256: string;
+    staging_manifest_sha256: string;
+    contract_sha256: string;
     release_sha256: string;
     case_pack_sha256: string;
-    content_evidence_sha256: string;
-    task_brief_sha256: string;
-    tool_registry_sha256: string;
-    runner: {
-      version: string;
-      head_sha: string;
-      protocol_sha256: string;
-      prompt_sha256: string;
-    };
+  };
+  cohort: {
+    eligible_cells: 7;
+    distinct_source_families: 7;
+    favorable_selection: false;
+    source_family_disjoint: true;
   };
   task_success: {
     separation_statement: string;
-    results: PhaseOneResult[];
+    lanes: TaskSuccessLane[];
   };
-  diagnostic_limitations: {
-    hyperframes_version: string;
-    finding: string;
-    mechanical_control_diagnostic_count: number;
-    grok_4_5_diagnostic_count: number;
-    compatibility_treatment: string;
-    auxiliary_description_step: string;
+  blind_review: {
+    packet_public: false;
+    candidate_outputs_public: false;
+    identity_mapping_public: false;
+    founder_vote_recorded: false;
+    next_gate: string;
   };
-  next_gate: string;
+  limitations: string[];
 };
 
 type Checksums = {
@@ -102,10 +74,10 @@ const artifactRoot = path.join(
   "2026-07-19",
 );
 
-export async function loadPhaseOneEvidence() {
+export async function loadSevenFamilyEvidence() {
   const [evidence, checksums] = await Promise.all([
-    readFile(path.join(artifactRoot, "phase-1-results.json"), "utf8").then(
-      (raw) => JSON.parse(raw) as PhaseOneEvidence,
+    readFile(path.join(artifactRoot, "seven-family-results.json"), "utf8").then(
+      (raw) => JSON.parse(raw) as SevenFamilyEvidence,
     ),
     readFile(path.join(artifactRoot, "checksums.json"), "utf8").then(
       (raw) => JSON.parse(raw) as Checksums,

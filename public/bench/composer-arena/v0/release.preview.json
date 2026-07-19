@@ -59,143 +59,15 @@
       "id": "controlled-agent",
       "canonical_track_id": "controlled-semantic-text-evidence-v0",
       "title": "Controlled agent",
-      "description": "Synthetic interface examples only. The real controlled-semantic track is blocked until one genuine, hash-identical transcript/OCR/semantic-event artifact is frozen for all four systems.",
-      "rows": [
-        {
-          "standing": "tied",
-          "display_rank": "—",
-          "model": "GPT-5.6 Sol",
-          "provider": "AgenticFlow",
-          "version": "sol-medium-v1",
-          "evaluation_date": "2026-07-19",
-          "arena_score": 50,
-          "arena_score_ci95": [47.7, 52.3],
-          "battle_count": 48,
-          "deterministic_task_success": 0.833,
-          "failure_rate": 0.063,
-          "latency_ms_p50": 42100,
-          "tokens": { "input": 18400, "output": 6100, "cache_read": 9200, "cache_write": 0 },
-          "estimated_cost_usd_per_run": 0.72,
-          "per_task_slices": [
-            { "task_id": "archive-grounding", "label": "Archive grounding", "success_rate": 0.875, "battle_count": 16 },
-            { "task_id": "temporal-ordering", "label": "Temporal ordering", "success_rate": 0.813, "battle_count": 16 },
-            { "task_id": "executable-plan", "label": "Executable plan", "success_rate": 0.813, "battle_count": 16 }
-          ]
-        },
-        {
-          "standing": "tied",
-          "display_rank": "—",
-          "model": "Grok 4.5",
-          "provider": "AgenticFlow",
-          "version": "grok-4.5-medium-v1",
-          "evaluation_date": "2026-07-19",
-          "arena_score": 52.4,
-          "arena_score_ci95": [49.7, 55.1],
-          "battle_count": 48,
-          "deterministic_task_success": 0.813,
-          "failure_rate": 0.083,
-          "latency_ms_p50": 39700,
-          "tokens": { "input": 17600, "output": 6800, "cache_read": 7600, "cache_write": 0 },
-          "estimated_cost_usd_per_run": 0.66,
-          "per_task_slices": [
-            { "task_id": "archive-grounding", "label": "Archive grounding", "success_rate": 0.813, "battle_count": 16 },
-            { "task_id": "temporal-ordering", "label": "Temporal ordering", "success_rate": 0.813, "battle_count": 16 },
-            { "task_id": "executable-plan", "label": "Executable plan", "success_rate": 0.813, "battle_count": 16 }
-          ]
-        },
-        {
-          "standing": "insufficient_evidence",
-          "display_rank": "—",
-          "model": "Kimi K3",
-          "provider": "AgenticFlow",
-          "version": "kimi-k3-high-v1",
-          "evaluation_date": "2026-07-19",
-          "arena_score": 49.1,
-          "arena_score_ci95": [41.2, 57],
-          "battle_count": 8,
-          "deterministic_task_success": 0.75,
-          "failure_rate": 0.125,
-          "latency_ms_p50": 51400,
-          "tokens": { "input": 20100, "output": 7200, "cache_read": 8100, "cache_write": 0 },
-          "estimated_cost_usd_per_run": 0.81,
-          "per_task_slices": [
-            { "task_id": "archive-grounding", "label": "Archive grounding", "success_rate": 0.75, "battle_count": 4 },
-            { "task_id": "temporal-ordering", "label": "Temporal ordering", "success_rate": 0.75, "battle_count": 2 },
-            { "task_id": "executable-plan", "label": "Executable plan", "success_rate": 0.75, "battle_count": 2 }
-          ]
-        }
-      ]
+      "description": "No public standing exists. The released evidence pack contains no transcript, OCR, or semantic events, so this track remains blocked before model execution.",
+      "rows": []
     },
     {
       "id": "end-to-end-system",
       "canonical_track_id": "end-to-end-visual-orchestration-v0",
       "title": "End-to-end system",
-      "description": "Synthetic interface examples for the separate visual-orchestration track. Real results require complete Sol, Grok 4.5, and Kimi K3 outputs on every frozen holdout stratum.",
-      "rows": [
-        {
-          "standing": "tied",
-          "display_rank": "—",
-          "model": "GPT-5.6 Sol + Composer",
-          "provider": "AgenticFlow / Pixel ML",
-          "version": "sol-medium-v1 / composer-v0",
-          "evaluation_date": "2026-07-19",
-          "arena_score": 50,
-          "arena_score_ci95": [46.9, 53.1],
-          "battle_count": 36,
-          "deterministic_task_success": 0.778,
-          "failure_rate": 0.111,
-          "latency_ms_p50": 118400,
-          "tokens": { "input": 26300, "output": 8700, "cache_read": 11200, "cache_write": 0 },
-          "estimated_cost_usd_per_run": 1.18,
-          "per_task_slices": [
-            { "task_id": "timeline-validity", "label": "Timeline validity", "success_rate": 0.833, "battle_count": 12 },
-            { "task_id": "source-provenance", "label": "Source provenance", "success_rate": 0.833, "battle_count": 12 },
-            { "task_id": "reviewable-delivery", "label": "Reviewable delivery", "success_rate": 0.667, "battle_count": 12 }
-          ]
-        },
-        {
-          "standing": "tied",
-          "display_rank": "—",
-          "model": "Grok 4.5 + Composer",
-          "provider": "AgenticFlow / Pixel ML",
-          "version": "grok-4.5-medium-v1 / composer-v0",
-          "evaluation_date": "2026-07-19",
-          "arena_score": 51.6,
-          "arena_score_ci95": [48.4, 54.8],
-          "battle_count": 36,
-          "deterministic_task_success": 0.75,
-          "failure_rate": 0.139,
-          "latency_ms_p50": 109600,
-          "tokens": { "input": 24900, "output": 9100, "cache_read": 9800, "cache_write": 0 },
-          "estimated_cost_usd_per_run": 1.09,
-          "per_task_slices": [
-            { "task_id": "timeline-validity", "label": "Timeline validity", "success_rate": 0.75, "battle_count": 12 },
-            { "task_id": "source-provenance", "label": "Source provenance", "success_rate": 0.833, "battle_count": 12 },
-            { "task_id": "reviewable-delivery", "label": "Reviewable delivery", "success_rate": 0.667, "battle_count": 12 }
-          ]
-        },
-        {
-          "standing": "insufficient_evidence",
-          "display_rank": "—",
-          "model": "Kimi K3 + Composer",
-          "provider": "AgenticFlow / Pixel ML",
-          "version": "kimi-k3-high-v1 / composer-v0",
-          "evaluation_date": "2026-07-19",
-          "arena_score": 48.8,
-          "arena_score_ci95": [39.6, 58.1],
-          "battle_count": 6,
-          "deterministic_task_success": 0.667,
-          "failure_rate": 0.167,
-          "latency_ms_p50": 126800,
-          "tokens": { "input": 23100, "output": 7900, "cache_read": 7400, "cache_write": 0 },
-          "estimated_cost_usd_per_run": 0.94,
-          "per_task_slices": [
-            { "task_id": "timeline-validity", "label": "Timeline validity", "success_rate": 0.667, "battle_count": 2 },
-            { "task_id": "source-provenance", "label": "Source provenance", "success_rate": 1, "battle_count": 2 },
-            { "task_id": "reviewable-delivery", "label": "Reviewable delivery", "success_rate": 0.333, "battle_count": 2 }
-          ]
-        }
-      ]
+      "description": "Seven-family deterministic task-success evidence exists, but no governed blind preference result or public standing exists.",
+      "rows": []
     }
   ],
   "exploratory_capabilities": [
@@ -203,17 +75,17 @@
       "id": "direct-perception",
       "title": "Direct visual perception",
       "status": "non_rankable",
-      "summary": "Can the route inspect released frames directly rather than reason only over frozen derived evidence?",
-      "evidence_scope": "Capability declaration and preflight only; no synthetic score is converted into a rank.",
-      "limitation": "GLM 5.2 is marked not-applicable for direct perception in the frozen contract, which is not treated as a failure."
+      "summary": "Can a route inspect released frames directly rather than reason only over frozen derived evidence?",
+      "evidence_scope": "Capability declaration and preflight only; no capability statement is converted into rank.",
+      "limitation": "Unavailable direct perception is recorded as not applicable rather than an editing-quality failure."
     },
     {
       "id": "editorial-preference",
       "title": "Editorial preference",
       "status": "non_rankable",
       "summary": "Blind human review of coherence, opening strength, cut naturalness, and caption readability.",
-      "evidence_scope": "Two reviewers plus adjudication are required for any real public editorial claim.",
-      "limitation": "Human preference remains separate from deterministic task success and the synthetic Arena score."
+      "evidence_scope": "A private, identity-sealed packet and a recorded human judgment are required before any reveal.",
+      "limitation": "Deterministic task success is not editorial preference and never creates a winner."
     },
     {
       "id": "long-horizon-recovery",
@@ -221,15 +93,15 @@
       "status": "non_rankable",
       "summary": "Recovery from tool failures, stale state, and interrupted editing turns.",
       "evidence_scope": "Exploratory fault-injection notes only.",
-      "limitation": "The v0 public contract does not yet freeze a comparable failure-injection distribution."
+      "limitation": "The v0 public contract does not freeze a comparable failure-injection distribution."
     }
   ],
   "known_limitations": [
-    "All scores, confidence intervals, battle counts, costs, and outputs in this preview are synthetic interface fixtures and must not be interpreted as measured model performance.",
-    "Phase 1 produced one complete model output plus a mechanical control, but no complete seven-family required roster or blind human comparison; every preview-table row remains synthetic and non-rankable.",
-    "One repetition per real cell is currently frozen in the system-eval contract; reliability claims require a reviewed repeated-run extension.",
-    "Kimi K3 is evaluated at Composer's expressible high effort because the runtime cannot express the provider's published max effort.",
-    "Local replay judgments are browser-only and have no governed identity, anti-abuse, sampling, or persistence backend.",
-    "Preview identity reveal is a visual interaction, not a secrecy boundary: synthetic candidate identities ship in the downloadable fixture. A governed backend must withhold real identities until judgment."
+    "No public Arena score, confidence interval, battle count, model rank, cost comparison, or winner exists.",
+    "Seven-family task-success evidence is deterministic system evidence, not a preference result.",
+    "The controlled-agent track remains blocked because the released evidence pack has no transcript, OCR, or semantic events.",
+    "The local replay is a synthetic interaction demo with generic candidates and has no governed identity, sampling, persistence, or ranking effect.",
+    "The real blind packet, candidate outputs, and model identity mapping remain private until the founder records a vote.",
+    "One repetition per real cell is frozen; reliability claims require a reviewed repeated-run extension."
   ]
 }

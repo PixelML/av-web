@@ -1,24 +1,26 @@
 # Composer Archive-to-Output Arena v0 methodology
 
-Status: **non-rankable preview**. The checked-in metrics and battle outputs are synthetic interface fixtures, not measured model results. This public adapter is bound to `PixelML/agentic_video_intelligence` head `824da0c1001662cb5a5a01e68c9ecc7d86a16bf7` and Arena contract SHA-256 `fb3f35346af22941d4476d390a1f2929d50653f9f50ee23cef8d7b2b1ad3ecc5`.
+Status: **non-rankable preview**. The public standings are empty. The dated evidence page contains sanitized seven-family task-success counts, while the A/B replay contains generic synthetic interaction fixtures only. This public adapter is bound to `PixelML/agentic_video_intelligence` head `824da0c1001662cb5a5a01e68c9ecc7d86a16bf7` and Arena contract SHA-256 `fb3f35346af22941d4476d390a1f2929d50653f9f50ee23cef8d7b2b1ad3ecc5`.
 
 ## Tracks
 
-- `controlled-semantic-text-evidence-v0` / `controlled-agent` requires all four systems over one genuine, hash-identical transcript/OCR/semantic-event artifact. That artifact is unavailable, so the real v0 track is blocked and the visible rows are synthetic interface examples only.
-- `end-to-end-visual-orchestration-v0` / `end-to-end-system` requires Sol, Grok 4.5, and Kimi K3 over the same visual case pack. GLM 5.2 direct perception is explicitly not applicable and remains outside that roster.
+- `controlled-semantic-text-evidence-v0` / `controlled-agent` requires one genuine, hash-identical transcript/OCR/semantic-event artifact. That artifact is unavailable, so the track remains blocked before model execution.
+- `end-to-end-visual-orchestration-v0` / `end-to-end-system` has terminal seven-family deterministic task-success evidence for one public control and two identity-sealed evaluated lanes. It has no public preference result.
 - The two tracks are reported separately and never collapsed into one leaderboard.
 
 ## Standing and uncertainty
 
-The canonical Arena score is Bradley-Terry estimated win probability against Sol, normalized so Sol is exactly 50.0. Uncertainty uses 2,000 deterministic source-family cluster-bootstrap replicates at 95% confidence. The public preview demonstrates that presentation with synthetic numbers only.
+The canonical Arena estimator is Bradley-Terry logistic maximum likelihood over governed resolved battles. Uncertainty uses 2,000 deterministic source-family cluster-bootstrap replicates at 95% confidence. A future governed release must declare its score calibration and reference baseline; this preview publishes no score, interval, or model standing.
 
-An ordinal standing is forbidden when the frozen battle, seven-source-family, human-judge, complete-roster, connectivity, bootstrap, contamination, or position-bias gates are not met. `tied` means a pairwise 95% interval contains zero; `insufficient_evidence` means one or more gates failed. Synthetic preview rows remain `publishable=false`, `rank_count=0`, and non-rankable regardless of their illustrative state.
+An ordinal standing is forbidden when the frozen battle, seven-source-family, human-judge, complete-roster, connectivity, bootstrap, contamination, or position-bias gates are not met. `tied` means a pairwise 95% interval contains zero; `insufficient_evidence` means one or more gates failed. The current release has no rows and remains `publishable=false`, `rank_count=0`, `winner=null`, and non-rankable.
 
 Deterministic task success is computed independently from preference battles. Failure rate retains explicit terminal failures in the denominator. Latency, token totals, and estimated cost use frozen run records; they never disappear because a run failed.
 
 ## Anonymous battle replay
 
-The replay visually hides model identity until the visitor records `A is better`, `B is better`, `Tie`, or `Both bad`. A/B order can be swapped before judgment. The judgment is stored only in React state for the current browser view: there is no API request, persistence, identity, anti-abuse control, or official ranking effect. Synthetic identities are present in the downloadable fixture, so preview reveal is not a secrecy boundary; a governed backend must withhold real identity payloads until judgment.
+The replay is a generic synthetic interaction demo. It records `A is better`, `B is better`, `Tie`, `Both bad`, or `Abstain`; A/B order can be swapped before judgment. The choice is stored only in React state for the current browser view: there is no API request, persistence, identity, anti-abuse control, or official ranking effect.
+
+The real blind packet, candidate media, per-cell identifiers, output hashes, and identity mapping remain private until the founder votes. They are not represented by `battles.preview.jsonl`, and a static public artifact must never be treated as an identity-secrecy boundary.
 
 Any future governed vote backend requires a reviewed sampling policy, replay identity, duplicate/abuse controls, immutable battle and output hashes, model reveal rules, audit export, deletion/privacy handling, and a versioned policy that says exactly which votes enter an official release.
 
@@ -37,8 +39,10 @@ Public-eval and private-test source families must remain disjoint. Hidden-test f
 - System-eval contract SHA-256: `33ca2f1b72ee9def3bd039eda69d9903ec595d860936a0353fdb045576215624`
 - FineVideo selection release SHA-256: `d37cd450934c49721cb75de14353e070759c8220f1ed87567799473e8ab88926`
 - FineVideo selection-manifest SHA-256: `39d34f73c3708f62bf4bc0f25dae721f844821d3c75c0179e4cedcc183a71ba4`
+- Seven-family staging-manifest SHA-256: `0b395b961b0de0bb6a5c54ff80b13582d23f8e3d2e729aa7e950b1df8536d2b8`
+- Seven-family case-pack SHA-256: `74356b45867f492688e25a10c6e13a6fa2848f41ce00aa025d83adb7639ce203`
 
-The separate `FINEVIDEO_RELEASED` marker now exists and the official release check passes for 24 cells with the contract and release hashes above. That gate authorizes only the frozen source cells. The rankable runner/runtime has not yet produced real model records, so this public surface still publishes no measured score, output, or rank.
+The separate `FINEVIDEO_RELEASED` marker exists and the official release check passes for 24 cells with the contract and release hashes above. Seven eligible cells from seven distinct families completed the deterministic protocol with no favorable selection. The public aggregate still publishes no candidate output, preference score, identity mapping, or rank.
 
 ## Contamination and privacy boundaries
 
@@ -48,10 +52,9 @@ Public exports may contain aggregate metrics, public-safe artifact hashes, requi
 
 ## Known limitations
 
-- All preview scores, intervals, costs, and outputs are synthetic.
-- Phase 1 has one complete model output plus a mechanical control, but no complete seven-family required roster and therefore no blind battle or preference score.
-- The dated Phase 1 pilot evidence is deterministic task-success evidence with zero blind battles, zero ranks, and zero human preference claims.
+- No preview score, interval, cost, model rank, or winner is published.
+- Seven-family task-success counts are deterministic system evidence, not editorial preference.
+- Evaluated lane identities remain sealed pending the founder's blind vote.
 - The public surface does not implement an official vote backend.
 - The frozen system-eval contract currently uses one repetition per real cell; reliability claims need a reviewed repeated-run extension.
-- Kimi K3 uses Composer's expressible `high` effort because the runtime cannot express the provider's published `max` effort.
 - Editorial preference and long-horizon recovery remain exploratory, non-rankable capability views.

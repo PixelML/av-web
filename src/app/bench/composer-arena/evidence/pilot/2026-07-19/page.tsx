@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import { loadPhaseOneEvidence, type PhaseOneResult } from "./data";
+import { loadSevenFamilyEvidence } from "./data";
 
 const ARTIFACT_ROOT = "/bench/composer-arena/evidence/pilot/2026-07-19";
 
 export const metadata: Metadata = {
-  title: "Composer Arena Phase 1 evidence pilot — July 19, 2026",
+  title: "Composer Arena seven-family task-success evidence — July 19, 2026",
   description:
-    "Sanitized deterministic Composer Phase 1 evidence: zero blind battles, zero ranks, and no human preference claim.",
+    "Sanitized seven-family deterministic task-success evidence with sealed model identities, zero blind battles, zero ranks, and no winner.",
   alternates: { canonical: "/bench/composer-arena/evidence/pilot/2026-07-19" },
 };
 
@@ -16,15 +16,8 @@ function HashValue({ children }: { children: string }) {
   return <code className="mt-2 block break-all text-xs leading-6 text-slate-700">{children}</code>;
 }
 
-function statusClasses(result: PhaseOneResult) {
-  if (result.terminal_status === "passed") return "border-emerald-300 bg-emerald-50 text-emerald-950";
-  if (result.terminal_status === "failed") return "border-red-300 bg-red-50 text-red-950";
-  return "border-amber-300 bg-amber-50 text-amber-950";
-}
-
-export default async function PhaseOneEvidencePage() {
-  const { evidence, checksums } = await loadPhaseOneEvidence();
-  const completedOutputs = evidence.task_success.results.filter((result) => result.output);
+export default async function SevenFamilyEvidencePage() {
+  const { evidence, checksums } = await loadSevenFamilyEvidence();
 
   return (
     <main className="min-h-screen bg-[hsl(var(--background))] text-[hsl(var(--foreground))]">
@@ -37,7 +30,7 @@ export default async function PhaseOneEvidencePage() {
             </Link>
           </div>
           <span className="text-xs uppercase tracking-[0.16em] text-[hsl(var(--muted-foreground))]">
-            Evidence / pilot · 2026-07-19
+            Evidence / task success · 2026-07-19
           </span>
         </div>
       </header>
@@ -51,21 +44,22 @@ export default async function PhaseOneEvidencePage() {
             Composer Archive-to-Output Arena v0
           </p>
           <h1 className="mt-5 max-w-5xl text-4xl font-semibold leading-tight tracking-[-0.04em] sm:text-6xl">
-            Phase 1 evidence pilot
+            Seven-family task-success evidence
           </h1>
           <p className="mt-8 max-w-4xl text-base leading-8 text-[hsl(var(--muted-foreground))] sm:text-lg">
-            A sanitized, dated record of deterministic task outcomes and complete-output acceptance on one audited public-safe cell. It cannot establish model preference or an Arena winner.
+            A sanitized aggregate over seven eligible cells from seven distinct source families. It reports deterministic system outcomes only; it cannot establish editorial preference or an Arena winner.
           </p>
 
           <div className="mt-10 border-l-4 border-red-500 bg-red-50 px-6 py-5 text-sm font-semibold leading-7 text-red-950 sm:text-base">
-            Winner: none. Publication state: insufficient evidence. No blind comparison exists because the required visual roster is incomplete.
+            Winner: none. Publication state: insufficient evidence. Evaluated identities and the real blind packet remain private until the founder records a vote.
           </div>
 
-          <dl className="mt-12 grid gap-px border border-[hsl(var(--border))] bg-[hsl(var(--border))] sm:grid-cols-3">
+          <dl className="mt-12 grid gap-px border border-[hsl(var(--border))] bg-[hsl(var(--border))] sm:grid-cols-2 lg:grid-cols-4">
             {[
+              ["Source families", evidence.cohort.distinct_source_families],
               ["Blind battles", evidence.vote_provenance.blind_battles],
               ["Published ranks", evidence.publication.rank_count],
-              ["Human preference claims", evidence.publication.human_preference_claims ? 1 : 0],
+              ["Human votes", evidence.vote_provenance.real_human_votes],
             ].map(([term, value]) => (
               <div key={term} className="bg-white p-6">
                 <dt className="text-xs uppercase tracking-[0.14em] text-[hsl(var(--muted-foreground))]">{term}</dt>
@@ -76,126 +70,81 @@ export default async function PhaseOneEvidencePage() {
         </div>
       </section>
 
-      <section className="border-b border-[hsl(var(--border))] px-6 py-16 sm:py-20" id="task-outcomes">
+      <section className="border-b border-[hsl(var(--border))] px-6 py-16 sm:py-20" id="task-success">
         <div className="mx-auto max-w-6xl">
           <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-blue-600">Deterministic task success</p>
-          <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">Five outcomes; no preference ordering</h2>
+          <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">Three lanes; no preference ordering</h2>
           <p className="mt-4 max-w-4xl text-sm leading-7 text-[hsl(var(--muted-foreground))]">
             {evidence.task_success.separation_statement}
           </p>
 
-          <div className="mt-8 grid gap-4 lg:grid-cols-2">
-            {evidence.task_success.results.map((result) => (
-              <article key={result.baseline_id} className={`border p-6 ${statusClasses(result)}`}>
-                <div className="flex flex-wrap items-start justify-between gap-3">
-                  <div>
-                    <h3 className="text-lg font-semibold">{result.display_name}</h3>
-                    <code className="mt-1 block text-xs">{result.baseline_id}</code>
-                  </div>
-                  <span className="border border-current px-2 py-1 text-[11px] font-semibold uppercase tracking-[0.12em]">
-                    {result.terminal_status.replace("_", " ")}
-                  </span>
-                </div>
-                <p className="mt-5 text-sm leading-7">{result.reason}</p>
-                <dl className="mt-5 grid gap-4 border-t border-current/20 pt-5 text-xs sm:grid-cols-2">
-                  <div>
-                    <dt className="opacity-70">Scientific treatment</dt>
-                    <dd className="mt-1 font-semibold">{result.task_outcome.replaceAll("_", " ")}</dd>
-                  </div>
-                  <div>
-                    <dt className="opacity-70">Preference eligible</dt>
-                    <dd className="mt-1 font-semibold">No</dd>
-                  </div>
-                  {result.run_id && (
-                    <div className="sm:col-span-2">
-                      <dt className="opacity-70">Run ID</dt>
-                      <dd className="mt-1 break-all font-semibold">{result.run_id}</dd>
-                    </div>
-                  )}
-                  {result.failure_code && (
-                    <div>
-                      <dt className="opacity-70">Failure code</dt>
-                      <dd className="mt-1 font-semibold">{result.failure_code}</dd>
-                    </div>
-                  )}
-                  {result.latency_ms !== null && (
-                    <div>
-                      <dt className="opacity-70">Elapsed</dt>
-                      <dd className="mt-1 font-semibold tabular-nums">{(result.latency_ms / 1000).toFixed(3)}s</dd>
-                    </div>
-                  )}
-                </dl>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="border-b border-[hsl(var(--border))] px-6 py-16 sm:py-20" id="complete-outputs">
-        <div className="mx-auto max-w-6xl">
-          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-blue-600">Complete-output acceptance</p>
-          <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">Two outputs passed every acceptance gate</h2>
           <div className="mt-8 overflow-x-auto border border-[hsl(var(--border))] bg-white">
             <table className="w-full min-w-[980px] border-collapse text-left text-sm">
-              <caption className="sr-only">Accepted Phase 1 outputs</caption>
+              <caption className="sr-only">Seven-family deterministic task-success lanes</caption>
               <thead className="bg-slate-950 text-white">
                 <tr>
-                  {['Candidate', 'Output', 'Decode', 'Opening black', 'A/V drift', 'Output SHA-256', 'Acceptance SHA-256'].map((heading) => (
+                  {[
+                    "Lane",
+                    "Identity",
+                    "Attempted",
+                    "Structural",
+                    "Accepted outputs",
+                    "Model calls",
+                    "Source summary SHA-256",
+                  ].map((heading) => (
                     <th key={heading} scope="col" className="px-4 py-3 text-xs font-medium uppercase tracking-[0.1em]">{heading}</th>
                   ))}
                 </tr>
               </thead>
               <tbody>
-                {completedOutputs.map((result) => {
-                  const output = result.output!;
-                  return (
-                    <tr key={result.baseline_id} className="border-t border-[hsl(var(--border))] align-top">
-                      <td className="px-4 py-5 font-semibold">{result.display_name}</td>
-                      <td className="px-4 py-5 text-xs leading-6">{(output.duration_ms / 1000).toFixed(3)}s<br />{output.bytes.toLocaleString()} bytes<br />{output.video_codec}/{output.audio_codec} · {output.format}</td>
-                      <td className="px-4 py-5 font-semibold text-emerald-700">PASS</td>
-                      <td className="px-4 py-5 tabular-nums">{output.opening_black_ms}ms</td>
-                      <td className="px-4 py-5 text-xs tabular-nums">{output.av_start_drift_ms}ms start<br />{output.av_end_drift_ms}ms end</td>
-                      <td className="max-w-xs break-all px-4 py-5 text-xs">{output.output_sha256}</td>
-                      <td className="max-w-xs break-all px-4 py-5 text-xs">{output.render_acceptance_sha256}</td>
-                    </tr>
-                  );
-                })}
+                {evidence.task_success.lanes.map((lane) => (
+                  <tr key={lane.lane_id} className="border-t border-[hsl(var(--border))] align-top">
+                    <td className="px-4 py-5 font-semibold">{lane.lane_id}</td>
+                    <td className="px-4 py-5 text-xs leading-6">{lane.identity_state.replaceAll("_", " ")}</td>
+                    <td className="px-4 py-5 tabular-nums">{lane.attempted_cells}</td>
+                    <td className="px-4 py-5 tabular-nums">{lane.structural_passes} pass / {lane.structural_failures} fail</td>
+                    <td className="px-4 py-5 tabular-nums">{lane.complete_outputs_accepted} / {lane.attempted_cells}</td>
+                    <td className="px-4 py-5 tabular-nums">{lane.model_calls}</td>
+                    <td className="max-w-xs break-all px-4 py-5 text-xs">{lane.source_summary_sha256}</td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
         </div>
       </section>
 
-      <section className="border-b border-[hsl(var(--border))] px-6 py-16 sm:py-20" id="diagnostics">
+      <section className="border-b border-[hsl(var(--border))] px-6 py-16 sm:py-20" id="blind-boundary">
         <div className="mx-auto max-w-6xl">
-          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-blue-600">Disclosed diagnostic limitation</p>
-          <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">HyperFrames compatibility finding</h2>
-          <div className="mt-8 border border-amber-300 bg-amber-50 p-6 text-amber-950 sm:p-8">
-            <p className="text-sm leading-7">{evidence.diagnostic_limitations.finding}</p>
-            <dl className="mt-6 grid gap-5 border-t border-amber-300 pt-6 text-sm sm:grid-cols-3">
-              <div><dt className="text-xs uppercase tracking-[0.12em]">HyperFrames</dt><dd className="mt-1 font-semibold">{evidence.diagnostic_limitations.hyperframes_version}</dd></div>
-              <div><dt className="text-xs uppercase tracking-[0.12em]">Control diagnostics</dt><dd className="mt-1 text-2xl font-semibold">{evidence.diagnostic_limitations.mechanical_control_diagnostic_count}</dd></div>
-              <div><dt className="text-xs uppercase tracking-[0.12em]">Grok diagnostics</dt><dd className="mt-1 text-2xl font-semibold">{evidence.diagnostic_limitations.grok_4_5_diagnostic_count}</dd></div>
-            </dl>
-            <p className="mt-6 text-sm leading-7"><strong>Treatment:</strong> {evidence.diagnostic_limitations.compatibility_treatment}</p>
-            <p className="mt-3 text-sm leading-7"><strong>Excluded auxiliary output:</strong> {evidence.diagnostic_limitations.auxiliary_description_step}</p>
+          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-blue-600">Blind-review boundary</p>
+          <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">Commit now; reveal after the vote</h2>
+          <div className="mt-8 grid gap-4 md:grid-cols-3">
+            {[
+              ["Packet public", evidence.blind_review.packet_public ? "Yes" : "No"],
+              ["Candidate outputs public", evidence.blind_review.candidate_outputs_public ? "Yes" : "No"],
+              ["Identity mapping public", evidence.blind_review.identity_mapping_public ? "Yes" : "No"],
+            ].map(([label, value]) => (
+              <article key={label} className="border border-amber-300 bg-amber-50 p-6 text-amber-950">
+                <h3 className="text-xs font-semibold uppercase tracking-[0.12em]">{label}</h3>
+                <p className="mt-3 text-3xl font-semibold">{value}</p>
+              </article>
+            ))}
           </div>
+          <p className="mt-6 max-w-4xl text-sm leading-7 text-[hsl(var(--muted-foreground))]">
+            Next gate: {evidence.blind_review.next_gate.replaceAll("_", " ")}. This page contains no candidate media, per-cell identifiers, output hashes, run IDs, prompts, private paths, or model mapping.
+          </p>
         </div>
       </section>
 
-      <section className="px-6 py-16 sm:py-20" id="provenance">
+      <section className="border-b border-[hsl(var(--border))] px-6 py-16 sm:py-20" id="provenance">
         <div className="mx-auto max-w-6xl">
           <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-blue-600">Frozen provenance</p>
-          <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">Exact contract, runner, protocol, and output hashes</h2>
+          <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">Exact shared-input and aggregate hashes</h2>
           <div className="mt-8 grid gap-4 md:grid-cols-2">
             {[
-              ["Arena contract", evidence.arena_binding.arena_contract_sha256],
-              ["Parent contract", evidence.arena_binding.parent_contract_sha256],
-              ["Arena source head", evidence.arena_binding.source_head_sha],
-              ["Runner head", evidence.frozen_evidence.runner.head_sha],
-              ["Runner protocol", evidence.frozen_evidence.runner.protocol_sha256],
-              ["Runner prompt", evidence.frozen_evidence.runner.prompt_sha256],
-              ["Tool registry", evidence.frozen_evidence.tool_registry_sha256],
+              ["Staging manifest", evidence.frozen_evidence.staging_manifest_sha256],
+              ["System-eval contract", evidence.frozen_evidence.contract_sha256],
+              ["FineVideo release", evidence.frozen_evidence.release_sha256],
               ["Case pack", evidence.frozen_evidence.case_pack_sha256],
             ].map(([label, value]) => (
               <article key={label} className="border border-[hsl(var(--border))] bg-white p-5">
@@ -207,8 +156,8 @@ export default async function PhaseOneEvidencePage() {
 
           <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {[
-              ["Evidence JSON", `${ARTIFACT_ROOT}/phase-1-results.json`],
-              ["Evidence schema", `${ARTIFACT_ROOT}/phase-1-results.schema.json`],
+              ["Evidence JSON", `${ARTIFACT_ROOT}/seven-family-results.json`],
+              ["Evidence schema", `${ARTIFACT_ROOT}/seven-family-results.schema.json`],
               ["Checksums", `${ARTIFACT_ROOT}/checksums.json`],
               ["Public README", `${ARTIFACT_ROOT}/README.md`],
             ].map(([label, href]) => (
@@ -218,8 +167,23 @@ export default async function PhaseOneEvidencePage() {
             ))}
           </div>
           <p className="mt-6 break-all text-xs leading-6 text-[hsl(var(--muted-foreground))]">
-            Evidence artifact SHA-256: <strong>{checksums.files["phase-1-results.json"]}</strong> · Next gate: <strong>{evidence.next_gate}</strong>
+            Evidence artifact SHA-256: <strong>{checksums.files["seven-family-results.json"]}</strong>
           </p>
+        </div>
+      </section>
+
+      <section className="px-6 py-16 sm:py-20" id="limitations">
+        <div className="mx-auto max-w-6xl">
+          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-blue-600">Limits</p>
+          <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">What this evidence does not prove</h2>
+          <ol className="mt-8 grid gap-4 lg:grid-cols-2">
+            {evidence.limitations.map((limitation, index) => (
+              <li key={limitation} className="flex gap-4 border border-amber-300 bg-amber-50 p-5 text-sm leading-7 text-amber-950">
+                <span className="font-semibold tabular-nums">{String(index + 1).padStart(2, "0")}</span>
+                <span>{limitation}</span>
+              </li>
+            ))}
+          </ol>
         </div>
       </section>
     </main>

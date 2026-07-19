@@ -1,6 +1,6 @@
 # Composer Arena real-data handoff
 
-The route reads `release.preview.json` and `battles.preview.jsonl` from this directory at build time. Real public artifacts can replace those files without changing React code when they preserve the schema and filenames below.
+The route reads `release.preview.json` and `battles.preview.jsonl` from this directory at build time. The current release has empty standings and the battle file is a generic synthetic interaction demo. A real blind packet must not replace either public file before the founder votes and a separate identity reveal is authorized.
 
 The canonical upstream contract binding is `composer-archive-to-output-arena-v0` at source head `824da0c1001662cb5a5a01e68c9ecc7d86a16bf7`, Arena contract SHA-256 `fb3f35346af22941d4476d390a1f2929d50653f9f50ee23cef8d7b2b1ad3ecc5`, and parent system-eval contract SHA-256 `33ca2f1b72ee9def3bd039eda69d9903ec595d860936a0353fdb045576215624`. A future adapter must fail closed if any binding drifts.
 
@@ -11,7 +11,7 @@ The canonical upstream contract binding is `composer-archive-to-output-arena-v0`
 3. `checksums.json` — raw SHA-256 values for the schema, release, battles, methodology, and this handoff.
 4. `methodology.md` — frozen methodology, estimator, vote policy, source/rights boundary, contamination policy, and limitations.
 
-Before a rankable release, change `release_mode` to `governed_rankable_release` and `official_ranking_enabled` to `true` only after the already-green FineVideo release marker is joined by real runner records, a governed vote backend when votes are included, a frozen statistical policy, and command-room review. Synthetic or local/demo data must remain `synthetic_non_rankable_preview`.
+Before a rankable release, change `release_mode` to `governed_rankable_release` and `official_ranking_enabled` to `true` only after the already-green FineVideo release marker is joined by real runner records, a governed vote backend when votes are included, a frozen statistical policy, and command-room review. Synthetic or local/demo data remains `synthetic_non_rankable_preview`; sanitized task-success evidence remains separate from standings.
 
 The canonical upstream publication vocabulary is `ranked`, `tied`, and `insufficient_evidence`; public results have `scope: independent_track_results_only`. `controlled-semantic-text-evidence-v0` and `end-to-end-visual-orchestration-v0` remain separate, and a combined winner is forbidden.
 
@@ -41,7 +41,14 @@ Each line must be a self-contained object with:
 - a `source` object containing fixture/cell identity, source-family ID, immutable revision, and `rankable`;
 - `left` and `right` candidates containing a stable candidate ID, hidden model/provider/version identity, public output title/summary, and one or more provenance/evidence links.
 
-The browser may swap left/right display order. Judgment choices are exactly `left`, `right`, `tie`, and `both_bad`. The public client reveals identity only after a judgment and sends no vote request.
+The browser may swap left/right display order. Local demo choices are exactly `left`, `right`, `tie`, `both_bad`, and `abstain`. The public client reveals only generic demo identities after a choice and sends no vote request.
+
+## Private blind packet boundary
+
+- Keep the real packet, candidate media, per-cell identifiers, output hashes, prompts, run identifiers, and model mapping outside `public/` until the founder records a vote.
+- Public pre-vote evidence may contain only aggregate task-success counts, shared-input hashes, and identity-sealed source-summary commitments.
+- Do not expose a real candidate through static JSON, HTML source, build output, evidence links, checksums, or downloadable artifacts.
+- Publish any model-identity reveal as a separate, dated post-vote artifact so the pre-vote evidence remains immutable.
 
 ## Promotion gates
 
@@ -52,6 +59,6 @@ The browser may swap left/right display order. Judgment choices are exactly `lef
 - No hidden test data, customer/GMA data, credentials, signed URLs, or raw reasoning traces enter public artifacts.
 - Every model route passes exact-provider/model/version preflight with no fallback substitution.
 - The statistical exporter emits ties and insufficient-evidence states rather than forcing ranks.
-- Evidence/smoke partitions and pilot failures create deterministic evidence only; an incomplete required-roster stratum creates zero battles and no Bradley-Terry observation.
+- Deterministic seven-family task-success evidence creates no battle or Bradley-Terry observation without a private comparable packet and a governed human judgment.
 - Official votes, if any, come only from a governed backend with a versioned inclusion policy.
 - Schema validation, checksum verification, lint, build, route contract checks, and HTTP/UI smoke are green.

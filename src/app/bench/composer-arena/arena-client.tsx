@@ -9,7 +9,7 @@ import type {
   BattleCandidate,
 } from "./types";
 
-type Judgment = "left" | "right" | "tie" | "both_bad";
+type Judgment = "left" | "right" | "tie" | "both_bad" | "abstain";
 
 const percent = new Intl.NumberFormat("en-US", {
   style: "percent",
@@ -47,6 +47,21 @@ function TrackTable({ release, trackId }: { release: ArenaRelease; trackId: Aren
 
   if (!track) return null;
 
+  if (track.rows.length === 0) {
+    return (
+      <div>
+        <div className="mb-6 max-w-3xl">
+          <h3 className="text-xl font-semibold">{track.title}</h3>
+          <p className="mt-2 text-sm leading-7 text-[hsl(var(--muted-foreground))]">{track.description}</p>
+          <code className="mt-2 block text-xs text-[hsl(var(--muted-foreground))]">{track.canonical_track_id}</code>
+        </div>
+        <div className="border border-amber-300 bg-amber-50 p-6 text-sm leading-7 text-amber-950">
+          No public standings are available. Task-success evidence stays separate from preference ranking.
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div>
       <div className="mb-6 max-w-3xl">
@@ -63,7 +78,7 @@ function TrackTable({ release, trackId }: { release: ArenaRelease; trackId: Aren
               {[
                 "Standing",
                 "Model / route",
-                "Preview score vs Sol (95% CI)",
+                "Arena score (95% CI)",
                 "Battles",
                 "Task success",
                 "Failure rate",
@@ -252,12 +267,13 @@ function BattleReplay({ battles }: { battles: ArenaBattle[] }) {
         <p className="mt-2 text-xs leading-6 text-[hsl(var(--muted-foreground))]">
           This selection stays in this page only. No request is sent and official standings never change.
         </p>
-        <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
           {([
             ["left", "A is better"],
             ["tie", "Tie"],
             ["right", "B is better"],
             ["both_bad", "Both bad"],
+            ["abstain", "Abstain"],
           ] as const).map(([value, label]) => (
             <button
               key={value}
@@ -298,7 +314,7 @@ export default function ArenaClient({ release, battles }: { release: ArenaReleas
         <div className="mx-auto max-w-7xl">
           <div className="mb-8 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
             <div>
-              <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-blue-600">Preview standings</p>
+              <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-blue-600">Standings gate</p>
               <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">Separate views; no forced ranks</h2>
             </div>
             <div className="inline-flex w-full border border-[hsl(var(--border))] bg-white p-1 sm:w-auto" role="group" aria-label="Arena track">
@@ -319,7 +335,7 @@ export default function ArenaClient({ release, battles }: { release: ArenaReleas
           </div>
 
           <div className="mb-6 border-l-4 border-amber-400 bg-amber-50 px-5 py-4 text-sm leading-7 text-amber-950">
-            Synthetic preview examples only. They use PR #104&apos;s 0–100 score-vs-Sol presentation, but publish no rank; real evidence must satisfy at least {release.evaluation_policy.minimum_resolved_battles_per_pair_overall} resolved battles per pair plus the full frozen gates.
+            No synthetic or measured score rows are published. A real standing requires at least {release.evaluation_policy.minimum_resolved_battles_per_pair_overall} resolved battles per pair plus the full frozen gates.
           </div>
 
           <TrackTable release={release} trackId={trackId} />
@@ -352,10 +368,10 @@ export default function ArenaClient({ release, battles }: { release: ArenaReleas
 
       <section className="border-b border-[hsl(var(--border))] px-6 py-16 sm:py-20" id="battle-replay">
         <div className="mx-auto max-w-7xl">
-          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-blue-600">Anonymous A/B replay</p>
-          <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">Judge first; reveal identity second</h2>
+          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-blue-600">Synthetic A/B interaction demo</p>
+          <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">Practice the judgment flow; no real packet is here</h2>
           <p className="mt-4 max-w-3xl text-sm leading-7 text-[hsl(var(--muted-foreground))]">
-            Swap order to test position sensitivity, choose a winner, tie, or both-bad state, then inspect model identity and evidence links.
+            Swap order to test position sensitivity, choose a winner, tie, both-bad, or abstain, then reveal generic demo identities. The real blind packet and model mapping remain private.
           </p>
           <div className="mt-8"><BattleReplay battles={battles} /></div>
         </div>

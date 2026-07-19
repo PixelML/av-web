@@ -1,11 +1,11 @@
 {
   "algorithm": "sha256",
   "files": {
-    "release.schema.json": "da3cb101dec52ac3cdeab1dc9e6f041668df150857d4781676e4b1b0399ae55f",
+    "release.schema.json": "a42e66add183d8e35d40fce36fa0b8ab3ba2c1e4656d7192398b0873a6f62b35",
     "battle.schema.json": "b235183b07bf469172c79e8746275f2dd81dc30517667db5fb9a40f07c1f1572",
-    "release.preview.json": "0d33d0aa14ed6295c11d23e81fe985af003941fecab12131e4f3fc3eee874915",
-    "battles.preview.jsonl": "cb03fa3f39acc9c6488aa2beb45b08dc3cefe9fcaae236a66805873bd05d0d6c",
-    "methodology.md": "b989ced1c20285f6257a9d3be1d11097fd29a11f6e4def030d03c194c2a29a55",
-    "handoff.md": "30f58c039880905d6fa6cad884c68417fd483af7d9ef0ef31b40cac2cf7beacb"
+    "release.preview.json": "ae76298c693969dd3d1b2c7c687a791b715820daf4f0570a5a9711135ae202bd",
+    "battles.preview.jsonl": "2b99e8b7f89e073ed81daeab19cd86ec984aae87f8a3ac26bc079ae66e0cb59b",
+    "methodology.md": "7eda2248f9b434642f796034ca1760c40c6d485b00df17fd41766210936ae3d2",
+    "handoff.md": "7419838696f005a0048aaaf0e13ab35e7fe50f87abded698bc7307db3bf35a10"
   }
 }
