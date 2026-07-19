@@ -1,18 +1,18 @@
 # Composer Archive-to-Output Arena v0 methodology
 
-Status: **non-rankable preview**. The checked-in metrics and battle outputs are synthetic interface fixtures, not measured model results.
+Status: **non-rankable preview**. The checked-in metrics and battle outputs are synthetic interface fixtures, not measured model results. This public adapter is bound to `PixelML/agentic_video_intelligence` head `824da0c1001662cb5a5a01e68c9ecc7d86a16bf7` and Arena contract SHA-256 `fb3f35346af22941d4476d390a1f2929d50653f9f50ee23cef8d7b2b1ad3ecc5`.
 
 ## Tracks
 
-- `controlled-agent` compares evidence-grounded archive understanding, temporal reasoning, and executable edit planning over the same frozen evidence and brief.
-- `end-to-end-system` compares complete Composer executions over the same released cell and brief. Timeline mutation must use the frozen Composer tool contract and pass structural gates.
+- `controlled-semantic-text-evidence-v0` / `controlled-agent` requires all four systems over one genuine, hash-identical transcript/OCR/semantic-event artifact. That artifact is unavailable, so the real v0 track is blocked and the visible rows are synthetic interface examples only.
+- `end-to-end-visual-orchestration-v0` / `end-to-end-system` requires Sol, Grok 4.5, and Kimi K3 over the same visual case pack. GLM 5.2 direct perception is explicitly not applicable and remains outside that roster.
 - The two tracks are reported separately and never collapsed into one leaderboard.
 
 ## Standing and uncertainty
 
-Arena score is a presentation field for the future governed pairwise estimator. A real release must document the estimator, seed, bootstrap procedure, tie threshold, and vote inclusion policy. The public surface shows the frozen 95% confidence interval and battle count beside every score.
+The canonical Arena score is Bradley-Terry estimated win probability against Sol, normalized so Sol is exactly 50.0. Uncertainty uses 2,000 deterministic source-family cluster-bootstrap replicates at 95% confidence. The public preview demonstrates that presentation with synthetic numbers only.
 
-An ordinal standing is forbidden when the minimum battle count is not met or required evidence is incomplete. A tie is displayed when the governed comparison cannot establish separation at 95% confidence. Synthetic preview rows remain non-rankable regardless of their displayed fixture standing.
+An ordinal standing is forbidden when the frozen battle, seven-source-family, human-judge, complete-roster, connectivity, bootstrap, contamination, or position-bias gates are not met. `tied` means a pairwise 95% interval contains zero; `insufficient_evidence` means one or more gates failed. Synthetic preview rows remain `publishable=false`, `rank_count=0`, and non-rankable regardless of their illustrative state.
 
 Deterministic task success is computed independently from preference battles. Failure rate retains explicit terminal failures in the denominator. Latency, token totals, and estimated cost use frozen run records; they never disappear because a run failed.
 
@@ -32,6 +32,8 @@ Public-eval and private-test source families must remain disjoint. Hidden-test f
 
 ## Frozen evidence
 
+- Arena source head: `824da0c1001662cb5a5a01e68c9ecc7d86a16bf7`
+- Arena contract SHA-256: `fb3f35346af22941d4476d390a1f2929d50653f9f50ee23cef8d7b2b1ad3ecc5`
 - System-eval contract SHA-256: `33ca2f1b72ee9def3bd039eda69d9903ec595d860936a0353fdb045576215624`
 - FineVideo selection release SHA-256: `d37cd450934c49721cb75de14353e070759c8220f1ed87567799473e8ab88926`
 - FineVideo selection-manifest SHA-256: `39d34f73c3708f62bf4bc0f25dae721f844821d3c75c0179e4cedcc183a71ba4`
@@ -47,7 +49,8 @@ Public exports may contain aggregate metrics, public-safe artifact hashes, requi
 ## Known limitations
 
 - All preview scores, intervals, costs, and outputs are synthetic.
-- The FineVideo source release is green, but the rankable runner/runtime is still being repaired and has produced no public model records.
+- Phase 1 has one complete model output plus a mechanical control, but no complete seven-family required roster and therefore no blind battle or preference score.
+- The dated Phase 1 pilot evidence is deterministic task-success evidence with zero blind battles, zero ranks, and zero human preference claims.
 - The public surface does not implement an official vote backend.
 - The frozen system-eval contract currently uses one repetition per real cell; reliability claims need a reviewed repeated-run extension.
 - Kimi K3 uses Composer's expressible `high` effort because the runtime cannot express the provider's published `max` effort.

@@ -1,0 +1,165 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agentic.video/bench/composer-arena/evidence/pilot/2026-07-19/phase-1-results.schema.json",
+  "title": "Composer Arena Phase 1 public pilot evidence",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "evidence_id",
+    "evidence_date",
+    "status",
+    "data_class",
+    "arena_binding",
+    "publication",
+    "vote_provenance",
+    "frozen_evidence",
+    "task_success",
+    "diagnostic_limitations",
+    "next_gate"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "evidence_id": { "const": "composer-arena-phase-1-pilot-2026-07-19" },
+    "evidence_date": { "const": "2026-07-19" },
+    "status": { "const": "phase-1-complete-publication-not-approved" },
+    "data_class": { "const": "pilot_evidence" },
+    "arena_binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["arena_id", "source_head_sha", "arena_contract_sha256", "parent_contract_sha256"],
+      "properties": {
+        "arena_id": { "const": "composer-archive-to-output-arena-v0" },
+        "source_head_sha": { "const": "824da0c1001662cb5a5a01e68c9ecc7d86a16bf7" },
+        "arena_contract_sha256": { "const": "fb3f35346af22941d4476d390a1f2929d50653f9f50ee23cef8d7b2b1ad3ecc5" },
+        "parent_contract_sha256": { "const": "33ca2f1b72ee9def3bd039eda69d9903ec595d860936a0353fdb045576215624" }
+      }
+    },
+    "publication": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["surface", "publishable", "state", "leaderboard", "winner", "rank_count", "human_preference_claims", "reasons"],
+      "properties": {
+        "surface": { "const": "evidence/pilot" },
+        "publishable": { "const": false },
+        "state": { "const": "insufficient_evidence" },
+        "leaderboard": { "const": false },
+        "winner": { "type": "null" },
+        "rank_count": { "const": 0 },
+        "human_preference_claims": { "const": false },
+        "reasons": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } }
+      }
+    },
+    "vote_provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["collection_mode", "crowdsourced", "planned_battle_groups", "blind_battles", "real_human_votes", "resolved_battle_groups"],
+      "properties": {
+        "collection_mode": { "const": "no_eligible_votes" },
+        "crowdsourced": { "const": false },
+        "planned_battle_groups": { "const": 0 },
+        "blind_battles": { "const": 0 },
+        "real_human_votes": { "const": 0 },
+        "resolved_battle_groups": { "const": 0 }
+      }
+    },
+    "frozen_evidence": { "$ref": "#/$defs/frozenEvidence" },
+    "task_success": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["separation_statement", "results"],
+      "properties": {
+        "separation_statement": { "type": "string", "minLength": 1 },
+        "results": {
+          "type": "array",
+          "minItems": 5,
+          "maxItems": 5,
+          "items": { "$ref": "#/$defs/taskResult" }
+        }
+      }
+    },
+    "diagnostic_limitations": { "$ref": "#/$defs/diagnosticLimitations" },
+    "next_gate": { "const": "all-seven-immutable-holdout-families" }
+  },
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "sha1": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+    "frozenEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["dataset_repo_id", "dataset_revision", "selection_sha256", "release_sha256", "case_pack_sha256", "content_evidence_sha256", "task_brief_sha256", "tool_registry_sha256", "runner"],
+      "properties": {
+        "dataset_repo_id": { "const": "HuggingFaceFV/finevideo" },
+        "dataset_revision": { "const": "84c74091e1c6ee7a5dffabfafb5c9033e4718883" },
+        "selection_sha256": { "$ref": "#/$defs/sha256" },
+        "release_sha256": { "$ref": "#/$defs/sha256" },
+        "case_pack_sha256": { "$ref": "#/$defs/sha256" },
+        "content_evidence_sha256": { "$ref": "#/$defs/sha256" },
+        "task_brief_sha256": { "$ref": "#/$defs/sha256" },
+        "tool_registry_sha256": { "$ref": "#/$defs/sha256" },
+        "runner": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["version", "head_sha", "protocol_sha256", "prompt_sha256"],
+          "properties": {
+            "version": { "const": "composer-system-eval-runner-v2" },
+            "head_sha": { "$ref": "#/$defs/sha1" },
+            "protocol_sha256": { "$ref": "#/$defs/sha256" },
+            "prompt_sha256": { "$ref": "#/$defs/sha256" }
+          }
+        }
+      }
+    },
+    "taskResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["baseline_id", "display_name", "classification", "terminal_status", "task_outcome", "preference_eligible", "quality_loss", "run_id", "latency_ms", "failure_code", "reason", "output"],
+      "properties": {
+        "baseline_id": { "enum": ["chronological-mechanical-v1", "grok-4.5-medium-v1", "sol-medium-v1", "kimi-k3-high-v1", "glm-5.2-high-v1"] },
+        "display_name": { "type": "string", "minLength": 1 },
+        "classification": { "enum": ["control", "evaluated_model", "not_applicable"] },
+        "terminal_status": { "enum": ["passed", "failed", "excluded", "not_applicable"] },
+        "task_outcome": { "enum": ["pass", "policy_task_failure", "runtime_provider_compatibility", "direct_perception_unavailable"] },
+        "preference_eligible": { "const": false },
+        "quality_loss": { "const": false },
+        "run_id": { "type": ["string", "null"] },
+        "latency_ms": { "type": ["integer", "null"], "minimum": 0 },
+        "failure_code": { "type": ["string", "null"] },
+        "reason": { "type": "string", "minLength": 1 },
+        "output": { "oneOf": [{ "$ref": "#/$defs/output" }, { "type": "null" }] }
+      }
+    },
+    "output": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["complete", "duration_ms", "bytes", "video_codec", "audio_codec", "format", "decode_passed", "opening_black_ms", "av_start_drift_ms", "av_end_drift_ms", "output_sha256", "render_acceptance_sha256"],
+      "properties": {
+        "complete": { "const": true },
+        "duration_ms": { "type": "integer", "minimum": 1 },
+        "bytes": { "type": "integer", "minimum": 1 },
+        "video_codec": { "type": "string", "minLength": 1 },
+        "audio_codec": { "type": "string", "minLength": 1 },
+        "format": { "type": "string", "minLength": 1 },
+        "decode_passed": { "const": true },
+        "opening_black_ms": { "type": "number", "minimum": 0 },
+        "av_start_drift_ms": { "type": "number", "minimum": 0 },
+        "av_end_drift_ms": { "type": "number", "minimum": 0 },
+        "output_sha256": { "$ref": "#/$defs/sha256" },
+        "render_acceptance_sha256": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "diagnosticLimitations": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["hyperframes_version", "finding", "mechanical_control_diagnostic_count", "grok_4_5_diagnostic_count", "compatibility_treatment", "auxiliary_description_step"],
+      "properties": {
+        "hyperframes_version": { "const": "0.7.64" },
+        "finding": { "type": "string", "minLength": 1 },
+        "mechanical_control_diagnostic_count": { "const": 8 },
+        "grok_4_5_diagnostic_count": { "const": 6 },
+        "compatibility_treatment": { "type": "string", "minLength": 1 },
+        "auxiliary_description_step": { "type": "string", "minLength": 1 }
+      }
+    }
+  }
+}

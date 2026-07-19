@@ -73,11 +73,11 @@ export default async function ComposerArenaPage() {
             Composer Archive-to-Output Arena v0
           </h1>
           <p className="mt-8 max-w-4xl text-base leading-8 text-[hsl(var(--muted-foreground))] sm:text-lg">
-            A publication-candidate surface for comparing evidence-grounded editing agents and complete Composer systems. Every visible result is a synthetic UI fixture until governed real outputs replace the artifacts below.
+            A publication-candidate surface for comparing evidence-grounded editing agents and complete Composer systems. Leaderboard-like rows remain synthetic preview examples; audited Phase 1 task evidence is published separately as a dated pilot note.
           </p>
 
           <div className="mt-10 border-l-4 border-amber-400 bg-amber-50 px-6 py-5 text-sm font-semibold leading-7 text-amber-950 sm:text-base">
-            Official ranking is disabled. No model or media call was made for this page, and local replay judgments are excluded from all standings.
+            Official ranking is disabled. The preview table and replay are synthetic, local replay judgments are excluded, and the separate Phase 1 evidence note contains no winner or preference claim.
           </div>
 
           <dl className="mt-12 grid gap-px border border-[hsl(var(--border))] bg-[hsl(var(--border))] sm:grid-cols-2 lg:grid-cols-4">
@@ -93,6 +93,28 @@ export default async function ComposerArenaPage() {
               </div>
             ))}
           </dl>
+        </div>
+      </section>
+
+      <section className="border-b border-[hsl(var(--border))] px-6 py-12 sm:py-16" id="phase-1-evidence">
+        <div className="mx-auto max-w-7xl border border-emerald-300 bg-emerald-50 p-6 sm:p-8">
+          <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
+            <div className="max-w-4xl text-emerald-950">
+              <span className="inline-flex border border-emerald-400 px-2 py-1 text-[11px] font-semibold uppercase tracking-[0.12em]">
+                evidence / pilot · not a leaderboard
+              </span>
+              <h2 className="mt-5 text-2xl font-semibold tracking-tight">Phase 1 deterministic evidence is available</h2>
+              <p className="mt-3 text-sm leading-7">
+                Mechanical control and Grok 4.5 produced complete passing outputs; Sol recorded a tool-policy task failure, Kimi K3 was excluded for runtime/provider compatibility, and GLM 5.2 direct vision is not applicable. Zero blind battles, zero ranks, and zero human preference claims.
+              </p>
+            </div>
+            <Link
+              href="/bench/composer-arena/evidence/pilot/2026-07-19"
+              className="inline-flex shrink-0 items-center justify-center border border-emerald-950 bg-emerald-950 px-5 py-3 text-sm font-semibold text-white hover:bg-blue-600 hover:text-white"
+            >
+              Open dated evidence
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -176,19 +198,22 @@ export default async function ComposerArenaPage() {
           <div className="grid gap-4 lg:grid-cols-3">
             <article className="border border-[hsl(var(--border))] bg-white p-5">
               <h3 className="text-sm font-semibold">System-eval contract SHA-256</h3>
-              <HashValue>{release.dataset.contract_sha256}</HashValue>
+              <HashValue>{release.arena_binding.arena_contract_sha256}</HashValue>
+            </article>
+            <article className="border border-[hsl(var(--border))] bg-white p-5">
+              <h3 className="text-sm font-semibold">Parent system-eval contract SHA-256</h3>
+              <HashValue>{release.arena_binding.parent_contract_sha256}</HashValue>
             </article>
             <article className="border border-[hsl(var(--border))] bg-white p-5">
               <h3 className="text-sm font-semibold">FineVideo release SHA-256</h3>
               <HashValue>{release.dataset.finevideo_release_sha256}</HashValue>
             </article>
-            <article className="border border-[hsl(var(--border))] bg-white p-5">
-              <h3 className="text-sm font-semibold">Public preview release SHA-256</h3>
-              <HashValue>{checksums.files["release.preview.json"]}</HashValue>
-            </article>
           </div>
+          <p className="mt-4 break-all text-xs leading-6 text-[hsl(var(--muted-foreground))]">
+            Public preview release SHA-256: <strong>{checksums.files["release.preview.json"]}</strong> · Arena source head: <strong>{release.arena_binding.source_head_sha}</strong>
+          </p>
           <p className="mt-6 max-w-5xl text-sm leading-7 text-[hsl(var(--muted-foreground))]">
-            The command-room FineVideo selection and release marker pass for 24 cells. The rankable runner/runtime has not produced real model records, so these hashes establish source provenance only—not measured performance or an official ranking.
+            The command-room FineVideo selection and release marker pass for 24 cells. Phase 1 produced deterministic pilot evidence, but not a complete comparable seven-family roster or blind human review, so no official ranking exists.
           </p>
         </div>
       </section>

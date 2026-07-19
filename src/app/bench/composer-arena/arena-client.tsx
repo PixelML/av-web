@@ -18,7 +18,7 @@ const percent = new Intl.NumberFormat("en-US", {
 
 const integer = new Intl.NumberFormat("en-US");
 
-function StandingBadge({ standing }: { standing: "ranked" | "tie" | "insufficient_evidence" }) {
+function StandingBadge({ standing }: { standing: "ranked" | "tied" | "insufficient_evidence" }) {
   if (standing === "insufficient_evidence") {
     return (
       <span className="inline-flex border border-amber-300 bg-amber-50 px-2 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-amber-950">
@@ -27,10 +27,10 @@ function StandingBadge({ standing }: { standing: "ranked" | "tie" | "insufficien
     );
   }
 
-  if (standing === "tie") {
+  if (standing === "tied") {
     return (
       <span className="inline-flex border border-blue-200 bg-blue-50 px-2 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-blue-800">
-        tie
+        tied example
       </span>
     );
   }
@@ -52,6 +52,7 @@ function TrackTable({ release, trackId }: { release: ArenaRelease; trackId: Aren
       <div className="mb-6 max-w-3xl">
         <h3 className="text-xl font-semibold">{track.title}</h3>
         <p className="mt-2 text-sm leading-7 text-[hsl(var(--muted-foreground))]">{track.description}</p>
+        <code className="mt-2 block text-xs text-[hsl(var(--muted-foreground))]">{track.canonical_track_id}</code>
       </div>
 
       <div className="overflow-x-auto border border-[hsl(var(--border))] bg-white">
@@ -62,7 +63,7 @@ function TrackTable({ release, trackId }: { release: ArenaRelease; trackId: Aren
               {[
                 "Standing",
                 "Model / route",
-                "Arena score (95% CI)",
+                "Preview score vs Sol (95% CI)",
                 "Battles",
                 "Task success",
                 "Failure rate",
@@ -318,7 +319,7 @@ export default function ArenaClient({ release, battles }: { release: ArenaReleas
           </div>
 
           <div className="mb-6 border-l-4 border-amber-400 bg-amber-50 px-5 py-4 text-sm leading-7 text-amber-950">
-            Synthetic fixture values only. Ties are explicit; rows below {release.evaluation_policy.minimum_battles_for_standing} governed battles show insufficient evidence instead of an ordinal rank.
+            Synthetic preview examples only. They use PR #104&apos;s 0–100 score-vs-Sol presentation, but publish no rank; real evidence must satisfy at least {release.evaluation_policy.minimum_resolved_battles_per_pair_overall} resolved battles per pair plus the full frozen gates.
           </div>
 
           <TrackTable release={release} trackId={trackId} />

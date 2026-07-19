@@ -1,6 +1,6 @@
 export type ArenaTrackId = "controlled-agent" | "end-to-end-system";
 
-export type ArenaStanding = "ranked" | "tie" | "insufficient_evidence";
+export type ArenaStanding = "ranked" | "tied" | "insufficient_evidence";
 
 export type TokenUsage = {
   input: number;
@@ -36,6 +36,7 @@ export type ArenaRow = {
 
 export type ArenaTrack = {
   id: ArenaTrackId;
+  canonical_track_id: "controlled-semantic-text-evidence-v0" | "end-to-end-visual-orchestration-v0";
   title: string;
   description: string;
   rows: ArenaRow[];
@@ -56,16 +57,34 @@ export type ArenaRelease = {
   release_id: string;
   generated_at: string;
   release_mode: "synthetic_non_rankable_preview" | "governed_rankable_release";
+  data_class: "rankable" | "exploratory" | "synthetic";
   official_ranking_enabled: boolean;
   official_vote_backend: "not_configured" | "governed_v1";
   display_label: string;
+  arena_binding: {
+    arena_id: "composer-archive-to-output-arena-v0";
+    source_head_sha: string;
+    arena_contract_sha256: string;
+    parent_contract_sha256: string;
+  };
+  publication: {
+    publishable: boolean;
+    state: "ranked" | "tied" | "insufficient_evidence";
+    scope: "independent_track_results_only";
+    winner: string | null;
+    rank_count: number;
+  };
+  vote_provenance: {
+    collection_mode: "bounded_human_review" | "exploratory_model_review" | "synthetic_fixture" | "no_eligible_votes";
+    crowdsourced: false;
+    real_human_votes: number;
+  };
   dataset: {
     repo_id: string;
     revision: string;
     license_claim: string;
     license_scope: string;
     attribution: string;
-    contract_sha256: string;
     finevideo_release_sha256: string;
     selection_manifest_sha256: string;
     public_eval_source_family_count: number;
@@ -77,8 +96,11 @@ export type ArenaRelease = {
     };
   };
   evaluation_policy: {
+    ranking_method: "Bradley-Terry logistic maximum likelihood";
     confidence_level: 0.95;
-    minimum_battles_for_standing: number;
+    bootstrap_replicates: 2000;
+    minimum_resolved_battles_per_pair_overall: 4;
+    position_bias_decisive_presentations: 20;
     tie_rule: string;
     insufficient_evidence_rule: string;
     local_vote_policy: string;

@@ -139,7 +139,7 @@ export default function BenchPage() {
                 </span>
                 <h3 className="mt-5 text-xl font-semibold">Archive understanding to reviewable output</h3>
                 <p className="mt-3 text-sm leading-7 text-[hsl(var(--muted-foreground))]">
-                  Synthetic, schema-driven standings, track-separated metrics, non-rankable capability cards, and anonymous A/B replay. No official vote backend or measured model result is active.
+                  Synthetic preview examples, track-separated contracts, and anonymous A/B replay sit beside a dated Phase 1 deterministic-evidence note. There is no official ranking, winner, or human preference claim.
                 </p>
               </div>
               <Link

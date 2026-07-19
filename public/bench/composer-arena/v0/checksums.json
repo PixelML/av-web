@@ -1,11 +1,11 @@
 {
   "algorithm": "sha256",
   "files": {
-    "release.schema.json": "a08a171fb29b3cbed0e173f549cf566597fb840168b34f06181e400d7fdd6ace",
+    "release.schema.json": "da3cb101dec52ac3cdeab1dc9e6f041668df150857d4781676e4b1b0399ae55f",
     "battle.schema.json": "b235183b07bf469172c79e8746275f2dd81dc30517667db5fb9a40f07c1f1572",
-    "release.preview.json": "bd4d755cc09154a5fed315299e8771908f3f956e2b63a8136b8544680dc01371",
+    "release.preview.json": "0d33d0aa14ed6295c11d23e81fe985af003941fecab12131e4f3fc3eee874915",
     "battles.preview.jsonl": "cb03fa3f39acc9c6488aa2beb45b08dc3cefe9fcaae236a66805873bd05d0d6c",
-    "methodology.md": "94ce70458152c1123a279181256c9a17d9321733c556317e54c65b2e85907917",
-    "handoff.md": "05524e739f8ce21e284ab83d4c54eba50b751b57f5b8ceaeeb0c05e95324305e"
+    "methodology.md": "b989ced1c20285f6257a9d3be1d11097fd29a11f6e4def030d03c194c2a29a55",
+    "handoff.md": "30f58c039880905d6fa6cad884c68417fd483af7d9ef0ef31b40cac2cf7beacb"
   }
 }
