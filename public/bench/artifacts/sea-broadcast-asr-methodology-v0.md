@@ -27,6 +27,9 @@ The checked-in `dev-preview-0.1` fixture contains four Pixel ML-authored synthet
 | Run manifest | `sea-broadcast-asr-run-manifest-v0.1` | Immutable source/model/adapter/config/hardware/date/cost metadata, stage history, fixed-test declarations, and complete terminal-state counts. |
 | Utterance ledger | `sea-broadcast-asr-utterance-ledger-v0.1` | Append-only digest records, idempotent attempts, explicit failure classes, and a private digest-only adjudication queue. |
 | Public aggregate | `sea-broadcast-asr-public-aggregate-v0.1` | Aggregate-only metrics, failures, latency, cost, contamination, and uncertainty with no item text, reference, media URI, or private history. |
+| Source freeze | `sea-broadcast-asr-source-freeze-v0.1` | Private evaluator-only rights approvals, exact local paths/digests, and source-family-disjoint frozen public-dev/private-test membership. |
+| Gold ledger | `sea-broadcast-asr-gold-ledger-v0.1` | Append-only transcript/reference revisions with independent review, adjudication, and exact frozen-reference coverage. |
+| Public release | `sea-broadcast-asr-public-release-v0.1` | At least six unique frozen aggregate rows in separate controlled-model and end-to-end tables, with no private identifiers or blended ranking. |
 
 Unknown fields and mismatched versions are rejected. Prediction coverage must match the manifest exactly. Canonical SHA-256 digests make the same inputs produce the same result ID and artifacts. Generate the JSON Schemas with:
 
@@ -96,11 +99,13 @@ PYTHONPATH=src python -m av.cli.app benchmark sea-asr score \
 
 Public dev artifacts may contain approved item references and sample metrics. The human-verified hidden test and ground truth, failure history/taxonomy, customer material/data/telemetry/corrections, and training/post-training/calibration/adjudication recipes stay outside the public tree. Because the v0 result contract contains sample-level text, it cannot publish a private-test run. The September leaderboard requires a separate reviewed aggregate-only exporter.
 
-The `public-export` command is that fail-closed boundary: it consumes local run, ledger, and scorer-result contracts, verifies complete denominators and operational totals, then writes a strict aggregate allowlist. Real leaderboard mode additionally requires a frozen full run, fixed private test, clean contamination evidence, and paired-bootstrap uncertainty. The deterministic contract fixture can exercise the path but is never rank eligible.
+The `freeze-check` command validates the private source freeze, disjoint source families, append-only adjudicated gold, and optionally the already-acquired local asset digests. It performs no acquisition. The `public-export` command then consumes local run, ledger, and scorer-result contracts, verifies complete denominators and operational totals, and writes a strict aggregate allowlist. Real unranked public-table rows require a frozen full run, fixed private test, and paired-bootstrap uncertainty; unknown or overlapping contamination remains visibly unranked. Fair leaderboard mode additionally requires clean contamination evidence. The deterministic contract fixture can exercise the path but is never rank eligible.
+
+`table-export` refuses fewer than six unique model/adapter configurations, duplicate configurations under new run IDs, an empty track, mixed evaluation-set identities, or any contract fixture. It writes aggregate-only `release.json` and `tables.md` with physically separate track tables. See [`docs/35-sea-asr-freeze-gold-publication-v0.md`](35-sea-asr-freeze-gold-publication-v0.md).
 
 ## CLI naming contract
 
-The public surface is `av bench sea-asr`; the existing `av benchmark sea-asr` spelling remains supported. Both names register the same command application, so `schema`, `source-check`, `preview-check`, `score`, `run-check`, and `public-export` preserve the same validation, artifacts, JSON envelopes, and exit codes without a second implementation path.
+The public surface is `av bench sea-asr`; the existing `av benchmark sea-asr` spelling remains supported. Both names register the same command application, so `schema`, `source-check`, `preview-check`, `score`, `freeze-check`, `run-check`, `public-export`, and `table-export` preserve the same validation, artifacts, JSON envelopes, and exit codes without a second implementation path.
 
 See [`docs/34-av-bench-compatibility-v0.md`](34-av-bench-compatibility-v0.md) for the locked mapping, exit-code contract, artifact parity, and explicit exclusion of fetch/model/private-test behavior.
 

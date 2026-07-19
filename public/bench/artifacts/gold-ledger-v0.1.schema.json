@@ -1,0 +1,171 @@
+{
+  "$defs": {
+    "GoldRecord": {
+      "additionalProperties": false,
+      "properties": {
+        "final_revision_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Final Revision Id"
+        },
+        "item_id": {
+          "minLength": 1,
+          "title": "Item Id",
+          "type": "string"
+        },
+        "revisions": {
+          "items": {
+            "$ref": "#/$defs/GoldRevision"
+          },
+          "minItems": 1,
+          "title": "Revisions",
+          "type": "array"
+        }
+      },
+      "required": [
+        "item_id",
+        "revisions"
+      ],
+      "title": "GoldRecord",
+      "type": "object"
+    },
+    "GoldRevision": {
+      "additionalProperties": false,
+      "properties": {
+        "adjudicator_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Adjudicator Id"
+        },
+        "independent_reviewer_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Independent Reviewer Id"
+        },
+        "normalization_version": {
+          "minLength": 1,
+          "title": "Normalization Version",
+          "type": "string"
+        },
+        "parent_revision_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Parent Revision Id"
+        },
+        "private_evidence_sha256": {
+          "title": "Private Evidence Sha256",
+          "type": "string"
+        },
+        "recorded_at": {
+          "title": "Recorded At",
+          "type": "string"
+        },
+        "reference_sha256": {
+          "title": "Reference Sha256",
+          "type": "string"
+        },
+        "revision_id": {
+          "minLength": 1,
+          "title": "Revision Id",
+          "type": "string"
+        },
+        "state": {
+          "$ref": "#/$defs/GoldRevisionState"
+        },
+        "transcript_author_id": {
+          "minLength": 1,
+          "title": "Transcript Author Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "revision_id",
+        "recorded_at",
+        "state",
+        "reference_sha256",
+        "transcript_author_id",
+        "normalization_version",
+        "private_evidence_sha256"
+      ],
+      "title": "GoldRevision",
+      "type": "object"
+    },
+    "GoldRevisionState": {
+      "enum": [
+        "transcribed",
+        "independently_reviewed",
+        "adjudicated",
+        "rejected"
+      ],
+      "title": "GoldRevisionState",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "contract_version": {
+      "const": "sea-broadcast-asr-gold-ledger-v0.1",
+      "title": "Contract Version",
+      "type": "string"
+    },
+    "ledger_id": {
+      "minLength": 1,
+      "title": "Ledger Id",
+      "type": "string"
+    },
+    "protocol_version": {
+      "minLength": 1,
+      "title": "Protocol Version",
+      "type": "string"
+    },
+    "records": {
+      "items": {
+        "$ref": "#/$defs/GoldRecord"
+      },
+      "minItems": 1,
+      "title": "Records",
+      "type": "array"
+    },
+    "source_freeze_sha256": {
+      "title": "Source Freeze Sha256",
+      "type": "string"
+    }
+  },
+  "required": [
+    "contract_version",
+    "ledger_id",
+    "source_freeze_sha256",
+    "protocol_version",
+    "records"
+  ],
+  "title": "GoldLedger",
+  "type": "object"
+}

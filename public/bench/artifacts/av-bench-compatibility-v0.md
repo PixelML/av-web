@@ -19,7 +19,9 @@ The legacy `av benchmark` surface remains supported for compatibility. It is not
 | `av bench sea-asr preview-check` | `av benchmark sea-asr preview-check` | Preview/source/contamination cross-check plus exact label and rights boundary | JSON status envelope only |
 | `av bench sea-asr score` | `av benchmark sea-asr score` | Exact manifest/prediction coverage, version, track, rights, visibility, and publication approval | Deterministic `result.json` and `report.md` |
 | `av bench sea-asr run-check` | `av benchmark sea-asr run-check` | Immutable run metadata, exact utterance coverage, explicit completion states, latency, cost, and token totals | JSON status envelope only |
+| `av bench sea-asr freeze-check` | `av benchmark sea-asr freeze-check` | Rights-approved source families/items, disjoint frozen splits, append-only adjudicated gold, and optional already-acquired local digests | JSON status envelope only |
 | `av bench sea-asr public-export` | `av benchmark sea-asr public-export` | Complete denominators, aggregate-only allowlist, contamination, uncertainty, and fair-rank gates | Versioned public aggregate JSON |
+| `av bench sea-asr table-export` | `av benchmark sea-asr table-export` | At least six unique frozen aggregates, common evaluation identity, physically separate tracks, and no private fields | Aggregate-only `release.json` and `tables.md` |
 
 For identical inputs, the two names emit byte-identical benchmark artifacts and the same JSON `data` or `error` contract. Request IDs and elapsed timing in the CLI envelope are operational metadata and may differ between invocations.
 
@@ -35,11 +37,13 @@ The alias does not translate or suppress failures. In particular, `source-check 
 
 ## Artifact and privacy boundary
 
-- `schema` emits the existing manifest, predictions, result, source-manifest, public-preview, and contamination-ledger schemas plus the immutable run-manifest, append-only utterance-ledger, and aggregate-only public-export schemas.
+- `schema` emits the existing manifest, predictions, result, source-manifest, public-preview, and contamination-ledger schemas plus the source-freeze, gold-ledger, immutable run-manifest, append-only utterance-ledger, aggregate, and two-table public-release schemas.
 - `source-check` and `preview-check` validate metadata only and do not acquire assets.
 - `score` consumes an already frozen manifest and predictions file; it never calls a model.
 - `run-check` requires one explicit terminal state per expected utterance: `completed`, `refusal`, `empty_output`, `timeout`, `malformed_result`, `runtime_error`, or `duplicate`. No state is silently dropped from the denominator.
 - `public-export` emits only approved aggregates. It cannot fetch or infer the private test set and rejects item-level transcript, reference, media, sample-metric, or private-failure-history fields.
+- `freeze-check` performs no acquisition; it validates only the named private metadata/gold files and, when explicitly requested, verifies files already present under one local private root.
+- `table-export` never reads the source freeze, gold ledger, media, references, or item rows. It accepts aggregate-only inputs and refuses fewer than six unique configurations or a missing track.
 - `av bench run` and `av bench template` do not exist. The generic legacy profiling commands are not public-suite operations.
 - No customer/GMA data, FineVideo asset, hidden-test content, failure history, credential, training/post-training recipe, or model weight belongs in this surface.
 
